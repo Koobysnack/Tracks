@@ -44,26 +44,28 @@ public class UICrosshairCoordinator : MonoBehaviour
         uiPivot.GetComponentInChildren<Image>().color = Color.blue;
     }
 
-    public IEnumerator RotateChamber(float target)
+    public IEnumerator RotateChamber(float target, float direction)
     {
+        float pivotAngle = angles.Count > 0 ? angles[angles.Count - 1].eulerAngles.z : uiPivot.transform.rotation.eulerAngles.z;
+        pivotAngle = (pivotAngle + 360) % 360;
+        float deltaAngle = Mathf.DeltaAngle(pivotAngle, target);
+        if (Mathf.Sign(deltaAngle) != Mathf.Sign(direction))
+            angles.Add(Quaternion.Euler(0,0, (pivotAngle + deltaAngle / 2 + 180) % 360));
         angles.Add(Quaternion.Euler(0, 0, target));
+
         if (rotating)
-        {
             yield break;
-        }
         rotating = true;
+        
+        Quaternion currentAngle = uiPivot.transform.rotation;
         float time = 0;
-        Quaternion startAngle = uiPivot.transform.rotation;
         int i = 0;
         while (time < UICMan.duration)
         {
-            uiPivot.transform.rotation = Quaternion.Lerp(startAngle, angles[i], time/(UICMan.duration * (i + 1) / angles.Count) );
+            uiPivot.transform.rotation = Quaternion.Lerp(currentAngle, angles[i], (time - i * UICMan.duration / angles.Count) / (UICMan.duration * (i + 1) / angles.Count) );
             time += Time.deltaTime;
-            if(time >= UICMan.duration * (i + 1) / angles.Count)
-            {
-                startAngle = uiPivot.transform.rotation;
-                i++;
-            }
+            if((time - i * UICMan.duration / angles.Count) >= UICMan.duration * (i + 1) / angles.Count)
+                currentAngle = angles[i++];
             yield return null;
         }
         // Finalize rotation so it doesn't end at a weird spot
@@ -72,6 +74,7 @@ public class UICrosshairCoordinator : MonoBehaviour
         rotating = false;
     }
 
+    // Old version
     public IEnumerator RotateChambers(float target)
     {
         Quaternion startAngle = uiPivot.transform.rotation;

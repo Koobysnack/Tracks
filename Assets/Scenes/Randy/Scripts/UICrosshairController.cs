@@ -21,9 +21,7 @@ public class UICrosshairController : MonoBehaviour
     public void RotateTo(int chamber, float direction)
     {
         float targetAngle = 360f / 7f * chamber;
-        if (Mathf.Sign(direction) < 0)
-            targetAngle -= 360f;
-        print(targetAngle);
-        StartCoroutine(coordinator.RotateChamber(targetAngle));
+        //print(targetAngle + "," + direction);
+        StartCoroutine(coordinator.RotateChamber(targetAngle, direction));
     }
 }
