@@ -46,6 +46,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""93bc1e9c-309d-473a-bf49-4d974d78973d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Looking"",
                     ""type"": ""Value"",
                     ""id"": ""aa34ce2b-8696-4d1a-af2c-f8edd6350ad6"",
@@ -71,6 +80,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lean"",
+                    ""type"": ""Value"",
+                    ""id"": ""54a7ff6d-9f34-4b09-9b5b-5df2399ff64d"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -172,6 +190,118 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbc071e6-2db1-474f-aaf4-f972fc429747"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""LeanAxis"",
+                    ""id"": ""cc2b0fd2-cb45-4305-98db-5053bff6953c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lean"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""2d0e8194-9f63-4d11-9862-f3443b0a34dc"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lean"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""1f6333fc-fdd9-450a-b861-0ee44e722709"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lean"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Gun"",
+            ""id"": ""bd6a6ae3-9066-46c5-81d0-6bb9ee1fbd8c"",
+            ""actions"": [
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecec265e-7c81-476c-87d7-8b9218a5c6f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AltFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""198df631-3984-4833-ad76-623c73eb1ea1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba16b2e4-bf27-40c4-9a13-d16285c693fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""68f88d8c-7076-496e-9db3-967ffafb7c33"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01167d95-531e-47c3-9ccb-c93756386b5c"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""AltFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d30ac7ef-615e-49d0-bfc7-4ae61b9e994b"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -199,9 +329,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Looking = m_Player.FindAction("Looking", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
+        m_Player_Lean = m_Player.FindAction("Lean", throwIfNotFound: true);
+        // Gun
+        m_Gun = asset.FindActionMap("Gun", throwIfNotFound: true);
+        m_Gun_Fire = m_Gun.FindAction("Fire", throwIfNotFound: true);
+        m_Gun_AltFire = m_Gun.FindAction("AltFire", throwIfNotFound: true);
+        m_Gun_Reload = m_Gun.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -265,18 +402,22 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Looking;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Crouch;
+    private readonly InputAction m_Player_Lean;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Looking => m_Wrapper.m_Player_Looking;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
+        public InputAction @Lean => m_Wrapper.m_Player_Lean;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -292,6 +433,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
             @Looking.started += instance.OnLooking;
             @Looking.performed += instance.OnLooking;
             @Looking.canceled += instance.OnLooking;
@@ -301,6 +445,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
+            @Lean.started += instance.OnLean;
+            @Lean.performed += instance.OnLean;
+            @Lean.canceled += instance.OnLean;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -311,6 +458,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
             @Looking.started -= instance.OnLooking;
             @Looking.performed -= instance.OnLooking;
             @Looking.canceled -= instance.OnLooking;
@@ -320,6 +470,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
+            @Lean.started -= instance.OnLean;
+            @Lean.performed -= instance.OnLean;
+            @Lean.canceled -= instance.OnLean;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -337,6 +490,68 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Gun
+    private readonly InputActionMap m_Gun;
+    private List<IGunActions> m_GunActionsCallbackInterfaces = new List<IGunActions>();
+    private readonly InputAction m_Gun_Fire;
+    private readonly InputAction m_Gun_AltFire;
+    private readonly InputAction m_Gun_Reload;
+    public struct GunActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public GunActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Fire => m_Wrapper.m_Gun_Fire;
+        public InputAction @AltFire => m_Wrapper.m_Gun_AltFire;
+        public InputAction @Reload => m_Wrapper.m_Gun_Reload;
+        public InputActionMap Get() { return m_Wrapper.m_Gun; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GunActions set) { return set.Get(); }
+        public void AddCallbacks(IGunActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GunActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GunActionsCallbackInterfaces.Add(instance);
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
+            @AltFire.started += instance.OnAltFire;
+            @AltFire.performed += instance.OnAltFire;
+            @AltFire.canceled += instance.OnAltFire;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
+        }
+
+        private void UnregisterCallbacks(IGunActions instance)
+        {
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
+            @AltFire.started -= instance.OnAltFire;
+            @AltFire.performed -= instance.OnAltFire;
+            @AltFire.canceled -= instance.OnAltFire;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
+        }
+
+        public void RemoveCallbacks(IGunActions instance)
+        {
+            if (m_Wrapper.m_GunActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGunActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GunActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GunActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GunActions @Gun => new GunActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -350,8 +565,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnJump(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
         void OnLooking(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnLean(InputAction.CallbackContext context);
+    }
+    public interface IGunActions
+    {
+        void OnFire(InputAction.CallbackContext context);
+        void OnAltFire(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
