@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 334375482}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -927,6 +927,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  dashForce: 0
+  dashCooldown: 0
+  leanDegree: 0
+  interpVal: 0
 --- !u!1 &765392694
 GameObject:
   m_ObjectHideFlags: 0
