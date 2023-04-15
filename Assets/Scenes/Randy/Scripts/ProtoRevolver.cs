@@ -17,7 +17,7 @@ public class ProtoRevolver : MonoBehaviour
 
     private void OnValidate()
     {
-        foreach (Bullet b in cylinder) b.name = b.type.ToString();
+        foreach (Bullet b in cylinder) b.name = "Bullet " + cylinder.IndexOf(b) + ": " + b.type.ToString();
     }
 
     // Start is called before the first frame update

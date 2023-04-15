@@ -39,6 +39,6 @@ public class PlayerCamera : MonoBehaviour
 
         // rotate camera and player
         transform.localEulerAngles = new Vector3(vert, 0, 0);
-        player.localEulerAngles = new Vector3(0, horiz, 0);
+        player.localEulerAngles = new Vector3(0, horiz, player.localEulerAngles.z);
     }
 }
