@@ -8,6 +8,8 @@ public class ObjectHardness : MonoBehaviour, IOnHitScan
 
     [SerializeField]
     private float hardnessVal = 2;
+
+    public int ColorTest = 0;
     
     void Start()
     {
@@ -28,7 +30,21 @@ public class ObjectHardness : MonoBehaviour, IOnHitScan
 
     public void HitEffects()
     {
-      MeshRenderer meshMan = gameObject.GetComponent<MeshRenderer>();
-        meshMan.material.color = Color.red;  
+        MeshRenderer meshMan = gameObject.GetComponent<MeshRenderer>();
+        switch (ColorTest) {
+
+            case 0:
+                meshMan.material.color = Color.red;
+                break;
+            case 1:
+                meshMan.material.color = Color.blue;
+                break;
+            case 2:
+                meshMan.material.color = Color.cyan;
+                break;
+            default:
+                break;
+
+        }
     }
 }

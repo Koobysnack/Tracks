@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitScanRaycast : MonoBehaviour
 {
-
+    public EnvySin TestEnvy;
     //hypothetical bullet system
     //1. fire raycastall  
     //2. activate all effects of getting shot on objects that are hit
@@ -42,7 +42,7 @@ public class HitScanRaycast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PierceRayCaster();   
+        TestEnvy.SinFire(transform.gameObject);
     }
     //Non piercing raycast
 
