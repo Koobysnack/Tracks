@@ -18,6 +18,12 @@ public class UICrosshairController : MonoBehaviour
         
     }
 
+    public void ShowAmmoPanel()
+    {
+        // More code may be needed later on depending on creative direction
+        coordinator.ShowDisplay();
+    }
+
     public void RotateTo(int chamber, float direction)
     {
         float targetAngle = 360f / 7f * chamber;

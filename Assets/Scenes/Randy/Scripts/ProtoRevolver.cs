@@ -90,7 +90,7 @@ public class ProtoRevolver : MonoBehaviour
             currentBullet = (currentBullet + (int)Mathf.Sign(direction) + cylinder.Count) % cylinder.Count;
         }
         while (!cylinder[currentBullet].loaded);
-
+        UICrosshairManager.instance.ShowAmmoPanel();
         UICrosshairManager.instance.RotateTo(currentBullet, Mathf.Sign(direction));
     }
 

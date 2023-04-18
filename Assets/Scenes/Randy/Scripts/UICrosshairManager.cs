@@ -18,7 +18,9 @@ public class UICrosshairManager : MonoBehaviour
 
     public UICrosshairController controller;
     public float radius;
-    public float duration;
+    public float rotateDuration;
+    public float hideTimer;
+
 
     private void Awake()
     {
@@ -44,6 +46,10 @@ public class UICrosshairManager : MonoBehaviour
         
     }
 
+    public void ShowAmmoPanel()
+    {
+        controller.ShowAmmoPanel();
+    }
     public void RotateTo(int chamber, float direction)
     {
         controller.RotateTo(chamber, direction);
