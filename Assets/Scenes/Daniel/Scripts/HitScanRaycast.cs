@@ -50,7 +50,7 @@ public class HitScanRaycast : MonoBehaviour
     {
         
         print("deez");
-        if (ChamberNum = 4)
+        if (ChamberNum == 4)
         {
             TestEnvy.SinFire(transform.gameObject);
         }
