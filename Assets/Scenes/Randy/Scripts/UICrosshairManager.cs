@@ -7,6 +7,15 @@ public class UICrosshairManager : MonoBehaviour
 {
     public static UICrosshairManager instance;
 
+    public UICrosshairController controller;
+    public UICrosshairCoordinator coordinator;
+    public float radius;
+    public float rotateDuration;
+    public float hideTimer;
+
+    [Foldout("UI Bullet Sprites")] public Sprite loadedBullet;
+    [Foldout("UI Bullet Sprites")] public Sprite firedBullet;
+
     [Foldout("BulletColors")] public Color normalBulletColor;
     [Foldout("BulletColors")] public Color prideBulletColor;
     [Foldout("BulletColors")] public Color greedBulletColor;
@@ -15,11 +24,6 @@ public class UICrosshairManager : MonoBehaviour
     [Foldout("BulletColors")] public Color lustBulletColor;
     [Foldout("BulletColors")] public Color gluttonyBulletColor;
     [Foldout("BulletColors")] public Color slothBulletColor;
-
-    public UICrosshairController controller;
-    public float radius;
-    public float rotateDuration;
-    public float hideTimer;
 
 
     private void Awake()
@@ -53,5 +57,15 @@ public class UICrosshairManager : MonoBehaviour
     public void RotateTo(int chamber, float direction)
     {
         controller.RotateTo(chamber, direction);
+    }
+
+    public void FireBullet(int chamber)
+    {
+        coordinator.FireBullet(chamber);
+    }
+
+    public void Reload()
+    {
+        coordinator.Reload();
     }
 }

@@ -59,6 +59,7 @@ public class ProtoRevolver : MonoBehaviour
             return;
         }
         cylinder[currentBullet].loaded = false;
+        UICrosshairManager.instance.FireBullet(currentBullet);
         CycleBullet();
     }
 
@@ -101,6 +102,8 @@ public class ProtoRevolver : MonoBehaviour
             bullet.loaded = true;
         }
         currentBullet = 0;
+        UICrosshairManager.instance.Reload();
+        UICrosshairManager.instance.ShowAmmoPanel();
         UICrosshairManager.instance.RotateTo(currentBullet, 1);
     }
 }

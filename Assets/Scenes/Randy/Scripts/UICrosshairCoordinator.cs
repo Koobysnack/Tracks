@@ -138,6 +138,18 @@ public class UICrosshairCoordinator : MonoBehaviour
         showAllBullets = false;
     }
 
+    public void FireBullet(int chamber)
+    {
+        bulletDisplay[chamber].sprite = UICMan.firedBullet;
+    }
+
+    public void Reload()
+    {
+        foreach(Image bullet in bulletDisplay)
+        {
+            bullet.sprite = UICMan.loadedBullet;
+        }
+    }
 
     // Old version
     public IEnumerator RotateChambers(float target)

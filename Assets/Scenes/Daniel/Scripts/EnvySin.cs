@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu]
 public class EnvySin : AbsSinClass 
 {
+
+
+
    public override void SinFire(GameObject shotOrigin)
     {
         RaycastHit hit;
