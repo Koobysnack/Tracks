@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Leaning")]
     [SerializeField] private float leanDegree;
-    [SerializeField] private float interpVal;
+    [SerializeField] private float leanSpeed;
     #endregion
 
     #region Private Variables
@@ -74,8 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() {
         Move();
-        if(body.useGravity)
-            body.AddForce(Physics.gravity * body.mass * gravityScalar, ForceMode.Force);
+        ApplyGravity();
     }
     #endregion
 
@@ -84,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         // get player input and set initial move direction
         Vector2 input = pInput.Player.Movement.ReadValue<Vector2>();
         moveDir = (transform.forward * input.y) + (transform.right * input.x);
+        moveDir.y = 0;  // ensure no upward movement in normal direction
 
         // get angle of ground and change moveDir if on slope
         float angle = onGround ? Mathf.Round(Vector3.Angle(Vector3.up, currentGround.normal)) : Mathf.Infinity;
@@ -122,10 +122,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void SetLean() {
+        // get lean direction
         float leanVal = pInput.Player.Lean.ReadValue<float>();
-        float leanZ = -leanVal * leanDegree;
-        float lerpVal = Mathf.LerpAngle(transform.localEulerAngles.z, leanZ, interpVal);
+        float targetZ = -leanVal * leanDegree;
+
+        // lerp player to lean in that direction smoothely
+        float lerpVal = Mathf.LerpAngle(transform.localEulerAngles.z, targetZ, leanSpeed * Time.deltaTime);
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, lerpVal);
+    }
+
+    private void ApplyGravity() {
+        // applies extra gravity to player
+        if(body.useGravity)
+            body.AddForce(Physics.gravity * body.mass * gravityScalar, ForceMode.Force);
     }
 
     private bool Grounded() {
@@ -159,9 +168,6 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
     }
 
-    /*
-    *  BUG: DASHING MAKES PLAYER BOUNCE WHEN LEANING
-    */
     private void Dash(InputAction.CallbackContext context) {
         if(!onGround || crouched || !canDash) return;
 
