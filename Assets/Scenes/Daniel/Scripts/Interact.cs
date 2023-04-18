@@ -15,4 +15,14 @@ public class Interact : MonoBehaviour
     {
         
     }
+
+   public void InteractRaycast()
+    {
+
+    }
+
+     public void Interact()
+    {
+
+    }
 }

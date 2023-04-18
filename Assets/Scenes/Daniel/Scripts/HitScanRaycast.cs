@@ -6,11 +6,16 @@ using UnityEngine.InputSystem;
 public class HitScanRaycast : MonoBehaviour
 {
     public EnvySin TestEnvy;
+    public int ChamberNum = 0;
 
     private PlayerInputActions pInput ;
 
 
-    
+    public void SetChamber(int change)
+    {
+        ChamberNum = change;
+    }
+
     void Awake()
     {
         pInput = new PlayerInputActions();
@@ -45,7 +50,10 @@ public class HitScanRaycast : MonoBehaviour
     {
         
         print("deez");
-        TestEnvy.SinFire(transform.gameObject);
+        if (ChamberNum = 4)
+        {
+            TestEnvy.SinFire(transform.gameObject);
+        }
     }
 
     public void RegRayCaster()
