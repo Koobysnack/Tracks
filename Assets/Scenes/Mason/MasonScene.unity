@@ -728,7 +728,7 @@ Transform:
   m_GameObject: {fileID: 788211227}
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 10.33, y: 3.67, z: 0}
-  m_LocalScale: {x: 0.25, y: 9.27, z: 21.29}
+  m_LocalScale: {x: 0.25, y: 9.27, z: 10.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765392695}
@@ -1405,10 +1405,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1342463654}
   - component: {fileID: 1342463650}
+  - component: {fileID: 1342463655}
   - component: {fileID: 1342463649}
   m_Layer: 0
   m_Name: EnemyNavmesh
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1425,8 +1426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f8a77f006498254792f5a6597e240ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 729235673}
-  walkRad: 5
+  walkRadius: 5
 --- !u!195 &1342463650
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1456,7 +1456,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342463648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.8, z: 6.78}
   m_LocalScale: {x: 80, y: 80, z: 80}
   m_ConstrainProportionsScale: 1
@@ -1464,7 +1464,27 @@ Transform:
   - {fileID: 1836768866}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1342463655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342463648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854f6f318b3c783448d965236db207a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 729235673}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  attackObj: {fileID: 5559912003243980844, guid: 3aa75286bae0633408526fc4bb0e97e4,
+    type: 3}
+  attackChance: 50
+  telegraphTime: 3
 --- !u!1 &1407349655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,7 +1711,7 @@ GameObject:
   - component: {fileID: 1836768867}
   m_Layer: 0
   m_Name: EnemyModel
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1703,14 +1723,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836768865}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0.014, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1342463654}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!64 &1836768867
 MeshCollider:
   m_ObjectHideFlags: 0

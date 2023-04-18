@@ -5,32 +5,18 @@ using UnityEngine.AI;
 
 public class BasicEnemyMovement : MonoBehaviour
 {
-    [SerializeField] private Transform player; // eventually this should be gotten in player manager
-    [SerializeField] private float walkRad;
-    private NavMeshAgent agent;
+    [SerializeField] private float walkRadius;
 
-    private void Awake() {
-        agent = GetComponent<NavMeshAgent>();
-    }
-
-    private void Update() {
-        if(agent.remainingDistance < 0.1f) {
-            // find new position
-            Vector3 pos = GetAttackPosition();
-            print(pos);
-            bool canSeePlayer = Physics.Raycast(pos, pos + player.position, Mathf.Infinity, player.gameObject.layer);
-            Debug.DrawRay(transform.position, player.position, Color.red, 1f);
-            if(canSeePlayer) {
-                print("ahh");
-                agent.SetDestination(pos);
-            }
-        }
-    }
-
-    private Vector3 GetAttackPosition() {
-        Vector3 point = (Random.insideUnitSphere * walkRad) + transform.position;
+    public Vector3 GetAttackPosition() {
+        Vector3 point = (Random.insideUnitSphere * walkRadius) + transform.position;
         NavMeshHit hit;
-        NavMesh.SamplePosition(point, out hit, walkRad, 1);
+        NavMesh.SamplePosition(point, out hit, walkRadius, 1);
         return hit.position;
+    }
+
+    public void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos, Transform player, LayerMask playerLayer) {
+        bool canSeePlayer = Physics.Raycast(movePos, player.position - movePos, Mathf.Infinity, playerLayer);
+        if(canSeePlayer)
+            agent.SetDestination(movePos);
     }
 }
