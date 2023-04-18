@@ -42,7 +42,7 @@ public class HitScanRaycast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TestEnvy.SinFire(transform.gameObject);
+        //TestEnvy.SinFire(transform.gameObject);
     }
     //Non piercing raycast
 
