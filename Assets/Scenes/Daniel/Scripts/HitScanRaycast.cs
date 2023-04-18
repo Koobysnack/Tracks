@@ -1,38 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HitScanRaycast : MonoBehaviour
 {
     public EnvySin TestEnvy;
-    //hypothetical bullet system
-    //1. fire raycastall  
-    //2. activate all effects of getting shot on objects that are hit
 
-    //Bullet effects will be the icky part
-    //
-    //3. pass raycasthit array from step 1 into separate 
+    private PlayerInputActions pInput ;
 
-    //depending on what "each script only does one thing" means
 
-    //chamber/bullet effect coordinator controls sins (sins all have separate class)
-    //bullet controller tells coordinator to have x sin selected (select sin, update sin charge)
-    //bullet manager tells controller to change sin selected, to call raycast with regular or sin effect
-
-    // input -> manager -> controller -> sin x, y ,z  \ 
-    //             \                                   -> raycast
-    //              regular bullet                    /
-    //
-
- 
-    // sin abstract class 
-    // separate regular bullet handling
-    // 
-
-    //a lot of conjecture not much action
-    //get a raycast working
-    //
     
+    void Awake()
+    {
+        pInput = new PlayerInputActions();
+        pInput.Gun.Fire.performed += PierceRayCaster;
+        pInput.Gun.AltFire.performed += SinWrapper;
+     
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -46,9 +31,24 @@ public class HitScanRaycast : MonoBehaviour
     }
     //Non piercing raycast
 
-    
+    private void OnEnable()
+    {
+        pInput.Enable();
+    }
 
-   public void RegRayCaster()
+    private void OnDisable()
+    {
+        pInput.Disable();
+    }
+
+    public void SinWrapper(InputAction.CallbackContext context)
+    {
+        
+        print("deez");
+        TestEnvy.SinFire(transform.gameObject);
+    }
+
+    public void RegRayCaster()
     {
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
@@ -64,7 +64,7 @@ public class HitScanRaycast : MonoBehaviour
         }
 
     }
-    public void PierceRayCaster()
+    public void PierceRayCaster(InputAction.CallbackContext context)
     {
         RaycastHit hit;
         RaycastHit backHit;
@@ -83,7 +83,7 @@ public class HitScanRaycast : MonoBehaviour
 
             Debug.DrawRay(backHit.point, transform.TransformDirection(Vector3.up), Color.blue);
             ObjectHardness objectPierceTest;
-          objectPierceTest =  hit2.transform.gameObject.GetComponent<ObjectHardness>();
+            objectPierceTest =  hit2.transform.gameObject.GetComponent<ObjectHardness>();
             if (objectPierceTest)
             {
                 objectPierceTest.HitEffects();
