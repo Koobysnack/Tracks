@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public abstract class  AbsSinClass : ScriptableObject
+public abstract class  AbsSinClass : MonoBehaviour
 {
     [Header("Sin Base attributes")]
     // Start is called before the first frame update
@@ -14,7 +14,7 @@ public abstract class  AbsSinClass : ScriptableObject
     protected float chargeCurrent;
 
 
-    public abstract void SinFire(GameObject shotOrigin);
+    public abstract void SinFire();
 
     public virtual void IncCharge( float value)
     {
