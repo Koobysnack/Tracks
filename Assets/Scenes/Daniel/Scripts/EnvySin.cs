@@ -2,31 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
 public class EnvySin : AbsSinClass 
 {
 
 
 
-   public override void SinFire(GameObject shotOrigin)
+   public override void SinFire()
     {
         RaycastHit hit;
         
     
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(shotOrigin.transform.position, shotOrigin.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
-            Debug.DrawRay(shotOrigin.transform.position, shotOrigin.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             Debug.Log("Did Hit");
 
             //  RaycastHit pierceHit;
            
            
-            EnvyPierce(hit, shotOrigin.transform.TransformDirection(Vector3.forward));
+            EnvyPierce(hit, transform.TransformDirection(Vector3.forward));
         }
         else
         {
-            Debug.DrawRay(shotOrigin.transform.position, shotOrigin.transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+            Debug.DrawRay(transform.position,transform.TransformDirection(Vector3.forward) * 1000, Color.white);
             Debug.Log("Did not Hit");
         }
 
