@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Interact : MonoBehaviour
+public class Interact: MonoBehaviour
 {
-   /* // Start is called before the first frame update
+    // Start is called before the first frame update
     private GameObject subject;
     private PlayerInputActions pInput;
+    private LayerMask interLayer;
 
     void Awake()
     {
         pInput = new PlayerInputActions();
-        pInput.Player.Interact.performed += Interact;
-        
+        pInput.Player.Interact.performed += InteractRay;
+        interLayer = LayerMask.NameToLayer("Interact");
     }
 
     void Start()
@@ -39,25 +40,18 @@ public class Interact : MonoBehaviour
 
     //Used to trigger UI on looking at interactable things
     //Layer 
-    public void InteractCheckRay()
-    {
-        RaycastHit GetObj;
-        if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out GetObj, 100f))
-        {
-            
-        }
-     
-
-    }
+  
     //Works by casting ray on button press, will only activate Objects implementing IInteractable.
-     public void Interact(InputAction.CallbackContext context)
+     public void InteractRay(InputAction.CallbackContext context)
     {
         RaycastHit GetObj;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out GetObj, 100f, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out GetObj, 100f, interLayer))
         {
-            
+            if (GetObj.transform.gameObject.TryGetComponent< IInteractable >(out IInteractable GotInterface )) {
+                GotInterface.Interaction();
+            }
         }
-       
+ 
     }
-   */
+   
 }
