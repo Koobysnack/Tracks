@@ -17,7 +17,7 @@ public class TestEnemyBullet : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.tag != "EditorOnly")
+        if(other.gameObject.tag != "Enemy")
             Destroy(gameObject);
     }
 

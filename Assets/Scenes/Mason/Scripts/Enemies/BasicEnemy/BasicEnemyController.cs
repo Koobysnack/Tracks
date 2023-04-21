@@ -3,25 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class BasicEnemyController : EnemyController
 {
-    [Header("Player Info")]
-    [SerializeField] private Transform player; // eventually this should be gotten in player manager
-    [SerializeField] private LayerMask playerLayer;
-
-    [Header("Attackcing")]
-    [SerializeField] private GameObject attackObj;
-    [SerializeField] private float attackChance;
-    [SerializeField] private float telegraphTime;
-    private bool attacking;
-    private bool attackedLast;
-
-    private NavMeshAgent agent;
-    private BasicEnemyMovement movement;
-
+    #region Unity Functions
     private void Awake() {
         agent = GetComponent<NavMeshAgent>();
-        movement = GetComponent<BasicEnemyMovement>();
+        movement = GetComponent<EnemyMovement>();
+        model = transform.GetChild(0);
+        currentHealth = maxHealth;
     }
 
     private void Update() {
@@ -40,12 +29,16 @@ public class EnemyController : MonoBehaviour
             RotateTowardsPlayer();
         }
     }
+    #endregion
 
+    #region PrivateFunctions
     private void RotateTowardsPlayer() {
         transform.LookAt(player.position, transform.up);
     }
+    #endregion
 
-    private void InitiateAttack() {
+    #region Protected Functions
+    protected override void InitiateAttack() {
         attacking = true;
         bool canSeePlayer = Physics.Raycast(transform.position, player.position - transform.position, Mathf.Infinity, playerLayer);
         if(canSeePlayer)
@@ -54,16 +47,30 @@ public class EnemyController : MonoBehaviour
             attacking = false;
     }
 
-    private void Attack() {
-        Vector3 instantiatePos = transform.GetChild(0).position;
+    protected override void Die() {
+        throw new System.NotImplementedException();
+    }
+
+    protected override IEnumerator Telegraph() {
+        // do some telegraph stuff here
+        yield return new WaitForSeconds(telegraphTime);
+        StartCoroutine("Attack");
+    }
+
+    protected override IEnumerator Attack() {
+        Vector3 instantiatePos = model.position;
         Instantiate(attackObj, instantiatePos, transform.rotation);
+        yield return new WaitForSeconds(0.5f);
         attacking = false;
         attackedLast = true;
     }
+    #endregion
 
-    private IEnumerator Telegraph() {
-        // do some telegraph stuff here
-        yield return new WaitForSeconds(telegraphTime);
-        Attack();
+    #region Public Functions
+    public override void TakeDamage(float damage) {
+        currentHealth -= damage;
+        if(currentHealth <= 0)
+            Die();
     }
+    #endregion
 }

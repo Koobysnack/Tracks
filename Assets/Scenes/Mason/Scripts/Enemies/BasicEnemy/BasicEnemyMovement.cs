@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicEnemyMovement : MonoBehaviour
+public class BasicEnemyMovement : EnemyMovement
 {
-    [SerializeField] private float walkRadius;
-
-    public Vector3 GetAttackPosition() {
+    public override Vector3 GetAttackPosition() {
         Vector3 point = (Random.insideUnitSphere * walkRadius) + transform.position;
         NavMeshHit hit;
         NavMesh.SamplePosition(point, out hit, walkRadius, 1);
         return hit.position;
     }
 
-    public void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos, Transform player, LayerMask playerLayer) {
+    public override Vector3 GetCoverPosition() {
+        throw new System.NotImplementedException();
+    }
+
+    public override void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos, Transform player, LayerMask playerLayer) {
         bool canSeePlayer = Physics.Raycast(movePos, player.position - movePos, Mathf.Infinity, playerLayer);
         if(canSeePlayer)
             agent.SetDestination(movePos);
+    }
+
+    public override void MovetoCoverPosition(NavMeshAgent agent, Vector3 movePos) {
+        throw new System.NotImplementedException();
     }
 }

@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4428073592782875168}
   - component: {fileID: 4428073592782875172}
-  - component: {fileID: 4428073592782875169}
+  - component: {fileID: 4472370610362332084}
   - component: {fileID: 4428073592782875175}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyNavmesh
-  m_TagString: EditorOnly
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4428073592782875169
+--- !u!114 &4472370610362332084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,9 +66,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4428073592782875174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854f6f318b3c783448d965236db207a4, type: 3}
+  m_Script: {fileID: 11500000, guid: f78b61f1c125413449d00300d9516757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
   player: {fileID: 0}
   playerLayer:
     serializedVersion: 2
@@ -102,7 +103,7 @@ GameObject:
   - component: {fileID: 4428073593777351395}
   - component: {fileID: 4428073593777351394}
   - component: {fileID: 4428073593777351397}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyModel
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
