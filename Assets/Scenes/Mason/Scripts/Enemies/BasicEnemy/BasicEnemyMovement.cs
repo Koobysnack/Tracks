@@ -16,7 +16,9 @@ public class BasicEnemyMovement : EnemyMovement
         throw new System.NotImplementedException();
     }
 
-    public override void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos, Transform player, LayerMask playerLayer) {
+    public override void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos) {
+        Transform player = GameManager.instance.player;
+        LayerMask playerLayer = GameManager.instance.playerLayer;
         bool canSeePlayer = Physics.Raycast(movePos, player.position - movePos, Mathf.Infinity, playerLayer);
         if(canSeePlayer)
             agent.SetDestination(movePos);

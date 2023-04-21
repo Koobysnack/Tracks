@@ -9,17 +9,15 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] protected float maxHealth;
     protected float currentHealth;
 
-    [Header("Player Info")]
-    [SerializeField] protected Transform player; // eventually this should be gotten from game manager
-    [SerializeField] protected LayerMask playerLayer;
-
     [Header("Attacking")]
     [SerializeField] protected GameObject attackObj;
     [SerializeField] protected float attackChance;
     [SerializeField] protected float telegraphTime;
     protected bool attacking;
     protected bool attackedLast;
-
+    
+    protected Transform player;
+    protected LayerMask playerLayer;
     protected NavMeshAgent agent;
     protected EnemyMovement movement;
     protected Transform model;

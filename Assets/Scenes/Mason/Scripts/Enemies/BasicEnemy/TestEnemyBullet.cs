@@ -5,7 +5,9 @@ using UnityEngine;
 public class TestEnemyBullet : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private float damage;
     private Rigidbody body;
+    private Transform shooter;
 
     private void Awake() {
         body = GetComponent<Rigidbody>();
@@ -17,6 +19,8 @@ public class TestEnemyBullet : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.tag == "Player")
+            other.transform.GetComponent<PlayerController>().Damage(damage, shooter);
         if(other.gameObject.tag != "Enemy")
             Destroy(gameObject);
     }
@@ -24,5 +28,9 @@ public class TestEnemyBullet : MonoBehaviour
     private IEnumerator DestroyObj() {
         yield return new WaitForSeconds(10);
         Destroy(gameObject);
+    }
+
+    public void SetShooter(Transform enemy) {
+        shooter = enemy;
     }
 }

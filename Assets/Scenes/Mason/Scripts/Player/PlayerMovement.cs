@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sprintSpeed;
     [SerializeField] private float crouchSpeed;
     [SerializeField] private float drag;
+    [SerializeField] private float slopeDrag;
     [SerializeField] private float maxSlopeAngle;
 
     [Header("Jumping")]
@@ -74,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() {
         Move();
+        SpeedControl();
         ApplyGravity();
     }
     #endregion
@@ -92,9 +94,6 @@ public class PlayerMovement : MonoBehaviour
             moveDir = Vector3.ProjectOnPlane(moveDir, currentGround.normal);
     }
 
-    /*
-    *  BUG: PLAYER STILL SLIDES ON SLOPES
-    */
     private void Move() {
         body.AddForce(moveDir.normalized * currentSpeed * 10 * currentMoveScalar, ForceMode.Force);
     }
@@ -111,6 +110,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void SetDrag() {
+        // if(onSlope) {
+        //     body.drag = slopeDrag;
+        //     currentMoveScalar = 1;
+        // }
         if(onGround) {
             body.drag = drag;
             currentMoveScalar = 1;
@@ -135,6 +138,16 @@ public class PlayerMovement : MonoBehaviour
         // applies extra gravity to player
         if(body.useGravity)
             body.AddForce(Physics.gravity * body.mass * gravityScalar, ForceMode.Force);
+    }
+
+    private void SpeedControl() {
+        if(onSlope) {
+            float speed = body.velocity.magnitude;
+            if(speed > currentSpeed)
+                body.velocity = body.velocity.normalized * currentSpeed;
+            else if(speed < 0.1f)
+                body.velocity = Vector3.zero;
+        }
     }
 
     private bool Grounded() {

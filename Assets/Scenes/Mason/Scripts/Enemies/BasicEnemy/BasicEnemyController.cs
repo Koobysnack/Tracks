@@ -14,13 +14,19 @@ public class BasicEnemyController : EnemyController
     }
 
     private void Update() {
+        if(player == null) {
+            player = GameManager.instance.player;
+            playerLayer = GameManager.instance.playerLayer;
+            return;
+        }
+
         if(agent.remainingDistance < 0.1f && !attacking) {
             if(Random.Range(0, 101) <= attackChance && !attackedLast) {
                 InitiateAttack();
             }
             else {
                 Vector3 movePos = movement.GetAttackPosition();
-                movement.MoveToAttackPosition(agent, movePos, player, playerLayer);
+                movement.MoveToAttackPosition(agent, movePos);
                 attackedLast = false;
             }
         }
@@ -59,7 +65,8 @@ public class BasicEnemyController : EnemyController
 
     protected override IEnumerator Attack() {
         Vector3 instantiatePos = model.position;
-        Instantiate(attackObj, instantiatePos, transform.rotation);
+        GameObject shot = Instantiate(attackObj, instantiatePos, transform.rotation);
+        shot.GetComponent<TestEnemyBullet>().SetShooter(transform);
         yield return new WaitForSeconds(0.5f);
         attacking = false;
         attackedLast = true;
