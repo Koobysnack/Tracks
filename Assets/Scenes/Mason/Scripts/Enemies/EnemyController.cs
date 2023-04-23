@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class EnemyController : MonoBehaviour
+public abstract class EnemyController : EntityController
 {
-    [Header("Enemy Stats")]
-    [SerializeField] protected float maxHealth;
-    protected float currentHealth;
-
     [Header("Attacking")]
     [SerializeField] protected GameObject attackObj;
     [SerializeField] protected float attackChance;
@@ -24,10 +20,6 @@ public abstract class EnemyController : MonoBehaviour
     
     // protected functions
     protected abstract void InitiateAttack();
-    protected abstract void Die();
     protected abstract IEnumerator Telegraph();
     protected abstract IEnumerator Attack();
-
-    // public functions
-    public abstract void TakeDamage(float damage);
 }

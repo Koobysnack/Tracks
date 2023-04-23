@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : EntityController
 {
-    [SerializeField] private float maxHealth;
-    private float currentHealth;
-
     private void Awake() {
         currentHealth = maxHealth;
     }
@@ -16,11 +13,11 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.playerLayer = LayerMask.GetMask("Player");
     }
 
-    private void Die() {
+    protected override void Die() {
         print("Player is dead");
     }
 
-    public void Damage(float dmgAmt, Transform enemy) {
+    public override void Damage(float dmgAmt, Transform opponent) {
         currentHealth -= dmgAmt;
         if(currentHealth <= 0)
             Die();

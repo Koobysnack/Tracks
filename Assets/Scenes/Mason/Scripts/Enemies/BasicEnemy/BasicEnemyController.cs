@@ -74,7 +74,7 @@ public class BasicEnemyController : EnemyController
     #endregion
 
     #region Public Functions
-    public override void TakeDamage(float damage) {
+    public override void Damage(float damage, Transform opponent=null) {
         currentHealth -= damage;
         if(currentHealth <= 0)
             Die();
