@@ -14,9 +14,7 @@ public class BerzerkerEnemyMovement : EnemyMovement
         throw new System.NotImplementedException();
     }
 
-    public override void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos) {//, Transform player, LayerMask playerLayer) {
-        //bool canSeePlayer = Physics.Raycast(movePos, player.position - movePos, Mathf.Infinity, playerLayer);
-        //if(canSeePlayer)
+    public override void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos) {
         agent.SetDestination(movePos);
     }
 

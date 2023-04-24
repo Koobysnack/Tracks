@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public abstract class EnemyController : EntityController
 {
+    [Header("Children")]
+    [SerializeField] protected Transform model;
+    [SerializeField] protected Transform firePoint;
+
     [Header("Attacking")]
     [SerializeField] protected GameObject attackObj;
     [SerializeField] protected float attackChance;
@@ -12,11 +16,12 @@ public abstract class EnemyController : EntityController
     protected bool attacking;
     protected bool attackedLast;
     
+    protected EnemyMovement movement;
+    protected EnemyAlert alert;
+
+    protected NavMeshAgent agent;
     protected Transform player;
     protected LayerMask playerLayer;
-    protected NavMeshAgent agent;
-    protected EnemyMovement movement;
-    protected Transform model;
     
     // protected functions
     protected abstract void InitiateAttack();

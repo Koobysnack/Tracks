@@ -11,9 +11,9 @@ public class BerzerkerEnemyController : EnemyController
 
     #region Unity Functions
     private void Awake() {
-        agent = GetComponent<NavMeshAgent>();
         movement = GetComponent<EnemyMovement>();
-        model = transform.GetChild(0);
+        alert = GetComponent<EnemyAlert>();
+        agent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
     }
 
@@ -23,25 +23,28 @@ public class BerzerkerEnemyController : EnemyController
             playerLayer = GameManager.instance.playerLayer;
             return;
         }
-
-        if(Vector3.Distance(transform.position, player.position) < explosionRange) {
-            agent.destination = transform.position;
-            StartCoroutine("Telegraph");
-        }
-        else if(!attacking) {
-            Vector3 movePos = movement.GetAttackPosition();
-            movement.MoveToAttackPosition(agent, movePos);
+        
+        // attack if alert
+        if(alert.status == EnemyAlert.AlertStatus.ALERT) {
+            if(Vector3.Distance(transform.position, player.position) < explosionRange) {
+                agent.destination = transform.position;
+                InitiateAttack();
+            }
+            else if(!attacking) {
+                Vector3 movePos = movement.GetAttackPosition();
+                movement.MoveToAttackPosition(agent, movePos);
+            }
         }
     }
     #endregion
 
     #region Protected Functions
     protected override void InitiateAttack() {
-        throw new System.NotImplementedException();
+        StartCoroutine("Telegraph");
     }
 
     protected override void Die() {
-        throw new System.NotImplementedException();
+        Destroy(gameObject);
     }
 
     protected override IEnumerator Telegraph() {

@@ -7,9 +7,9 @@ public class BasicEnemyController : EnemyController
 {
     #region Unity Functions
     private void Awake() {
-        agent = GetComponent<NavMeshAgent>();
         movement = GetComponent<EnemyMovement>();
-        model = transform.GetChild(0);
+        alert = GetComponent<EnemyAlert>();
+        agent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
     }
 
@@ -20,25 +20,30 @@ public class BasicEnemyController : EnemyController
             return;
         }
 
-        if(agent.remainingDistance < 0.1f && !attacking) {
-            if(Random.Range(0, 101) <= attackChance && !attackedLast) {
-                InitiateAttack();
+        // move and attack if alert
+        if(alert.status == EnemyAlert.AlertStatus.ALERT) {
+            if(agent.remainingDistance < 0.1f && !attacking) {
+                if(Random.Range(0, 101) <= attackChance && !attackedLast) {
+                    InitiateAttack();
+                }
+                else {
+                    Vector3 movePos = movement.GetAttackPosition();
+                    movement.MoveToAttackPosition(agent, movePos);
+                    attackedLast = false;
+                }
             }
-            else {
-                Vector3 movePos = movement.GetAttackPosition();
-                movement.MoveToAttackPosition(agent, movePos);
-                attackedLast = false;
-            }
-        }
 
-        if(attacking) {
-            RotateTowardsPlayer();
+            if(attacking)
+                RotateTowardsPlayer();
+            else
+                agent.updateRotation = true;
         }
     }
     #endregion
 
     #region PrivateFunctions
     private void RotateTowardsPlayer() {
+        agent.updateRotation = false;
         transform.LookAt(player.position, transform.up);
     }
     #endregion
@@ -54,7 +59,7 @@ public class BasicEnemyController : EnemyController
     }
 
     protected override void Die() {
-        throw new System.NotImplementedException();
+        Destroy(gameObject);
     }
 
     protected override IEnumerator Telegraph() {
@@ -64,8 +69,7 @@ public class BasicEnemyController : EnemyController
     }
 
     protected override IEnumerator Attack() {
-        Vector3 instantiatePos = model.position;
-        GameObject shot = Instantiate(attackObj, instantiatePos, transform.rotation);
+        GameObject shot = Instantiate(attackObj, firePoint.position, transform.rotation);
         shot.GetComponent<TestEnemyBullet>().SetShooter(transform);
         yield return new WaitForSeconds(0.5f);
         attacking = false;

@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     #region Serialized Fields
+    [Header("Components")]
+    [SerializeField] private CapsuleCollider capsule;
+    [SerializeField] private Transform leanPoint;
+
     [Header("Movement")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float sprintSpeed;
@@ -32,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     #region Private Variables
     private PlayerInputActions pInput;
     private Rigidbody body;
-    private CapsuleCollider capsule;
+    //private CapsuleCollider capsule;
     private RaycastHit currentGround;
     private Vector3 moveDir;
 
@@ -48,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake() {
         pInput = new PlayerInputActions();
         body = GetComponent<Rigidbody>();
-        capsule = GetComponent<CapsuleCollider>();
+        //capsule = GetComponent<CapsuleCollider>();
         canDash = true;
 
         pInput.Player.Jump.performed += Jump;
@@ -110,10 +114,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void SetDrag() {
-        // if(onSlope) {
-        //     body.drag = slopeDrag;
-        //     currentMoveScalar = 1;
-        // }
         if(onGround) {
             body.drag = drag;
             currentMoveScalar = 1;
@@ -124,14 +124,34 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private float ClampEuler(float angle, float min, float max) {
+        if(angle < 90 || angle > 270) {
+            //if(angle > 180) angle -= 360;
+            //if(min > 180) angle -= 360;
+            //if(max > 180) angle -= 360;
+            angle -= angle > 180 ? 360 : 0;
+            min -= min > 180 ? 360 : 0;
+            max -= max > 180 ? 360 : 0;
+        }
+
+        angle = Mathf.Clamp(angle, min, max);
+        // if(angle < 0) angle += 360;
+        angle += angle < 0 ? 360 : 0;
+        return angle;
+    }
+
     private void SetLean() {
         // get lean direction
         float leanVal = pInput.Player.Lean.ReadValue<float>();
         float targetZ = -leanVal * leanDegree;
 
+        // KEEPING THESE JUST IN CASE
+        // float lerpVal = Mathf.LerpAngle(transform.localEulerAngles.z, targetZ, leanSpeed * Time.deltaTime);
+        // transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, lerpVal);
+
         // lerp player to lean in that direction smoothely
-        float lerpVal = Mathf.LerpAngle(transform.localEulerAngles.z, targetZ, leanSpeed * Time.deltaTime);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, lerpVal);
+        float lerpVal = Mathf.LerpAngle(leanPoint.localEulerAngles.z, targetZ, leanSpeed * Time.deltaTime);
+        leanPoint.localEulerAngles = new Vector3(leanPoint.localEulerAngles.x, leanPoint.localEulerAngles.y, lerpVal);
     }
 
     private void ApplyGravity() {
