@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField] private float cameraSens;
-    private PlayerInputActions pInput;
     [SerializeField] private Transform player;
+    [SerializeField] private float cameraSensitivity;
+    private PlayerInputActions pInput;
     //private Transform player;
     private float horiz;
     private float vert;
@@ -34,8 +34,8 @@ public class PlayerCamera : MonoBehaviour
         Vector2 mouseIn = pInput.Player.Looking.ReadValue<Vector2>();
 
         // adjust horiz and vert values
-        horiz += mouseIn.x * cameraSens * Time.deltaTime;
-        vert -= mouseIn.y * cameraSens * Time.deltaTime;
+        horiz += mouseIn.x * cameraSensitivity * Time.deltaTime;
+        vert -= mouseIn.y * cameraSensitivity * Time.deltaTime;
         vert = Mathf.Clamp(vert, -90, 90);
 
         // rotate camera and player

@@ -124,22 +124,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private float ClampEuler(float angle, float min, float max) {
-        if(angle < 90 || angle > 270) {
-            //if(angle > 180) angle -= 360;
-            //if(min > 180) angle -= 360;
-            //if(max > 180) angle -= 360;
-            angle -= angle > 180 ? 360 : 0;
-            min -= min > 180 ? 360 : 0;
-            max -= max > 180 ? 360 : 0;
-        }
-
-        angle = Mathf.Clamp(angle, min, max);
-        // if(angle < 0) angle += 360;
-        angle += angle < 0 ? 360 : 0;
-        return angle;
-    }
-
     private void SetLean() {
         // get lean direction
         float leanVal = pInput.Player.Lean.ReadValue<float>();
