@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkSpeed;
     [SerializeField] private float sprintSpeed;
     [SerializeField] private float crouchSpeed;
+    [SerializeField] private float minSpeedThreshold;
     [SerializeField] private float drag;
     [SerializeField] private float slopeDrag;
     [SerializeField] private float maxSlopeAngle;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Dashing")]
     [SerializeField] private float dashForce;
+    [SerializeField] private float dashTime;
     [SerializeField] private float dashCooldown;
 
     [Header("Leaning")]
@@ -44,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private bool onSlope;
     private bool crouched;
     private bool canDash;
+    private bool dashing;
     private float currentMoveScalar;
     private float currentSpeed;
     #endregion
@@ -54,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody>();
         //capsule = GetComponent<CapsuleCollider>();
         canDash = true;
+        dashing = false;
 
         pInput.Player.Jump.performed += Jump;
         pInput.Player.Crouch.performed += ToggleCrouch;
@@ -145,11 +149,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void SpeedControl() {
-        if(onSlope) {
+        if(onSlope && !dashing) {
             float speed = body.velocity.magnitude;
             if(speed > currentSpeed)
                 body.velocity = body.velocity.normalized * currentSpeed;
-            else if(speed < 0.1f)
+            else if(speed < minSpeedThreshold)
                 body.velocity = Vector3.zero;
         }
     }
@@ -188,6 +192,7 @@ public class PlayerMovement : MonoBehaviour
     private void Dash(InputAction.CallbackContext context) {
         if(!onGround || crouched || !canDash) return;
 
+        dashing = true;
         body.AddForce(moveDir.normalized * dashForce, ForceMode.Impulse);
         StartCoroutine("DashCooldown");
     }
@@ -196,7 +201,9 @@ public class PlayerMovement : MonoBehaviour
     #region Coroutines
     private IEnumerator DashCooldown() {
         canDash = false;
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(dashTime);
+        dashing = false;
+        yield return new WaitForSeconds(dashCooldown - dashTime);
         canDash = true;
     }
     #endregion
