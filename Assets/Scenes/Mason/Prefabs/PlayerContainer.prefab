@@ -260,8 +260,6 @@ MonoBehaviour:
   crouchSpeed: 3
   minSpeedThreshold: 0.25
   drag: 5
-  slopeDrag: 6
-  maxSlopeAngle: 45
   jumpForce: 6
   airMovementScalar: 0.1
   gravityScalar: 1
@@ -273,6 +271,8 @@ MonoBehaviour:
   dashCooldown: 2
   leanDegree: 15
   leanSpeed: 5
+  maxSlopeAngle: 45
+  maxStepHeight: 0.25
 --- !u!1 &4366242784575549763
 GameObject:
   m_ObjectHideFlags: 0

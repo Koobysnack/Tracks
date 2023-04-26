@@ -16,8 +16,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float crouchSpeed;
     [SerializeField] private float minSpeedThreshold;
     [SerializeField] private float drag;
-    [SerializeField] private float slopeDrag;
-    [SerializeField] private float maxSlopeAngle;
 
     [Header("Jumping")]
     [SerializeField] private float jumpForce;
@@ -33,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Leaning")]
     [SerializeField] private float leanDegree;
     [SerializeField] private float leanSpeed;
+
+    [Header("Slopes and Steps")]
+    [SerializeField] private float maxSlopeAngle;
+    [SerializeField] private float maxStepHeight;
     #endregion
 
     #region Private Variables
