@@ -45,7 +45,7 @@ public class UICrosshairCoordinator : MonoBehaviour
         {
             Vector2 currentPos = uiPivotRT.position;
             Vector2 targetPos = new Vector2(uiPivotRT.position.x, showAllBullets ? UICMan.radius + 10 : 0);
-            float step = 400f * Time.deltaTime;
+            float step = UICMan.showHideSpeed * Time.deltaTime;
             uiPivotRT.position = Vector2.MoveTowards(currentPos, targetPos, step);
         }
     }
@@ -149,27 +149,5 @@ public class UICrosshairCoordinator : MonoBehaviour
         {
             bullet.sprite = UICMan.loadedBullet;
         }
-    }
-
-    // Old version
-    public IEnumerator RotateChambers(float target)
-    {
-        Quaternion startAngle = uiPivot.transform.rotation;
-        endAngle = Quaternion.Euler(0, 0, target);
-        if (rotating)
-        {
-            yield break;
-        }
-        rotating = true;
-        float time = 0;
-        while (time < UICMan.rotateDuration)
-        {
-            uiPivot.transform.rotation = Quaternion.Lerp(startAngle, endAngle, time / UICMan.rotateDuration);
-            time += Time.deltaTime;
-            yield return null;
-        }
-        // Finalize rotation so it doesn't end at a weird spot
-        uiPivot.transform.rotation = Quaternion.Euler(0, 0, target);
-        rotating = false;
     }
 }

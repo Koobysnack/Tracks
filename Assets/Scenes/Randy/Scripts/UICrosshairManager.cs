@@ -12,6 +12,7 @@ public class UICrosshairManager : MonoBehaviour
     public float radius;
     public float rotateDuration;
     public float hideTimer;
+    public float showHideSpeed;
 
     [Foldout("UI Bullet Sprites")] public Sprite loadedBullet;
     [Foldout("UI Bullet Sprites")] public Sprite firedBullet;

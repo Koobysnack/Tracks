@@ -22,6 +22,8 @@ public class PlayerController : EntityController
         if(currentHealth <= 0)
             Die();
         print("Player Damaged. New Health: " + currentHealth);
+        if(UIDamageIndicatorManager.instance != null)
+            UIDamageIndicatorManager.instance.PlayerHit(opponent);
     }
 
     public void Heal(float healAmt) {
