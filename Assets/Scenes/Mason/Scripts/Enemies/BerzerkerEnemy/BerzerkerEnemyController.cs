@@ -63,6 +63,7 @@ public class BerzerkerEnemyController : EnemyController
 
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
+        print("Berzerker Enemy Damaged");
         currentHealth -= damage;
         if(currentHealth <= 0)
             Die();
