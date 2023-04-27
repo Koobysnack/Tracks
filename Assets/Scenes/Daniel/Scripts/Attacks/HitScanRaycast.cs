@@ -50,6 +50,7 @@ public class HitScanRaycast : MonoBehaviour
                 if (objectPierceTest)
                 {
                     objectPierceTest.HitEffects();
+
                 }
             }
         }

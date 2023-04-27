@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractPickUp : MonoBehaviour, IInteractable
+public class HealthPickUp : MonoBehaviour, IInteractable
 {
     // Start is called before the first frame update
+
+    public int HealthAmount;
+
     void Start()
     {
         
@@ -16,8 +19,9 @@ public class InteractPickUp : MonoBehaviour, IInteractable
         
     }
 
-   public void Interaction()
+    public void Interaction()
     {
-        print("sussy");
+        print("getHealth");
     }
+
 }

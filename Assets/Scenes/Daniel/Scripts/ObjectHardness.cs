@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectHardness : MonoBehaviour, IOnHitScan
+public class ObjectHardness : MonoBehaviour, IOnPierce
 {
     // Start is called before the first frame update
 
     [SerializeField]
-    private float hardnessVal = 2;
+    public float hardnessVal = 2;
 
     public int ColorTest = 0;
     
@@ -30,6 +30,7 @@ public class ObjectHardness : MonoBehaviour, IOnHitScan
 
     public void HitEffects()
     {
+
         MeshRenderer meshMan = gameObject.GetComponent<MeshRenderer>();
         switch (ColorTest) {
 
