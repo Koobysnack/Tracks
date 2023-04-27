@@ -5,9 +5,10 @@ using UnityEngine;
 public class EnvySin : AbsSinClass 
 {
 
+    [SerializeField]
+    private EntityController EntityRef;
 
-
-   public override void SinFire()
+    public override void SinFire()
     {
         RaycastHit hit;
         
@@ -33,7 +34,7 @@ public class EnvySin : AbsSinClass
     //recursively call this function each time a pierce occurs
     private void EnvyPierce(RaycastHit obj, Vector3 fireAngle)
     {
-        RaycastHit hit;
+     //   RaycastHit hit;
         RaycastHit backHit;
         RaycastHit nextObj;
 
@@ -42,9 +43,7 @@ public class EnvySin : AbsSinClass
         Ray backRay = new Ray(obj.point + fireAngle * 6, -1 * fireAngle * 6);
         if (obj.transform.gameObject.tag == "Wall")
         {
-            ObjectHardness objectPierceTest;
-            objectPierceTest = obj.transform.gameObject.GetComponent<ObjectHardness>();
-            objectPierceTest.HitEffects();
+           
             Debug.Log("yeouch");
         }
         else {
@@ -55,11 +54,13 @@ public class EnvySin : AbsSinClass
 
             if (Physics.Raycast(backHit.point, fireAngle, out nextObj, 1000)) {
                 Debug.DrawRay(backHit.point, fireAngle*2, Color.green);
-                ObjectHardness objectPierceTest;
-                objectPierceTest = backHit.transform.gameObject.GetComponent<ObjectHardness>();
-                if (objectPierceTest)
+                
+                EntityController ShotEntity;
+                ShotEntity = backHit.transform.gameObject.GetComponent<EntityController>();
+                if (ShotEntity)
                 {
-                    objectPierceTest.HitEffects();
+                    ShotEntity.Damage(EntityRef.damage, transform);
+
                 }
                 EnvyPierce(nextObj, fireAngle);
 

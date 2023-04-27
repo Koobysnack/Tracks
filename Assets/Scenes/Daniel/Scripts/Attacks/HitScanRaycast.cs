@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 public class HitScanRaycast : MonoBehaviour
 {
 
-    
+
     //consturctor
+    [SerializeField]
+    private EntityController EntityRef;
 
     public void RegRayCaster()
     {
@@ -45,11 +47,11 @@ public class HitScanRaycast : MonoBehaviour
             {
 
                 Debug.DrawRay(backHit.point, transform.TransformDirection(Vector3.up), Color.blue);
-                ObjectHardness objectPierceTest;
-                objectPierceTest = hit2.transform.gameObject.GetComponent<ObjectHardness>();
-                if (objectPierceTest)
+                EntityController ShotEntity;
+                ShotEntity = hit2.transform.gameObject.GetComponent<EntityController>();
+                if (ShotEntity)
                 {
-                    objectPierceTest.HitEffects();
+                    ShotEntity.Damage(EntityRef.damage,transform);
 
                 }
             }

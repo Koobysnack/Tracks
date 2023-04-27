@@ -12,6 +12,8 @@ public class PlayerRayControl : MonoBehaviour
 
     private SinController SinShotControl;
 
+    
+
     public 
 
     void Awake()
