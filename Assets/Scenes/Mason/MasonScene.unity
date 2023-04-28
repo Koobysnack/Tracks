@@ -916,6 +916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  damage: 0
 --- !u!1 &765392694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2535,6 +2536,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107848674901778060, guid: 66de0da9880b98f4282e4fb16e53430c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.122
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66de0da9880b98f4282e4fb16e53430c, type: 3}
