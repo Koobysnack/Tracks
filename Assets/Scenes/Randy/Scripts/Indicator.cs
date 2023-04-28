@@ -8,6 +8,7 @@ public class Indicator : MonoBehaviour
     UIDamageIndicatorManager uiDIMan;
     float maxTime;
     float timer;
+    bool timerActive;
     RectTransform indicatorTransform;
     CanvasGroup indicatorCanvasGroup;
     Transform target;
@@ -41,6 +42,11 @@ public class Indicator : MonoBehaviour
         timer = maxTime;
     }
 
+    public bool IsPointing()
+    {
+        return timerActive;
+    }
+
     IEnumerator PointToTarget()
     {
         // Math is from this video, modified: https://youtu.be/BC3AKOQUx04?t=886
@@ -66,6 +72,7 @@ public class Indicator : MonoBehaviour
     {
         // Maybe do an animation here?
         indicatorCanvasGroup.alpha = 1.0f;
+
         while (timer > 0f)
         {
             timer -= Time.deltaTime;

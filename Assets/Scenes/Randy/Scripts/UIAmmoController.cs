@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UICrosshairController : MonoBehaviour
+public class UIAmmoController : MonoBehaviour
 {
-    [SerializeField] UICrosshairCoordinator coordinator;
+    [SerializeField] UIAmmoCoordinator coordinator;
 
     // Start is called before the first frame update
     void Start()

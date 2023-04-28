@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class UICrosshairManager : MonoBehaviour
+public class UIAmmoManager : MonoBehaviour
 {
-    public static UICrosshairManager instance;
+    public static UIAmmoManager instance;
 
-    public UICrosshairController controller;
-    public UICrosshairCoordinator coordinator;
+    public UIAmmoController controller;
+    public UIAmmoCoordinator coordinator;
     public float radius;
     public float rotateDuration;
     public float hideTimer;

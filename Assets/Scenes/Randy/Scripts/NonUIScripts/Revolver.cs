@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProtoRevolver : MonoBehaviour
+public enum BulletType { NORMAL, PRIDE, GREED, WRATH, ENVY, LUST, GLUTTONY, SLOTH }
+public class Revolver : MonoBehaviour
 {
     [System.Serializable]
     public class Bullet
@@ -11,6 +12,8 @@ public class ProtoRevolver : MonoBehaviour
         public BulletType type;
         public bool loaded;
     }
+
+    
     public List<Bullet> cylinder = new List<Bullet>();
     public int currentBullet;
 
@@ -28,31 +31,9 @@ public class ProtoRevolver : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            print("Normal Shot");
-            Shoot();
-        }
-
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll != 0f)
-        {
-            print("Selecting");
-            SelectBullet(scroll);
-        }
-
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            reload();
-        }
-    }
-
     void Shoot()
     {
-        if(cylinder[currentBullet].loaded == false)
+        if (cylinder[currentBullet].loaded == false)
         {
             reload();
             return;
@@ -65,9 +46,9 @@ public class ProtoRevolver : MonoBehaviour
     void CycleBullet()
     {
         // Do not run function if no bullet is available
-        if( !cylinder.Exists(bullet => bullet.loaded == true))
+        if (!cylinder.Exists(bullet => bullet.loaded == true))
             return;
-            
+
 
         while (!cylinder[currentBullet].loaded)
         {

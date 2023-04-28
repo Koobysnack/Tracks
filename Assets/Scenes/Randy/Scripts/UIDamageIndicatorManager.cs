@@ -50,16 +50,20 @@ public class UIDamageIndicatorManager : MonoBehaviour
     public void PlayerHit(Transform target)
     {
         Indicator i;
-        //if (indicators.ContainsKey(target))
-        //{
-        //    i = indicators[target];
-        //    indicatorPool.Get(out i);
-        //    i.ResetTimer();
-        //    return;
-        //}
+        if (indicators.ContainsKey(target))
+        {
+            i = indicators[target];
+            indicatorPool.Get(out i);
+            if (i.IsPointing())
+                i.ResetTimer();
+            else
+                i.RegisterHit(player, target, ReleaseIndicator, ClearIndicator);
+
+            return;
+        }
         i = indicatorPool.Get();
         i.RegisterHit(player, target, ReleaseIndicator, ClearIndicator);
-        indicators.Add(target, i);
+        indicators.TryAdd(target, i);
     }
 
     public void ClearIndicator(Transform target)

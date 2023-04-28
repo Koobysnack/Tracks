@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using NaughtyAttributes;
 
-public class UICrosshairCoordinator : MonoBehaviour
+public class UIAmmoCoordinator : MonoBehaviour
 {
-    [SerializeField] private UICrosshairManager UICMan;
+    [SerializeField] private UIAmmoManager UICMan;
     private List<Image> bulletDisplay = new List<Image>();
     [SerializeField] private GameObject uiPivot;
     [SerializeField] private Image imagePrefab;
@@ -33,7 +33,7 @@ public class UICrosshairCoordinator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UICMan = UICrosshairManager.instance;
+        UICMan = UIAmmoManager.instance;
         print(UICMan);
         InstantiateBulletDisplay();
     }
