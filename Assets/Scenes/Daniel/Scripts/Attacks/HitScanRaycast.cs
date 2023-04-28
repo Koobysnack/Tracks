@@ -11,6 +11,7 @@ public class HitScanRaycast : MonoBehaviour
     [SerializeField]
     private EntityController EntityRef;
 
+    #region BaseRays
     public void RegRayCaster()
     {
         RaycastHit hit;
@@ -27,6 +28,7 @@ public class HitScanRaycast : MonoBehaviour
         }
 
     }
+
     public void PierceRayCaster()
     {
         RaycastHit hit;
@@ -45,13 +47,15 @@ public class HitScanRaycast : MonoBehaviour
             Debug.DrawRay(hit.point + transform.TransformDirection(Vector3.forward)*6, -1 * transform.TransformDirection(Vector3.forward)*6, Color.red);
 
             hit.collider.Raycast(pierceRay,out backHit,1000);
-
-            ShotEntity = hit.transform.parent.GetComponent<EntityController>();
+            if (hit.transform.parent)
+            {
+                ShotEntity = hit.transform.parent.GetComponent<EntityController>();
                 if (ShotEntity)
                 {
                     ShotEntity.Damage(EntityRef.damage, transform);
 
                 }
+            }
             if (backHit.collider==null)
             {
                
@@ -79,5 +83,25 @@ public class HitScanRaycast : MonoBehaviour
         }
 
     }
+    #endregion
+
+    #region EnemyAttacks
+    public void ShotGunBlast()
+    {
+     //  for( int x = 0; x<EntityRef.pellets;x++)
+    //    {
+           
+     //   }
+
+    }
+
+   // public IEnumerator 
+
+    public void SniperShot()
+    {
+
+    }
+
+    #endregion
 
 }
