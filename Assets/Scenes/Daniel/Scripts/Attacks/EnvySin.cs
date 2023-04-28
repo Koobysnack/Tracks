@@ -8,31 +8,33 @@ public class EnvySin : AbsSinClass
     [SerializeField]
     private EntityController EntityRef;
 
-    public override void SinFire()
+    public override void SinFire(Transform shotOrigin )
     {
         RaycastHit hit;
         
     
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        if (Physics.Raycast(shotOrigin.position, shotOrigin.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Debug.DrawRay(shotOrigin.position, shotOrigin.TransformDirection(Vector3.forward) * hit.distance, Color.red,10000);
             Debug.Log("Did Hit");
 
             //  RaycastHit pierceHit;
+
+            // print(hit);
            
-           
-            EnvyPierce(hit, transform.TransformDirection(Vector3.forward));
+                EnvyPierce(hit, shotOrigin.TransformDirection(Vector3.forward),shotOrigin);
+            
         }
         else
         {
-            Debug.DrawRay(transform.position,transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+            Debug.DrawRay(shotOrigin.position,shotOrigin.TransformDirection(Vector3.forward) * 1000, Color.white,1000000);
             Debug.Log("Did not Hit");
         }
 
     }
     //recursively call this function each time a pierce occurs
-    private void EnvyPierce(RaycastHit obj, Vector3 fireAngle)
+    private void EnvyPierce(RaycastHit obj, Vector3 fireAngle,Transform shotOrigin)
     {
      //   RaycastHit hit;
         RaycastHit backHit;
@@ -41,7 +43,7 @@ public class EnvySin : AbsSinClass
 
         //get same object but back face
         Ray backRay = new Ray(obj.point + fireAngle * 6, -1 * fireAngle * 6);
-        if (obj.transform.gameObject.tag == "Wall")
+        if (obj.transform.gameObject.tag == "Wall"  )
         {
            
             Debug.Log("yeouch");
@@ -51,18 +53,17 @@ public class EnvySin : AbsSinClass
 
             //then get next  object, 
 
-
             if (Physics.Raycast(backHit.point, fireAngle, out nextObj, 1000)) {
-                Debug.DrawRay(backHit.point, fireAngle*2, Color.green);
+                Debug.DrawRay(backHit.point, fireAngle*2, Color.green,10000);
                 
                 EntityController ShotEntity;
                 ShotEntity = backHit.transform.gameObject.GetComponent<EntityController>();
-                if (ShotEntity)
+                if (ShotEntity )
                 {
-                    ShotEntity.Damage(EntityRef.damage, transform);
-
+                    ShotEntity.Damage(EntityRef.damage, shotOrigin);
+                   
                 }
-                EnvyPierce(nextObj, fireAngle);
+                EnvyPierce(nextObj, fireAngle,shotOrigin);
 
             }
             else

@@ -53,7 +53,7 @@ public class SinController : MonoBehaviour
         {
             return;
         }
-        SevenSinsList[ChamberNum].SinFire();
+      //  SevenSinsList[ChamberNum].SinFire();
     }
 
   

@@ -48,7 +48,7 @@ public class HitScanRaycast : MonoBehaviour
 
                 Debug.DrawRay(backHit.point, transform.TransformDirection(Vector3.up), Color.blue);
                 EntityController ShotEntity;
-                ShotEntity = hit2.transform.gameObject.GetComponent<EntityController>();
+                ShotEntity = backHit.transform.gameObject.GetComponent<EntityController>();
                 if (ShotEntity)
                 {
                     ShotEntity.Damage(EntityRef.damage,transform);
