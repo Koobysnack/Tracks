@@ -33,22 +33,38 @@ public class HitScanRaycast : MonoBehaviour
         RaycastHit backHit;
         RaycastHit hit2;
         Ray pierceRay;
+        EntityController ShotEntity;
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             Debug.Log("Did Hit");
           //  RaycastHit pierceHit;
+
             pierceRay = new Ray(hit.point + transform.TransformDirection(Vector3.forward) * 6, -1*transform.TransformDirection(Vector3.forward)*6);
             Debug.DrawRay(hit.point + transform.TransformDirection(Vector3.forward)*6, -1 * transform.TransformDirection(Vector3.forward)*6, Color.red);
+
             hit.collider.Raycast(pierceRay,out backHit,1000);
+
+            ShotEntity = hit.transform.parent.GetComponent<EntityController>();
+                if (ShotEntity)
+                {
+                    ShotEntity.Damage(EntityRef.damage, transform);
+
+                }
+            if (backHit.collider==null)
+            {
+               
+                
+                return;
+            }
 
             if (Physics.Raycast(backHit.point, transform.TransformDirection(Vector3.forward), out hit2, Mathf.Infinity))
             {
 
                 Debug.DrawRay(backHit.point, transform.TransformDirection(Vector3.up), Color.blue);
-                EntityController ShotEntity;
-                ShotEntity = backHit.transform.gameObject.GetComponent<EntityController>();
+               
+                ShotEntity = backHit.transform.parent.GetComponent<EntityController>();
                 if (ShotEntity)
                 {
                     ShotEntity.Damage(EntityRef.damage,transform);
