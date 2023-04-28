@@ -29,7 +29,6 @@ public class Revolver : MonoBehaviour
     void Awake()
     {
         hitRC = GetComponent<HitScanRaycast>();
-        ammoMan = UIAmmoManager.instance;
         pInput = new PlayerInputActions();
         pInput.Gun.Fire.performed += Shoot;
         pInput.Gun.RotateCylinder.performed += SelectBullet;
@@ -53,6 +52,7 @@ public class Revolver : MonoBehaviour
             bullet.loaded = true;
         }
         ready = true;
+        ammoMan = UIAmmoManager.instance;
     }
 
     void Shoot(InputAction.CallbackContext context)
@@ -68,6 +68,7 @@ public class Revolver : MonoBehaviour
         ammoMan.HideAmmoPanel();
         hitRC.PierceRayCaster();
         StartCoroutine(NormalShootCooldown());
+        GunfireSFX();
         cylinder[currentBullet].loaded = false;
         ammoMan.FireBullet(currentBullet);
         CycleBullet();
@@ -129,4 +130,17 @@ public class Revolver : MonoBehaviour
         yield return new WaitForSeconds(1f / normalFireRate);
         ready = true;
     }
+
+    private void GunfireSFX()
+    {
+        string eventName;
+        //if () eventName = "event:/SFX/Player/GunshotEmpty";
+        eventName = "event:/SFX/Player/Gunshot";
+
+        var sound = FMODUnity.RuntimeManager.CreateInstance(eventName);
+        sound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        sound.start();
+        sound.release();
+    }
+
 }
