@@ -138,6 +138,11 @@ public class UIAmmoCoordinator : MonoBehaviour
         showAllBullets = false;
     }
 
+    public void ForceHideDisplay()
+    {
+        showAllBullets = false;
+    }
+
     public void FireBullet(int chamber)
     {
         bulletDisplay[chamber].sprite = UICMan.firedBullet;

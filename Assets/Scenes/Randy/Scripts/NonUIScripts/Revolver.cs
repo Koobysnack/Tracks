@@ -13,12 +13,13 @@ public class Revolver : MonoBehaviour
         public BulletType type;
         public bool loaded;
     }
-
-    public List<Bullet> cylinder = new List<Bullet>();
+    [Min(0.01f), SerializeField] float normalFireRate;
     public int currentBullet;
+    public List<Bullet> cylinder = new List<Bullet>();
     HitScanRaycast hitRC;
     UIAmmoManager ammoMan;
     PlayerInputActions pInput;
+    bool ready;
 
     void OnValidate()
     {
@@ -28,9 +29,10 @@ public class Revolver : MonoBehaviour
     void Awake()
     {
         hitRC = GetComponent<HitScanRaycast>();
-        ammoMan = UIAmmoManager.instance;
         pInput = new PlayerInputActions();
         pInput.Gun.Fire.performed += Shoot;
+        pInput.Gun.RotateCylinder.performed += SelectBullet;
+        pInput.Gun.Reload.performed += Reload;
     }
 
     void OnEnable()
@@ -49,16 +51,24 @@ public class Revolver : MonoBehaviour
         {
             bullet.loaded = true;
         }
+        ready = true;
+        ammoMan = UIAmmoManager.instance;
     }
 
     void Shoot(InputAction.CallbackContext context)
     {
+        if (!ready)
+            return;
+
         if (cylinder[currentBullet].loaded == false)
         {
-            reload();
+            Reload();
             return;
         }
+        ammoMan.HideAmmoPanel();
         hitRC.PierceRayCaster();
+        StartCoroutine(NormalShootCooldown());
+        GunfireSFX();
         cylinder[currentBullet].loaded = false;
         ammoMan.FireBullet(currentBullet);
         CycleBullet();
@@ -66,7 +76,6 @@ public class Revolver : MonoBehaviour
 
     void CycleBullet()
     {
-        // Do not run function if no bullet is available
         if (!cylinder.Exists(bullet => bullet.loaded == true))
         {
             currentBullet = (currentBullet + 1) % cylinder.Count;
@@ -81,9 +90,9 @@ public class Revolver : MonoBehaviour
         ammoMan.RotateTo(currentBullet, 1);
     }
 
-    void SelectBullet(float direction) // Less than ideal argument but this is a quick prototype
+    void SelectBullet(InputAction.CallbackContext context) // Less than ideal argument but this is a quick prototype
     {
-        // Do not run function if no bullet is available
+        float direction = context.ReadValue<float>();
         if (!cylinder.Exists(bullet => bullet.loaded == true))
         {
             currentBullet = (currentBullet + (int)Mathf.Sign(direction) + cylinder.Count) % cylinder.Count;
@@ -103,7 +112,7 @@ public class Revolver : MonoBehaviour
         ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
     }
 
-    void reload()
+    void Reload(InputAction.CallbackContext context = default(InputAction.CallbackContext))
     {
         foreach (Bullet bullet in cylinder)
         {
@@ -114,4 +123,24 @@ public class Revolver : MonoBehaviour
         ammoMan.ShowAmmoPanel();
         ammoMan.RotateTo(currentBullet, 1);
     }
+
+    IEnumerator NormalShootCooldown()
+    {
+        ready = false;
+        yield return new WaitForSeconds(1f / normalFireRate);
+        ready = true;
+    }
+
+    private void GunfireSFX()
+    {
+        string eventName;
+        //if () eventName = "event:/SFX/Player/GunshotEmpty";
+        eventName = "event:/SFX/Player/Gunshot";
+
+        var sound = FMODUnity.RuntimeManager.CreateInstance(eventName);
+        sound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        sound.start();
+        sound.release();
+    }
+
 }
