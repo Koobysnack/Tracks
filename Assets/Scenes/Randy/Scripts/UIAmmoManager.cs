@@ -55,6 +55,12 @@ public class UIAmmoManager : MonoBehaviour
     {
         controller.ShowAmmoPanel();
     }
+
+    public void HideAmmoPanel()
+    {
+        coordinator.ForceHideDisplay();
+    }
+
     public void RotateTo(int chamber, float direction)
     {
         controller.RotateTo(chamber, direction);

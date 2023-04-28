@@ -457,6 +457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cc09deb1713b4438754fd19bb8ffac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalFireRate: 5
+  currentBullet: 0
   cylinder:
   - name: 'Bullet 0: NORMAL'
     type: 0
@@ -479,7 +481,6 @@ MonoBehaviour:
   - name: 'Bullet 6: NORMAL'
     type: 0
     loaded: 0
-  currentBullet: 0
 --- !u!1 &4366242785017606644
 GameObject:
   m_ObjectHideFlags: 0
