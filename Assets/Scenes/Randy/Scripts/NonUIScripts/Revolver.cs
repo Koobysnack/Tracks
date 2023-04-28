@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum BulletType { NORMAL, PRIDE, GREED, WRATH, ENVY, LUST, GLUTTONY, SLOTH }
 public class Revolver : MonoBehaviour
@@ -13,16 +14,35 @@ public class Revolver : MonoBehaviour
         public bool loaded;
     }
 
-    
     public List<Bullet> cylinder = new List<Bullet>();
     public int currentBullet;
+    HitScanRaycast hitRC;
+    UIAmmoManager ammoMan;
+    PlayerInputActions pInput;
 
-    private void OnValidate()
+    void OnValidate()
     {
         foreach (Bullet b in cylinder) b.name = "Bullet " + cylinder.IndexOf(b) + ": " + b.type.ToString();
     }
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        hitRC = GetComponent<HitScanRaycast>();
+        ammoMan = UIAmmoManager.instance;
+        pInput = new PlayerInputActions();
+        pInput.Gun.Fire.performed += Shoot;
+    }
+
+    void OnEnable()
+    {
+        pInput.Enable();
+    }
+
+    void OnDisable()
+    {
+        pInput.Disable();
+    }
+
     void Start()
     {
         foreach (Bullet bullet in cylinder)
@@ -31,15 +51,16 @@ public class Revolver : MonoBehaviour
         }
     }
 
-    void Shoot()
+    void Shoot(InputAction.CallbackContext context)
     {
         if (cylinder[currentBullet].loaded == false)
         {
             reload();
             return;
         }
+        hitRC.PierceRayCaster();
         cylinder[currentBullet].loaded = false;
-        UIAmmoManager.instance.FireBullet(currentBullet);
+        ammoMan.FireBullet(currentBullet);
         CycleBullet();
     }
 
@@ -47,22 +68,29 @@ public class Revolver : MonoBehaviour
     {
         // Do not run function if no bullet is available
         if (!cylinder.Exists(bullet => bullet.loaded == true))
+        {
+            currentBullet = (currentBullet + 1) % cylinder.Count;
+            ammoMan.RotateTo(currentBullet, 1);
             return;
-
-
+        }
+            
         while (!cylinder[currentBullet].loaded)
         {
             currentBullet = (currentBullet + 1) % cylinder.Count;
-            print(currentBullet);
         }
-        UIAmmoManager.instance.RotateTo(currentBullet, 1);
+        ammoMan.RotateTo(currentBullet, 1);
     }
 
     void SelectBullet(float direction) // Less than ideal argument but this is a quick prototype
     {
         // Do not run function if no bullet is available
         if (!cylinder.Exists(bullet => bullet.loaded == true))
+        {
+            currentBullet = (currentBullet + (int)Mathf.Sign(direction) + cylinder.Count) % cylinder.Count;
+            ammoMan.ShowAmmoPanel();
+            ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
             return;
+        }
 
         Mathf.Sign(direction);
 
@@ -71,8 +99,8 @@ public class Revolver : MonoBehaviour
             currentBullet = (currentBullet + (int)Mathf.Sign(direction) + cylinder.Count) % cylinder.Count;
         }
         while (!cylinder[currentBullet].loaded);
-        UIAmmoManager.instance.ShowAmmoPanel();
-        UIAmmoManager.instance.RotateTo(currentBullet, Mathf.Sign(direction));
+        ammoMan.ShowAmmoPanel();
+        ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
     }
 
     void reload()
@@ -82,8 +110,8 @@ public class Revolver : MonoBehaviour
             bullet.loaded = true;
         }
         currentBullet = 0;
-        UIAmmoManager.instance.Reload();
-        UIAmmoManager.instance.ShowAmmoPanel();
-        UIAmmoManager.instance.RotateTo(currentBullet, 1);
+        ammoMan.Reload();
+        ammoMan.ShowAmmoPanel();
+        ammoMan.RotateTo(currentBullet, 1);
     }
 }
