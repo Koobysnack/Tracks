@@ -65,11 +65,11 @@ public class HitScanRaycast : MonoBehaviour
 
             if (Physics.Raycast(backHit.point, transform.TransformDirection(Vector3.forward), out hit2, Mathf.Infinity))
             {
-
+                if (backHit.transform == null || backHit.transform.parent == null)
+                    return;
                 Debug.DrawRay(backHit.point, transform.TransformDirection(Vector3.up), Color.blue);
                
-                ShotEntity = backHit.transform.parent.GetComponent<EntityController>();
-                if (ShotEntity)
+                if (backHit.transform.parent.TryGetComponent<EntityController>(out ShotEntity))
                 {
                     ShotEntity.Damage(EntityRef.damage,transform);
 

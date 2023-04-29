@@ -52,7 +52,12 @@ public class Revolver : MonoBehaviour
             bullet.loaded = true;
         }
         ready = true;
-        ammoMan = UIAmmoManager.instance;
+    }
+
+    void Update()
+    {
+        if (UIAmmoManager.instance != null && ammoMan == null)
+            ammoMan = UIAmmoManager.instance;
     }
 
     void Shoot(InputAction.CallbackContext context)
@@ -65,12 +70,16 @@ public class Revolver : MonoBehaviour
             Reload();
             return;
         }
-        ammoMan.HideAmmoPanel();
+        
         hitRC.PierceRayCaster();
         StartCoroutine(NormalShootCooldown());
         GunfireSFX();
         cylinder[currentBullet].loaded = false;
-        ammoMan.FireBullet(currentBullet);
+        if (ammoMan != null)
+        {
+            ammoMan.HideAmmoPanel();
+            ammoMan.FireBullet(currentBullet);
+        }
         CycleBullet();
     }
 
@@ -79,7 +88,8 @@ public class Revolver : MonoBehaviour
         if (!cylinder.Exists(bullet => bullet.loaded == true))
         {
             currentBullet = (currentBullet + 1) % cylinder.Count;
-            ammoMan.RotateTo(currentBullet, 1);
+            if (ammoMan != null)
+                ammoMan.RotateTo(currentBullet, 1);
             return;
         }
             
@@ -87,7 +97,8 @@ public class Revolver : MonoBehaviour
         {
             currentBullet = (currentBullet + 1) % cylinder.Count;
         }
-        ammoMan.RotateTo(currentBullet, 1);
+        if (ammoMan != null)
+            ammoMan.RotateTo(currentBullet, 1);
     }
 
     void SelectBullet(InputAction.CallbackContext context) // Less than ideal argument but this is a quick prototype
@@ -96,8 +107,11 @@ public class Revolver : MonoBehaviour
         if (!cylinder.Exists(bullet => bullet.loaded == true))
         {
             currentBullet = (currentBullet + (int)Mathf.Sign(direction) + cylinder.Count) % cylinder.Count;
-            ammoMan.ShowAmmoPanel();
-            ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
+            if (ammoMan != null)
+            {
+                ammoMan.ShowAmmoPanel();
+                ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
+            }
             return;
         }
 
@@ -108,8 +122,10 @@ public class Revolver : MonoBehaviour
             currentBullet = (currentBullet + (int)Mathf.Sign(direction) + cylinder.Count) % cylinder.Count;
         }
         while (!cylinder[currentBullet].loaded);
-        ammoMan.ShowAmmoPanel();
-        ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
+        {
+            ammoMan.ShowAmmoPanel();
+            ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
+        }
     }
 
     void Reload(InputAction.CallbackContext context = default(InputAction.CallbackContext))
@@ -119,9 +135,12 @@ public class Revolver : MonoBehaviour
             bullet.loaded = true;
         }
         currentBullet = 0;
-        ammoMan.Reload();
-        ammoMan.ShowAmmoPanel();
-        ammoMan.RotateTo(currentBullet, 1);
+        if (ammoMan != null)
+        {
+            ammoMan.Reload();
+            ammoMan.ShowAmmoPanel();
+            ammoMan.RotateTo(currentBullet, 1);
+        }
     }
 
     IEnumerator NormalShootCooldown()
@@ -134,7 +153,7 @@ public class Revolver : MonoBehaviour
     private void GunfireSFX()
     {
         string eventName;
-        //if () eventName = "event:/SFX/Player/GunshotEmpty";
+        //if (no bullets) eventName = "event:/SFX/Player/GunshotEmpty";
         eventName = "event:/SFX/Player/Gunshot";
 
         var sound = FMODUnity.RuntimeManager.CreateInstance(eventName);

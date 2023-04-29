@@ -34,7 +34,6 @@ public class UIAmmoCoordinator : MonoBehaviour
     void Start()
     {
         UICMan = UIAmmoManager.instance;
-        print(UICMan);
         InstantiateBulletDisplay();
     }
 
