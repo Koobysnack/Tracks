@@ -49,7 +49,6 @@ public class Indicator : MonoBehaviour
 
     IEnumerator PointToTarget()
     {
-        // Math is from this video, modified: https://youtu.be/BC3AKOQUx04?t=886
         while (enabled)
         {
             if (target)
