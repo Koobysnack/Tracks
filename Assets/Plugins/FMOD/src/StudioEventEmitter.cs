@@ -288,7 +288,9 @@ namespace FMODUnity
                 instance.setProperty(FMOD.Studio.EVENT_PROPERTY.MAXIMUM_DISTANCE, OverrideMaxDistance);
             }
 
+            // START EDITS FOR SYNCING TO MUSIC
             instance.start();
+            // END EDITS FOR SYNCING TO MUSIC
 
             hasTriggered = true;
         }

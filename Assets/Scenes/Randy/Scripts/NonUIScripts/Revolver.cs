@@ -158,8 +158,9 @@ public class Revolver : MonoBehaviour
 
         var sound = FMODUnity.RuntimeManager.CreateInstance(eventName);
         sound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-        sound.start();
-        sound.release();
+        MusicManager.instance.TriggerSFX(sound);
+        //sound.start();
+        //sound.release();
     }
 
 }
