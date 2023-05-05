@@ -8,9 +8,14 @@ public class UIDamageIndicatorManager : MonoBehaviour
 {
     public static UIDamageIndicatorManager instance;
     [SerializeField] Transform indicatorParent;
-    public float duration;
-    Transform player;
+    [SerializeField] float hitDuration;
+    [SerializeField] bool showOnScreenHit;
+    [SerializeField] bool showOnScreenWarning;
     [SerializeField] Indicator IndicatorPrefab;
+    [SerializeField] Color hitColor;
+    [SerializeField] Color warningColor;
+    
+    Transform player;
     ObjectPool<Indicator> indicatorPool;
     Dictionary<Transform, Indicator> indicators = new Dictionary<Transform, Indicator>();
     void Awake()
@@ -25,7 +30,9 @@ public class UIDamageIndicatorManager : MonoBehaviour
         }
 
         indicatorPool = new ObjectPool<Indicator>(() => {   // Create
-            return Instantiate(IndicatorPrefab, indicatorParent);
+            Indicator newIndicator = Instantiate(IndicatorPrefab, indicatorParent);
+            newIndicator.LateInit(ReleaseIndicator, ClearIndicator);
+            return newIndicator;
         }, indicator => {   // Get
             indicator.gameObject.SetActive(true);
         }, indicator => {   // Release
@@ -49,6 +56,8 @@ public class UIDamageIndicatorManager : MonoBehaviour
 
     public void PlayerHit(Transform target)
     {
+        if (onScreenCheck(target.gameObject, showOnScreenHit))
+            return;
         Indicator i;
         if (indicators.ContainsKey(target))
         {
@@ -57,17 +66,44 @@ public class UIDamageIndicatorManager : MonoBehaviour
             if (i.IsPointing())
                 i.ResetTimer();
             else
-                i.RegisterHit(player, target, ReleaseIndicator, ClearIndicator);
+                i.RegisterHit(player, target, hitDuration, hitColor);
 
             return;
         }
         i = indicatorPool.Get();
-        i.RegisterHit(player, target, ReleaseIndicator, ClearIndicator);
+        i.RegisterHit(player, target, hitDuration, hitColor);
+        indicators.TryAdd(target, i);
+    }
+
+    public void PlayerWarn(Transform target, float duration)
+    {
+        if (onScreenCheck(target.gameObject, showOnScreenHit))
+            return;
+        Indicator i;
+        if (indicators.ContainsKey(target))
+        {
+            i = indicators[target];
+            indicatorPool.Get(out i);
+            if (i.IsPointing())
+                i.ResetTimer();
+            else
+                i.RegisterHit(player, target, duration, warningColor);
+
+            return;
+        }
+        i = indicatorPool.Get();
+        i.RegisterHit(player, target, duration, warningColor);
         indicators.TryAdd(target, i);
     }
 
     public void ClearIndicator(Transform target)
     {
-        indicators.Clear();
+        indicators.Remove(target);
+    }
+
+    bool onScreenCheck(GameObject target, bool screenCondtion)
+    {
+        bool visible = (target.GetComponentInChildren<Renderer>().isVisible);
+        return (!visible || !screenCondtion) && visible;
     }
 }

@@ -16,6 +16,13 @@ public class UIAmmoManager : MonoBehaviour
 
     [Foldout("UI Bullet Sprites")] public Sprite loadedBullet;
     [Foldout("UI Bullet Sprites")] public Sprite firedBullet;
+    [Foldout("UI Bullet Sprites")] public Sprite prideIcon;
+    [Foldout("UI Bullet Sprites")] public Sprite greedIcon;
+    [Foldout("UI Bullet Sprites")] public Sprite wrathIcon;
+    [Foldout("UI Bullet Sprites")] public Sprite envyIcon;
+    [Foldout("UI Bullet Sprites")] public Sprite lustIcon;
+    [Foldout("UI Bullet Sprites")] public Sprite gluttonyIcon;
+    [Foldout("UI Bullet Sprites")] public Sprite slothIcon;
 
     [Foldout("BulletColors")] public Color normalBulletColor;
     [Foldout("BulletColors")] public Color prideBulletColor;
@@ -42,13 +49,13 @@ public class UIAmmoManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ShowAmmoPanel()
@@ -74,5 +81,11 @@ public class UIAmmoManager : MonoBehaviour
     public void Reload()
     {
         coordinator.Reload();
+    }
+
+    public void RequestBulletUpdate(List<Sin> newLoadout)
+    {
+        print("not implemented yet");
+        return;
     }
 }

@@ -154,4 +154,9 @@ public class UIAmmoCoordinator : MonoBehaviour
             bullet.sprite = UICMan.loadedBullet;
         }
     }
+
+    public void UpdateBulletDisplay(List<Sin> newLoadout)
+    {
+        return;
+    }
 }
