@@ -160,6 +160,13 @@ MonoBehaviour:
   showHideSpeed: 400
   loadedBullet: {fileID: 21300000, guid: 0489dabfde5b4a44ba4ba0d508aa074e, type: 3}
   firedBullet: {fileID: 21300000, guid: f87621f2144d08a48a8bfebec7ecbba5, type: 3}
+  prideIcon: {fileID: 0}
+  greedIcon: {fileID: 0}
+  wrathIcon: {fileID: 0}
+  envyIcon: {fileID: 0}
+  lustIcon: {fileID: 0}
+  gluttonyIcon: {fileID: 0}
+  slothIcon: {fileID: 0}
   normalBulletColor: {r: 0, g: 0, b: 0, a: 0}
   prideBulletColor: {r: 0, g: 0, b: 0, a: 0}
   greedBulletColor: {r: 0, g: 0, b: 0, a: 0}
@@ -543,9 +550,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorParent: {fileID: 1046968329}
-  duration: 3
+  hitDuration: 3
+  showOnScreenHit: 0
+  showOnScreenWarning: 0
   IndicatorPrefab: {fileID: 6986049061313531779, guid: 496b36505921f7340aedd843ec7a3e5c,
     type: 3}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  warningColor: {r: 0.522732, g: 1, b: 0, a: 1}
 --- !u!1 &949133270
 GameObject:
   m_ObjectHideFlags: 0

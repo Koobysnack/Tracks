@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Indicator : MonoBehaviour
 {
@@ -17,22 +18,29 @@ public class Indicator : MonoBehaviour
     Vector3 targetLocation;
     Action<Indicator> endIndication;
     Action<Transform> removeFromDict;
+    Image indicatorSprite;
 
     void Awake()
     {
         uiDIMan = UIDamageIndicatorManager.instance;
+        indicatorSprite = GetComponent<Image>();
         indicatorTransform = GetComponent<RectTransform>();
         indicatorCanvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void RegisterHit(Transform p, Transform t, Action<Indicator> release, Action<Transform> dictRemove)
+    public void LateInit(Action<Indicator> release, Action<Transform> dictRemove)
+    {
+        endIndication = release;
+        removeFromDict = dictRemove;
+    }
+
+    public void RegisterHit(Transform p, Transform t, float d, Color c)
     {
         player = p;
         target = t;
-        endIndication = release;
-        removeFromDict = dictRemove;
-        maxTime = uiDIMan.duration;
+        maxTime = d;
         timer = maxTime;
+        indicatorSprite.color = c;
         StartCoroutine(PointToTarget());
         StartCoroutine(StartTimer());
     }

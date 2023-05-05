@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum BulletType { NORMAL, PRIDE, GREED, WRATH, ENVY, LUST, GLUTTONY, SLOTH }
+public enum Sin { NORMAL, PRIDE, GREED, WRATH, ENVY, LUST, GLUTTONY, SLOTH }
 public class Revolver : MonoBehaviour
 {
     [System.Serializable]
     public class Bullet
     {
         [HideInInspector] public string name;
-        public BulletType type;
+        public Sin type;
         public bool loaded;
     }
     [Min(0.01f), SerializeField] float normalFireRate;
