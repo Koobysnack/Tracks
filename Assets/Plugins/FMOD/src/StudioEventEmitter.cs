@@ -290,6 +290,7 @@ namespace FMODUnity
 
             // START EDITS FOR SYNCING TO MUSIC
             instance.start();
+            //MusicManager.instance.TriggerSFX(instance);
             // END EDITS FOR SYNCING TO MUSIC
 
             hasTriggered = true;

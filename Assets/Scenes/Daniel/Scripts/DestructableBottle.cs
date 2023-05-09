@@ -28,6 +28,7 @@ public class DestructableBottle : DestructableController
     }
     protected override void Die()
     {
+        GlassShatterSFX();
         Destroy(gameObject);
         DeathRattle();
     }
@@ -37,5 +38,16 @@ public class DestructableBottle : DestructableController
         currentHealth -= damage;
         if (currentHealth <= 0)
             Die();
+    }
+
+    private void GlassShatterSFX()
+    {
+        string eventName = "event:/SFX/Items/Small Glass Break";
+
+        var sound = FMODUnity.RuntimeManager.CreateInstance(eventName);
+        sound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+        MusicManager.instance.TriggerSFX(sound, 8);
+        //sound.start();
+        //sound.release();
     }
 }

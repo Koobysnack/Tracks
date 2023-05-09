@@ -50,6 +50,7 @@ public class MusicManager : MonoBehaviour
     {
         public FMODUnity.StudioEventEmitter emitter = null;
         public FMOD.Studio.EventInstance instance;
+        public int beatType = -1;
     }
 
     private List<QueueItem> sfxQueue;
@@ -73,6 +74,16 @@ public class MusicManager : MonoBehaviour
         sfxQueue = new List<QueueItem>();
     }
 
+    private bool IsWholeNumber(float x)
+    {
+        return (x % 1) == 0;
+    }
+    private bool IsValidBeatType(int beatType, FMOD.Studio.TIMELINE_BEAT_PROPERTIES beat)
+    {
+        float ratio = (float)(beatType * (beat.beat - 1)) / (float)beat.timesignaturelower;
+        return IsWholeNumber(ratio);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -83,17 +94,28 @@ public class MusicManager : MonoBehaviour
             if (playMetronome && metronomeSound != null)
                 metronomeSound.Play();
 
+            // might be better to use linked list or smarter removing method (creating new list at end) if this becomes performance issue
             if (sfxQueue.Count > 0)
             {
-                foreach (var item in sfxQueue)
+                for (int i = sfxQueue.Count - 1; i >= 0; --i)
                 {
+                    var item = sfxQueue[i];
+
+                    if (item.beatType != -1 && !IsValidBeatType(item.beatType, timelineInfo.beat))
+                        continue;
+
                     if (item.emitter != null)
                         item.emitter.Play();
                     else
+                    {
                         item.instance.start();
+                        item.instance.release();
+                    }
+
+                    sfxQueue.RemoveAt(i);
                 }
 
-                sfxQueue.Clear();
+                //sfxQueue.Clear();
             }
         }
     }
@@ -139,23 +161,25 @@ public class MusicManager : MonoBehaviour
         return FMOD.RESULT.OK;
     }
 
-    public void TriggerSFX(FMODUnity.StudioEventEmitter sfx)
+    public void TriggerSFX(FMODUnity.StudioEventEmitter sfx, int beatType = -1)
     {
         if (currentlySyncedToBeat)
         {
             QueueItem queueItem = new QueueItem();
             queueItem.emitter = sfx;
+            queueItem.beatType = beatType;
             sfxQueue.Add(queueItem);
         }
         else
             sfx.Play();
     }
-    public void TriggerSFX(FMOD.Studio.EventInstance sfx)
+    public void TriggerSFX(FMOD.Studio.EventInstance sfx, int beatType = -1)
     {
         if (currentlySyncedToBeat)
         {
             QueueItem queueItem = new QueueItem();
             queueItem.instance = sfx;
+            queueItem.beatType = beatType;
             sfxQueue.Add(queueItem);
         }
         else
