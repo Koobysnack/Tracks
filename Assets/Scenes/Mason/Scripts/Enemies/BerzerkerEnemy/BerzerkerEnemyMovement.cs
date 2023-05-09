@@ -14,6 +14,11 @@ public class BerzerkerEnemyMovement : EnemyMovement
         throw new System.NotImplementedException();
     }
 
+    public override bool GoodPosition(Vector3 pos, Transform player)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos) {
         agent.SetDestination(movePos);
     }

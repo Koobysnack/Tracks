@@ -16,6 +16,11 @@ public class BasicEnemyMovement : EnemyMovement
         throw new System.NotImplementedException();
     }
 
+    public override bool GoodPosition(Vector3 pos, Transform player)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos) {
         Transform player = GameManager.instance.player;
         LayerMask playerLayer = GameManager.instance.playerLayer;
