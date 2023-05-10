@@ -22,20 +22,19 @@ public class MidEnemyController : EnemyController
 
         // move and attack if alert
         if(alert.status == EnemyAlert.AlertStatus.ALERT) {
+            // attack if in good position and not attacking
             if(movement.GoodPosition(agent.destination, player)) {
-                print("can attack");
                 if(agent.remainingDistance < 0.1f && !attacking)
                     InitiateAttack();
             }
             else {
-                print("finding new spot");
-                // TODO: check if player is within maxComfortRange
-                // if so, use transform.position as positionBase
-                // otherwise, use agent.destination
-                Vector3 movePos = movement.GetAttackPosition();
+                // find new position
+                bool inRange = movement.InComfortRange(agent.destination);
+                Vector3 movePos = movement.GetAttackPosition(inRange ? transform.position : agent.destination);
                 movement.MoveToAttackPosition(agent, movePos);
             }
 
+            // rotate towards player when attacking
             if(attacking)
                 RotateTowardsPlayer();
             else
@@ -48,11 +47,15 @@ public class MidEnemyController : EnemyController
     private void RotateTowardsPlayer() {
         agent.updateRotation = false;
         transform.LookAt(player.position, transform.up);
+        // Vector3 playerDir = player.position - transform.position;
+        // if(Vector3.Angle(playerDir, transform.forward) > 5)
+        //     transform.Rotate(0, 10 * Time.deltaTime, 0);
     }
     #endregion
 
     #region Protected Functions
     protected override void InitiateAttack() {
+        // attack if can see player
         attacking = true;
         bool canSeePlayer = Physics.Raycast(transform.position, player.position - transform.position, Mathf.Infinity, playerLayer);
         if(canSeePlayer)
@@ -82,7 +85,7 @@ public class MidEnemyController : EnemyController
 
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
-        print("Basic Enemy Damaged");
+        print("Mid Enemy Damaged");
         currentHealth -= damage;
         if(currentHealth <= 0)
             Die();
