@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickUp : PickUp { 
+public class MeleeAttack : MonoBehaviour
+{
     // Start is called before the first frame update
-
-    public int HealthAmount;
-
     void Start()
     {
         
@@ -17,13 +15,4 @@ public class HealthPickUp : PickUp {
     {
         
     }
-
-    public override void Interaction()
-    {
-        print("getHealth");
-        PlayerRef.Heal(HealthAmount);
-
-    }
-
 }
-

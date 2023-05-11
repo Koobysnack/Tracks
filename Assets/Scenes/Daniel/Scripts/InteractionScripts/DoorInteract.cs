@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorInteract : MonoBehaviour
+public class DoorInteract : MonoBehaviour, IInteractable
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,10 @@ public class DoorInteract : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Interaction()
+    {
+
     }
 }

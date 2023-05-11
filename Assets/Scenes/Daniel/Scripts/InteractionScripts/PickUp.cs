@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickUp : PickUp { 
+public class PickUp : MonoBehaviour, IInteractable
+{
     // Start is called before the first frame update
-
-    public int HealthAmount;
-
+    [SerializeField]
+    protected PlayerController PlayerRef;
+    
     void Start()
     {
         
@@ -18,12 +19,8 @@ public class HealthPickUp : PickUp {
         
     }
 
-    public override void Interaction()
+    public virtual void Interaction()
     {
-        print("getHealth");
-        PlayerRef.Heal(HealthAmount);
-
+        print("funny");
     }
-
 }
-

@@ -6,9 +6,13 @@ using UnityEngine.InputSystem;
 public class Interact: MonoBehaviour
 {
     // Start is called before the first frame update
+    
     private GameObject subject;
     private PlayerInputActions pInput;
     private LayerMask interLayer;
+
+    [SerializeField]
+    private PlayerController PlayerRef;
 
     void Awake()
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoPickUp : MonoBehaviour, IInteractable
+public class AmmoPickUp : PickUp
 {
     // Start is called before the first frame update
 
@@ -23,10 +23,12 @@ public class AmmoPickUp : MonoBehaviour, IInteractable
         
     }
 
-   public void Interaction()
+   public override void Interaction()
     {
         print("getAmmo");
     }
+
+
 
     private int RandAmmoAmount()
     {

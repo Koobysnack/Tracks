@@ -9,7 +9,7 @@ public class HitScanRaycast : MonoBehaviour
 
     //consturctor
     [SerializeField]
-    private EntityController EntityRef;
+    protected EntityController EntityRef;
 
     #region BaseRays
     public void RegRayCaster()
@@ -58,6 +58,7 @@ public class HitScanRaycast : MonoBehaviour
 
                 }
             }
+
             if (backHit.collider==null)
             {
                
@@ -87,23 +88,6 @@ public class HitScanRaycast : MonoBehaviour
     }
     #endregion
 
-    #region EnemyAttacks
-    public void ShotGunBlast()
-    {
-     //  for( int x = 0; x<EntityRef.pellets;x++)
-    //    {
-           
-     //   }
-
-    }
-
-   // public IEnumerator 
-
-    public void SniperShot()
-    {
-
-    }
-
-    #endregion
+  
 
 }
