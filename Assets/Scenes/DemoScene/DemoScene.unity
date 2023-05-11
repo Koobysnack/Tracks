@@ -1201,6 +1201,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 8189559792197788243, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: playerDamagedSoundEvent.Path
+      value: event:/SFX/Player/PlayerHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189559792197788243, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: playerDamagedSoundEvent.Guid.Data1
+      value: 1754929933
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189559792197788243, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: playerDamagedSoundEvent.Guid.Data2
+      value: 1221620855
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189559792197788243, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: playerDamagedSoundEvent.Guid.Data3
+      value: -831554114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189559792197788243, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: playerDamagedSoundEvent.Guid.Data4
+      value: -718972745
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 975f29b39c2189042a604aef5849856e, type: 3}
 --- !u!1001 &2132532595

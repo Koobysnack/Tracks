@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class PlayerController : EntityController
 {
+    public FMODUnity.EventReference playerDamagedSoundEvent;
     private void Awake() {
         currentHealth = maxHealth;
     }
@@ -19,6 +21,7 @@ public class PlayerController : EntityController
 
     public override void Damage(float dmgAmt, Transform opponent) {
         currentHealth -= dmgAmt;
+        FMODUnity.RuntimeManager.PlayOneShot(playerDamagedSoundEvent, transform.position);
         if(currentHealth <= 0)
             Die();
         print("Player Damaged. New Health: " + currentHealth);
