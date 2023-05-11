@@ -3401,6 +3401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage: 20
+  maxAmmoCount: 100
+  rad: 0
 --- !u!114 &8189559792197788252
 MonoBehaviour:
   m_ObjectHideFlags: 0

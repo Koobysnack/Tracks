@@ -917,6 +917,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage: 0
+  maxAmmoCount: 0
+  rad: 0
+  angle: 0
 --- !u!1 &765392694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2406,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MidEnemyAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 1097396327129438348, guid: 75540cccde422e44a95229ee84593750,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1097396327129438350, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
       propertyPath: m_RootOrder
@@ -2546,6 +2554,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BerzerkerEnemyAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 5949571263816930720, guid: 9526c5585fc1e2b429f464b08fff6ecb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5949571263816930722, guid: 9526c5585fc1e2b429f464b08fff6ecb,
         type: 3}
       propertyPath: m_RootOrder
@@ -2669,6 +2682,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189559792197788243, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: rad
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189559792197788243, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: angle
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 975f29b39c2189042a604aef5849856e, type: 3}

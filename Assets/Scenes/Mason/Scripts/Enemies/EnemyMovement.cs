@@ -10,7 +10,7 @@ public abstract class EnemyMovement : MonoBehaviour
     [SerializeField] protected float idealRange;
     [SerializeField] protected float rangeVariance;
 
-    public abstract Vector3 GetAttackPosition(Vector3 posBase = default(Vector3));
+    public abstract Vector3 GetAttackPosition(Vector3 origin = default(Vector3));
     public abstract Vector3 GetCoverPosition();
     public abstract void MoveToAttackPosition(NavMeshAgent agent, Vector3 movePos);
     public abstract void MovetoCoverPosition(NavMeshAgent agent, Vector3 movePos);

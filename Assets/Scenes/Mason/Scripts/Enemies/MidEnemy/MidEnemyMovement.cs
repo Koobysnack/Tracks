@@ -7,6 +7,13 @@ public class MidEnemyMovement : EnemyMovement
 {
     [Header("Mid Enemy Movement")]
     [SerializeField] private int numSamples;
+    private Transform player;
+
+    private void Update() {
+        if(player == null){
+            player = GameManager.instance.player;
+        }
+    }
 
     private float GetScore(Vector3 pos) {
         float score = 0;
@@ -43,19 +50,37 @@ public class MidEnemyMovement : EnemyMovement
         return maxI;
     }
 
-    private Vector3 FindRandomPos(Vector3 direction, float angle) {
-        Vector3 arcLeft;
-        return Vector3.zero;
+    private Vector3 GetEdgeVector(Vector3 origin, float angle) {
+        Vector3 direction = (player.position - origin) * walkRadius;
+        float x = (direction.x * Mathf.Cos(angle)) - (direction.z * Mathf.Sin(angle));
+        float z = (direction.x * Mathf.Sin(angle)) + (direction.z * Mathf.Cos(angle));
+        return new Vector3(x, origin.y, z);
     }
 
-    public override Vector3 GetAttackPosition(Vector3 posBase) {
+    private Vector3 FindRandomPos(Vector3 origin, float angle) {
+        Vector3 arcLeft = GetEdgeVector(origin, -angle);
+        Vector3 arcRight = GetEdgeVector(origin, angle);
+        // pick random x between sqrt(3)/2 * walkRad and -sqrt(3)/2 * walkRad
+        // i.e. random point between arcLeft.x and arcRight.x
+        float x = Random.Range(arcLeft.x, arcRight.x);
+
+        // pick random z between maxZ and minZ
+        // minZ = (sin(theta)/cos(theta))*x
+        // maxZ = sqrt(r^2-x^2)
+        float minZ = (Mathf.Sin(angle * Mathf.Deg2Rad) / Mathf.Cos(angle * Mathf.Deg2Rad)) * x;
+        float maxZ = Mathf.Sqrt((walkRadius * walkRadius) - (x * x));
+        float z = Random.Range(minZ, maxZ);
+        return new Vector3(x, origin.y, z);
+    }
+
+    public override Vector3 GetAttackPosition(Vector3 origin) {
         float[] scores = new float[numSamples];
         Vector3[] positions = new Vector3[numSamples];
 
         // sample positions, score them, and store in arrays
         for(int i = 0; i < numSamples; ++i) {
             NavMeshHit hit;
-            Vector3 pos = (Random.insideUnitSphere * walkRadius) + posBase; // maybe split unit sphere to be half that faces player
+            Vector3 pos = (Random.insideUnitSphere * walkRadius) + origin; // maybe split unit sphere to be half that faces player
             NavMesh.SamplePosition(pos, out hit, walkRadius, 1);
             scores[i] = GetScore(hit.position);
             positions[i] = hit.position;
@@ -88,7 +113,6 @@ public class MidEnemyMovement : EnemyMovement
 
     public override bool InComfortRange(Vector3 pos) {
         // return if player is within ideal range +/- range variance
-        Transform player = GameManager.instance.player;
         float playerDist = Vector3.Distance(player.position, pos);
         return (idealRange - rangeVariance) <= playerDist && playerDist <= (idealRange + rangeVariance);
     }

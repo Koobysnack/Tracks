@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class BasicEnemyMovement : EnemyMovement
 {
-    public override Vector3 GetAttackPosition(Vector3 posBase=default(Vector3)) {
+    public override Vector3 GetAttackPosition(Vector3 origin) {
         Vector3 point = (Random.insideUnitSphere * walkRadius) + transform.position;
         NavMeshHit hit;
         NavMesh.SamplePosition(point, out hit, walkRadius, 1);

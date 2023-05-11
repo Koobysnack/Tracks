@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class BerzerkerEnemyMovement : EnemyMovement
 {
-    public override Vector3 GetAttackPosition(Vector3 posBase=default(Vector3)) {
+    public override Vector3 GetAttackPosition(Vector3 origin) {
         return GameManager.instance.player.position;
     }
 
