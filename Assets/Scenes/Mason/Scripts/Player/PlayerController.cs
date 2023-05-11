@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : EntityController
 {
+    [SerializeField] private int maxAmmoCount;
+    private int currentAmmoCount;
+
     private void Awake() {
         currentHealth = maxHealth;
     }
@@ -28,5 +31,9 @@ public class PlayerController : EntityController
 
     public void Heal(float healAmt) {
         currentHealth = Mathf.Clamp(currentHealth + healAmt, 0, maxHealth);
+    }
+
+    public void AddAmmo(int amt) {
+        currentAmmoCount = Mathf.Clamp(currentAmmoCount + amt, 0, maxAmmoCount);
     }
 }

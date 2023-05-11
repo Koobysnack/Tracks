@@ -43,6 +43,11 @@ public class MidEnemyMovement : EnemyMovement
         return maxI;
     }
 
+    private Vector3 FindRandomPos(Vector3 direction, float angle) {
+        Vector3 arcLeft;
+        return Vector3.zero;
+    }
+
     public override Vector3 GetAttackPosition(Vector3 posBase) {
         float[] scores = new float[numSamples];
         Vector3[] positions = new Vector3[numSamples];
