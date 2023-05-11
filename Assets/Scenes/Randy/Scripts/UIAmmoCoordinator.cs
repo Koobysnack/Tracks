@@ -7,7 +7,7 @@ using NaughtyAttributes;
 public class UIAmmoCoordinator : MonoBehaviour
 {
     [SerializeField] private UIAmmoManager UIAmmoMan;
-    private List<Image> bulletDisplay = new List<Image>();
+    List<Image> bulletDisplay = new List<Image>();
     [SerializeField] private GameObject uiPivot;
     [SerializeField] private Image imagePrefab;
 
@@ -21,6 +21,7 @@ public class UIAmmoCoordinator : MonoBehaviour
     bool hideTimerStarted;
     float timeUntilHidden;
     RectTransform uiPivotRT;
+    [SerializeField] Canvas canvas;
 
     private void Awake()
     {
@@ -43,7 +44,7 @@ public class UIAmmoCoordinator : MonoBehaviour
         if(uiPivotRT.position.y != (showAllBullets ? UIAmmoMan.radius + 10 : 0))
         {
             Vector2 currentPos = uiPivotRT.position;
-            Vector2 targetPos = new Vector2(uiPivotRT.position.x, showAllBullets ? UIAmmoMan.radius + 10 : 0);
+            Vector2 targetPos = new Vector2(uiPivotRT.position.x, showAllBullets ? UIAmmoMan.showPivotHeight * canvas.scaleFactor : 0);
             float step = UIAmmoMan.showHideSpeed * Time.deltaTime;
             uiPivotRT.position = Vector2.MoveTowards(currentPos, targetPos, step);
         }
