@@ -6,8 +6,13 @@ public class EnvySin : AbsSinClass
 {
 
     [SerializeField]
-    private EntityController EntityRef;
+    //private EntityController EntityRef;
+    private LayerMask lMask;
 
+    void OnAwake()
+    {
+        lMask = LayerMask.GetMask("Enemy,Ground");
+    }
     public override void SinFire(Transform shotOrigin )
     {
         RaycastHit hit;
@@ -41,30 +46,29 @@ public class EnvySin : AbsSinClass
         RaycastHit nextObj;
 
 
-        //get same object but back face
+        
         Ray backRay = new Ray(obj.point + fireAngle * 6, -1 * fireAngle * 6);
-        if (obj.transform.gameObject.tag == "Wall"  )
-        {
-           
-            Debug.Log("yeouch");
-        }
-        else {
+     
             obj.collider.Raycast(backRay, out backHit, 100);
+       // Debug.Log(backHit.transform.gameObject.name);
+        if (backHit.collider!=null && backHit.transform.parent)
+        {
+            EntityController ShotEntity;
+            ShotEntity = backHit.transform.parent.GetComponent<EntityController>();
+            if (ShotEntity)
+            {
+                ShotEntity.Damage(10, shotOrigin);
 
-            //then get next  object, 
+            }
 
-            if (Physics.Raycast(backHit.point, fireAngle, out nextObj, 1000)) {
-                Debug.DrawRay(backHit.point, fireAngle*2, Color.green,10000);
+        }
+        //then get next  object, 
+        Debug.Log("stinky");
+            if (Physics.Raycast(backHit.point, fireAngle, out nextObj, 1000,lMask)) {
+                Debug.DrawRay(backHit.point, fireAngle*6, Color.green,10000);
+
+            EnvyPierce(nextObj, fireAngle, shotOrigin);
                 
-                EntityController ShotEntity;
-                ShotEntity = backHit.transform.gameObject.GetComponent<EntityController>();
-                if (ShotEntity )
-                {
-                    ShotEntity.Damage(EntityRef.damage, shotOrigin);
-                   
-                }
-                EnvyPierce(nextObj, fireAngle,shotOrigin);
-
             }
             else
             {
@@ -73,7 +77,7 @@ public class EnvySin : AbsSinClass
 
             //pass obj into envy again
 
-        }
+        
         
     } 
 }

@@ -87,7 +87,7 @@ public class Revolver : MonoBehaviour
             return;
         }
         GunfireSFX();
-        cylinder[currentBullet].type.SinFire(GameManager.instance.player);
+        cylinder[currentBullet].type.SinFire(transform);
         cylinder[currentBullet].loaded = false;
         if (ammoMan != null)
         {
