@@ -8,6 +8,6 @@ public enum Sin { NORMAL, PRIDE, GREED, WRATH, ENVY, LUST, GLUTTONY, SLOTH }
 public class Bullet
 {
     [HideInInspector] public string name;
-    public Sin type;
+    public AbsSinClass type;
     public bool loaded;
 }

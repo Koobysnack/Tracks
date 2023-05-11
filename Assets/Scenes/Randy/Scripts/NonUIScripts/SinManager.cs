@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SinManager : MonoBehaviour
 {
+    public static SinManager instance;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +16,7 @@ public class SinManager : MonoBehaviour
     {
         
     }
+
+    /*
+     * */
 }

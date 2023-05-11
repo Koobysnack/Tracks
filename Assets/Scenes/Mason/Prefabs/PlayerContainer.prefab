@@ -3201,26 +3201,26 @@ MonoBehaviour:
   normalFireRate: 5
   currentBullet: 0
   cylinder:
-  - name: 'Bullet 0: NORMAL'
-    type: 0
+  - name: 'Bullet 0: New No Sin (NoSin)'
+    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 1: NORMAL'
-    type: 0
+  - name: 'Bullet 1: New No Sin (NoSin)'
+    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 2: NORMAL'
-    type: 0
+  - name: 'Bullet 2: New No Sin (NoSin)'
+    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 3: NORMAL'
-    type: 0
+  - name: 'Bullet 3: New No Sin (NoSin)'
+    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 4: NORMAL'
-    type: 0
+  - name: 'Bullet 4: New No Sin (NoSin)'
+    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 5: NORMAL'
-    type: 0
+  - name: 'Bullet 5: New No Sin (NoSin)'
+    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 6: NORMAL'
-    type: 0
+  - name: 'Bullet 6: New No Sin (NoSin)'
+    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
 --- !u!1 &8189559791744703993
 GameObject:

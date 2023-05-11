@@ -23,6 +23,7 @@ public class Revolver : MonoBehaviour
         hitRC = GetComponent<HitScanRaycast>();
         pInput = new PlayerInputActions();
         pInput.Gun.Fire.performed += Shoot;
+        pInput.Gun.AltFire.performed += AltShoot;
         pInput.Gun.RotateCylinder.performed += SelectBullet;
         pInput.Gun.Reload.performed += Reload;
     }
@@ -74,6 +75,28 @@ public class Revolver : MonoBehaviour
         }
         CycleBullet();
     }
+
+    void AltShoot(InputAction.CallbackContext context)
+    {
+        if (!ready)
+            return;
+
+        if (cylinder[currentBullet].loaded == false)
+        {
+            Reload();
+            return;
+        }
+        GunfireSFX();
+        cylinder[currentBullet].type.SinFire(GameManager.instance.player);
+        cylinder[currentBullet].loaded = false;
+        if (ammoMan != null)
+        {
+            ammoMan.HideAmmoPanel();
+            ammoMan.FireBullet(currentBullet);
+        }
+        CycleBullet();
+    }
+
 
     void CycleBullet()
     {
