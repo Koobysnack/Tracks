@@ -83,9 +83,9 @@ public class UIAmmoManager : MonoBehaviour
         coordinator.Reload();
     }
 
-    public void RequestBulletUpdate(List<Sin> newLoadout)
+    public void RequestBulletUpdate(List<Bullet> newLoadout)
     {
-        print("not implemented yet");
+        coordinator.UpdateBulletDisplay(newLoadout);
         return;
     }
 }

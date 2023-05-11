@@ -6,7 +6,7 @@ using NaughtyAttributes;
 
 public class UIAmmoCoordinator : MonoBehaviour
 {
-    [SerializeField] private UIAmmoManager UICMan;
+    [SerializeField] private UIAmmoManager UIAmmoMan;
     private List<Image> bulletDisplay = new List<Image>();
     [SerializeField] private GameObject uiPivot;
     [SerializeField] private Image imagePrefab;
@@ -33,18 +33,18 @@ public class UIAmmoCoordinator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UICMan = UIAmmoManager.instance;
+        UIAmmoMan = UIAmmoManager.instance;
         InstantiateBulletDisplay();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(uiPivotRT.position.y != (showAllBullets ? UICMan.radius + 10 : 0))
+        if(uiPivotRT.position.y != (showAllBullets ? UIAmmoMan.radius + 10 : 0))
         {
             Vector2 currentPos = uiPivotRT.position;
-            Vector2 targetPos = new Vector2(uiPivotRT.position.x, showAllBullets ? UICMan.radius + 10 : 0);
-            float step = UICMan.showHideSpeed * Time.deltaTime;
+            Vector2 targetPos = new Vector2(uiPivotRT.position.x, showAllBullets ? UIAmmoMan.radius + 10 : 0);
+            float step = UIAmmoMan.showHideSpeed * Time.deltaTime;
             uiPivotRT.position = Vector2.MoveTowards(currentPos, targetPos, step);
         }
     }
@@ -58,7 +58,7 @@ public class UIAmmoCoordinator : MonoBehaviour
         for (int i = 0; i < 7; i++)
         {
             Image newBullet = Instantiate(imagePrefab, uiPivot.transform, false);
-            newBullet.rectTransform.anchoredPosition = new Vector2(UICMan.radius * Mathf.Sin(360f / 7f * i * Mathf.Deg2Rad), UICMan.radius * Mathf.Cos(360f / 7f * i * Mathf.Deg2Rad));
+            newBullet.rectTransform.anchoredPosition = new Vector2(UIAmmoMan.radius * Mathf.Sin(360f / 7f * i * Mathf.Deg2Rad), UIAmmoMan.radius * Mathf.Cos(360f / 7f * i * Mathf.Deg2Rad));
             bulletDisplay.Add(newBullet);
         }
         uiPivot.GetComponentInChildren<Image>().color = Color.blue;
@@ -78,7 +78,7 @@ public class UIAmmoCoordinator : MonoBehaviour
         for (int i = 0; i < 7; i++)
         {
             Image newBullet = Instantiate(imagePrefab, uiPivot.transform, false);
-            newBullet.rectTransform.anchoredPosition = new Vector2(UICMan.radius * Mathf.Sin(360f / 7f * i * Mathf.Deg2Rad), UICMan.radius * Mathf.Cos(360f / 7f * i * Mathf.Deg2Rad));
+            newBullet.rectTransform.anchoredPosition = new Vector2(UIAmmoMan.radius * Mathf.Sin(360f / 7f * i * Mathf.Deg2Rad), UIAmmoMan.radius * Mathf.Cos(360f / 7f * i * Mathf.Deg2Rad));
         }
         uiPivot.GetComponentInChildren<Image>().color = Color.blue;
     }
@@ -99,11 +99,11 @@ public class UIAmmoCoordinator : MonoBehaviour
         Quaternion currentAngle = uiPivot.transform.rotation;
         float time = 0;
         int i = 0;
-        while (time < UICMan.rotateDuration)
+        while (time < UIAmmoMan.rotateDuration)
         {
-            uiPivot.transform.rotation = Quaternion.Lerp(currentAngle, angles[i], (time - i * UICMan.rotateDuration / angles.Count) / (UICMan.rotateDuration * (i + 1) / angles.Count) );
+            uiPivot.transform.rotation = Quaternion.Lerp(currentAngle, angles[i], (time - i * UIAmmoMan.rotateDuration / angles.Count) / (UIAmmoMan.rotateDuration * (i + 1) / angles.Count) );
             time += Time.deltaTime;
-            if((time - i * UICMan.rotateDuration / angles.Count) >= UICMan.rotateDuration * (i + 1) / angles.Count)
+            if((time - i * UIAmmoMan.rotateDuration / angles.Count) >= UIAmmoMan.rotateDuration * (i + 1) / angles.Count)
                 currentAngle = angles[i++];
             yield return null;
         }
@@ -123,11 +123,11 @@ public class UIAmmoCoordinator : MonoBehaviour
     {
         if (hideTimerStarted)
         {
-            timeUntilHidden = UICMan.hideTimer;
+            timeUntilHidden = UIAmmoMan.hideTimer;
             yield break;
         }
         hideTimerStarted = true;
-        timeUntilHidden = UICMan.hideTimer;
+        timeUntilHidden = UIAmmoMan.hideTimer;
         while (timeUntilHidden >= 0f)
         {
             timeUntilHidden -= Time.deltaTime;
@@ -144,19 +144,55 @@ public class UIAmmoCoordinator : MonoBehaviour
 
     public void FireBullet(int chamber)
     {
-        bulletDisplay[chamber].sprite = UICMan.firedBullet;
+        bulletDisplay[chamber].sprite = UIAmmoMan.firedBullet;
     }
 
     public void Reload()
     {
         foreach(Image bullet in bulletDisplay)
         {
-            bullet.sprite = UICMan.loadedBullet;
+            bullet.sprite = UIAmmoMan.loadedBullet;
         }
     }
 
-    public void UpdateBulletDisplay(List<Sin> newLoadout)
+    public void UpdateBulletDisplay(List<Bullet> newLoadout)
     {
-        return;
+        // To refactor: either move to different controller or somewhere else
+        for(int i = 0; i < newLoadout.Count; i++)
+        {
+            Sin s = SinManager.instance.GetSinEnum(newLoadout[i].type);
+            Color newColor;
+            switch(s)
+            {
+                case Sin.NORMAL:
+                    newColor = UIAmmoMan.normalBulletColor;
+                    break;
+                case Sin.PRIDE:
+                    newColor = UIAmmoMan.prideBulletColor;
+                    break;
+                case Sin.GREED:
+                    newColor = UIAmmoMan.greedBulletColor;
+                    break;
+                case Sin.WRATH:
+                    newColor = UIAmmoMan.wrathBulletColor;
+                    break;
+                case Sin.ENVY:
+                    newColor = UIAmmoMan.envyBulletColor;
+                    break;
+                case Sin.LUST:
+                    newColor = UIAmmoMan.lustBulletColor;
+                    break;
+                case Sin.GLUTTONY:
+                    newColor = UIAmmoMan.gluttonyBulletColor;
+                    break;
+                case Sin.SLOTH:
+                    newColor = UIAmmoMan.slothBulletColor;
+                    break;
+                default:
+                    continue;
+            }
+            bulletDisplay[i].color = newColor;
+            // When UI elements come in, update icon too
+        }
     }
 }

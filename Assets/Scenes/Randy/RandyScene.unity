@@ -123,6 +123,58 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &337838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 337839}
+  - component: {fileID: 337840}
+  m_Layer: 0
+  m_Name: Sin Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &337839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1600385339}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &337840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60db0e3ed4ba1164abda828a00a3fba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noSin: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+  prideSin: {fileID: 0}
+  greedSin: {fileID: 0}
+  wrathSin: {fileID: 0}
+  envySin: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
+  lustSin: {fileID: 0}
+  gluttonySin: {fileID: 0}
+  slothSin: {fileID: 0}
 --- !u!1 &41897817
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,14 +219,14 @@ MonoBehaviour:
   lustIcon: {fileID: 0}
   gluttonyIcon: {fileID: 0}
   slothIcon: {fileID: 0}
-  normalBulletColor: {r: 0, g: 0, b: 0, a: 0}
-  prideBulletColor: {r: 0, g: 0, b: 0, a: 0}
-  greedBulletColor: {r: 0, g: 0, b: 0, a: 0}
-  wrathBulletColor: {r: 0, g: 0, b: 0, a: 0}
-  envyBulletColor: {r: 0, g: 0, b: 0, a: 0}
-  lustBulletColor: {r: 0, g: 0, b: 0, a: 0}
-  gluttonyBulletColor: {r: 0, g: 0, b: 0, a: 0}
-  slothBulletColor: {r: 0, g: 0, b: 0, a: 0}
+  normalBulletColor: {r: 1, g: 1, b: 1, a: 1}
+  prideBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  greedBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  wrathBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  envyBulletColor: {r: 1, g: 0, b: 1, a: 1}
+  lustBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  gluttonyBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  slothBulletColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!4 &41897819
 Transform:
   m_ObjectHideFlags: 0
@@ -725,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e76aed48fdef2408af1b2462d0ac13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICMan: {fileID: 41897818}
+  UIAmmoMan: {fileID: 0}
   uiPivot: {fileID: 1174623884}
   imagePrefab: {fileID: 3371680579372958798, guid: 39b60b01fedda2946b630509a50cf650,
     type: 3}
@@ -848,6 +900,7 @@ Transform:
   m_Children:
   - {fileID: 41897819}
   - {fileID: 947769740}
+  - {fileID: 337839}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
