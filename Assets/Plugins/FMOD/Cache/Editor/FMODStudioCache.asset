@@ -123,10 +123,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638193396507474600
+  lastModified: 638194102469083517
   FileSizes:
   - Name: Desktop
-    Value: 857248
+    Value: 862592
   Exists: 1
 --- !u!114 &-162880241216768530
 MonoBehaviour:
@@ -143,7 +143,7 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638193396506806291
+  lastModified: 638194102468376509
   FileSizes:
   - Name: Desktop
     Value: 6530400
@@ -176,13 +176,41 @@ MonoBehaviour:
   - {fileID: -694252463815777403}
   - {fileID: -3218161429882708194}
   - {fileID: 5129074877652134951}
+  - {fileID: 100379571882603812}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5590034813525607784}
   StringsBanks:
   - {fileID: 2916603309723846210}
-  cacheTime: 638193396507474600
+  cacheTime: 638194102469083517
   cacheVersion: 131603
+--- !u!114 &100379571882603812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Dummy SFX
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Dummy SFX
+  Guid:
+    Data1: 1355649373
+    Data2: 1269794568
+    Data3: 707122827
+    Data4: -657969434
+  Banks:
+  - {fileID: -339362182718478241}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &502969758720190685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,10 +280,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638193396498152661
+  lastModified: 638194102467783444
   FileSizes:
   - Name: Desktop
-    Value: 1344
+    Value: 1384
   Exists: 1
 --- !u!114 &4869754793914326706
 MonoBehaviour:
@@ -303,7 +331,6 @@ MonoBehaviour:
     Data3: -831554114
     Data4: -718972745
   Banks:
-  - {fileID: 5590034813525607784}
   - {fileID: -339362182718478241}
   IsStream: 0
   Is3D: 0
@@ -354,10 +381,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638193396498142654
+  lastModified: 638194102467773429
   FileSizes:
   - Name: Desktop
-    Value: 65344
+    Value: 1340
   Exists: 1
 --- !u!114 &5978898169201344193
 MonoBehaviour:
