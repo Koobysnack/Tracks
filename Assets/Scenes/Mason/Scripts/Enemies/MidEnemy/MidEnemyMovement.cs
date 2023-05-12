@@ -25,7 +25,6 @@ public class MidEnemyMovement : EnemyMovement
         bool canSeePlayer = Physics.Raycast(pos, dir, out hit, Mathf.Infinity);
         canSeePlayer = hit.transform != null ? hit.transform.tag == "Player" : false;
         score += canSeePlayer ? 10 : 0;
-        Debug.DrawRay(pos, dir, Color.red, 0.5f);
 
         // check if near ideal range
         float distFromPlayer = Vector3.Distance(transform.position, player.position);
@@ -50,27 +49,54 @@ public class MidEnemyMovement : EnemyMovement
         return maxI;
     }
 
-    private Vector3 GetEdgeVector(Vector3 origin, float angle) {
-        Vector3 direction = (player.position - origin) * walkRadius;
-        float x = (direction.x * Mathf.Cos(angle)) - (direction.z * Mathf.Sin(angle));
-        float z = (direction.x * Mathf.Sin(angle)) + (direction.z * Mathf.Cos(angle));
+    private Vector3 GetEdgeVector(Vector3 origin, float angle, float dirCoef) {
+        // get direction to player and get extends of edge using rotation of axes
+        Vector3 direction = player.position - origin;
+        float x = ((direction.x * Mathf.Cos(angle * Mathf.Deg2Rad)) - (direction.z * Mathf.Sin(angle * Mathf.Deg2Rad)));
+        float z = ((direction.x * Mathf.Sin(angle * Mathf.Deg2Rad)) + (direction.z * Mathf.Cos(angle * Mathf.Deg2Rad)));
+        Vector3 vec = new Vector3(x * walkRadius * dirCoef, origin.y, z * walkRadius * dirCoef);
+
+        Debug.DrawLine(origin, vec + origin, Color.red, 0.1f);
+        Debug.DrawLine(origin, direction + origin, Color.blue, 0.1f);
         return new Vector3(x, origin.y, z);
     }
 
     private Vector3 FindRandomPos(Vector3 origin, float angle) {
-        Vector3 arcLeft = GetEdgeVector(origin, -angle);
-        Vector3 arcRight = GetEdgeVector(origin, angle);
-        // pick random x between sqrt(3)/2 * walkRad and -sqrt(3)/2 * walkRad
-        // i.e. random point between arcLeft.x and arcRight.x
-        float x = Random.Range(arcLeft.x, arcRight.x);
+        // make right and left edges of arc
+        float dirCoef = Vector3.Distance(origin, player.position) < idealRange - rangeVariance ? -1 : 1;
+        Vector3 arcLeft = GetEdgeVector(origin, -angle, dirCoef);
+        Vector3 arcRight = GetEdgeVector(origin, angle, dirCoef);
+
+        // pick random x between cos(theta) * walkRad and -cos(theta) * walkRad
+        float xRange = Mathf.Cos(angle * Mathf.Deg2Rad) * walkRadius;
+        float randX = Random.Range(-xRange, xRange);
 
         // pick random z between maxZ and minZ
         // minZ = (sin(theta)/cos(theta))*x
         // maxZ = sqrt(r^2-x^2)
-        float minZ = (Mathf.Sin(angle * Mathf.Deg2Rad) / Mathf.Cos(angle * Mathf.Deg2Rad)) * x;
-        float maxZ = Mathf.Sqrt((walkRadius * walkRadius) - (x * x));
-        float z = Random.Range(minZ, maxZ);
-        return new Vector3(x, origin.y, z);
+        float newAngle = randX >= 0 ? angle : -angle;
+        float minZ = (Mathf.Sin((newAngle / 2) * Mathf.Deg2Rad) / Mathf.Cos((newAngle / 2) * Mathf.Deg2Rad)) * randX;
+        float maxZ = Mathf.Sqrt((walkRadius * walkRadius) - (randX * randX));
+        float randZ = Random.Range(minZ, maxZ);
+
+        // set forward angle for rotation of axes
+        float forwardAngle = -transform.eulerAngles.y;
+        if(origin != transform.position) {
+            // get rotation to player from origin if origin is not transform position
+            Vector3 dir = player.position - origin;
+            dir.y = 0;
+            Quaternion rot = Quaternion.LookRotation(dir);
+            forwardAngle = -rot.eulerAngles.y;
+        }
+
+        // rotation of axes for coordinates (randX, randZ)
+        float newX = (randX * Mathf.Cos(forwardAngle * Mathf.Deg2Rad)) - (randZ * Mathf.Sin(forwardAngle * Mathf.Deg2Rad));
+        float newZ = (randX * Mathf.Sin(forwardAngle * Mathf.Deg2Rad)) + (randZ * Mathf.Cos(forwardAngle * Mathf.Deg2Rad));
+        Vector3 vec = new Vector3(newX, origin.y, newZ) + transform.position;
+        //Vector3 vec2 = new Vector3(newX, 100, newZ) + transform.position;
+        //Debug.DrawLine(vec, vec2, Color.red, 1f);
+
+        return vec;
     }
 
     public override Vector3 GetAttackPosition(Vector3 origin) {
@@ -80,7 +106,7 @@ public class MidEnemyMovement : EnemyMovement
         // sample positions, score them, and store in arrays
         for(int i = 0; i < numSamples; ++i) {
             NavMeshHit hit;
-            Vector3 pos = (Random.insideUnitSphere * walkRadius) + origin; // maybe split unit sphere to be half that faces player
+            Vector3 pos = FindRandomPos(origin, 60);
             NavMesh.SamplePosition(pos, out hit, walkRadius, 1);
             scores[i] = GetScore(hit.position);
             positions[i] = hit.position;

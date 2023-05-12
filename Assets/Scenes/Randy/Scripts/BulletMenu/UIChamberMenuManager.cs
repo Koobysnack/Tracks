@@ -41,4 +41,9 @@ public class UIChamberMenuManager : MonoBehaviour
         //chambers[c].type = sin;
         // Change Button Color/Icon
     }
+
+    public Vector3 GetChamberPosition(int c)
+    {
+        return chamberButtons[c].GetComponent<RectTransform>().position;
+    }
 }

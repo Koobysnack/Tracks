@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e76aed48fdef2408af1b2462d0ac13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICMan: {fileID: 225262647}
+  UIAmmoMan: {fileID: 0}
   uiPivot: {fileID: 902126096}
   imagePrefab: {fileID: 7193296615163505071, guid: 8af4642191c16fd488fe77d0a1f7df31,
     type: 3}
@@ -1221,7 +1221,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

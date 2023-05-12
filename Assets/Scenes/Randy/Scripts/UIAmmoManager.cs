@@ -12,6 +12,7 @@ public class UIAmmoManager : MonoBehaviour
     public float radius;
     public float rotateDuration;
     public float hideTimer;
+    public float showPivotHeight;
     public float showHideSpeed;
 
     [Foldout("UI Bullet Sprites")] public Sprite loadedBullet;

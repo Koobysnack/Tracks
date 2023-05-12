@@ -44,7 +44,12 @@ public class UISinSelectManager : MonoBehaviour
 
     public void OpenMenu(int chamber)
     {
-        //rt.position = position;
+        if (isOpen && chamber == selectedChamber)
+        {
+            CloseMenu();
+            return;
+        }
+        rt.position = UIChamberMenuManager.instance.GetChamberPosition(chamber);
         isOpen = true;
         selectedChamber = chamber;
         gameObject.SetActive(true);

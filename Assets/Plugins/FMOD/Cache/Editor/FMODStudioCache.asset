@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9221658621178764691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/PlayerHit
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/PlayerHit
+  Guid:
+    Data1: 1754929933
+    Data2: 1221620855
+    Data3: -831554114
+    Data4: -718972745
+  Banks:
+  - {fileID: -339362182718478241}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-3218161429882708194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,10 +177,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638193205849513732
+  lastModified: 638194173692585019
   FileSizes:
   - Name: Desktop
-    Value: 859648
+    Value: 928832
   Exists: 1
 --- !u!114 &-162880241216768530
 MonoBehaviour:
@@ -170,7 +197,7 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638193205849444010
+  lastModified: 638192428880112222
   FileSizes:
   - Name: Desktop
     Value: 6530400
@@ -203,13 +230,42 @@ MonoBehaviour:
   - {fileID: -694252463815777403}
   - {fileID: -3218161429882708194}
   - {fileID: -926193281343875481}
+  - {fileID: -9221658621178764691}
+  - {fileID: 81554277461604081}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5590034813525607784}
   StringsBanks:
   - {fileID: 2916603309723846210}
-  cacheTime: 638193205849513732
+  cacheTime: 638194173692585019
   cacheVersion: 131603
+--- !u!114 &81554277461604081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Dummy SFX
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Dummy SFX
+  Guid:
+    Data1: 1355649373
+    Data2: 1269794568
+    Data3: 707122827
+    Data4: -657969434
+  Banks:
+  - {fileID: -339362182718478241}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &502969758720190685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,10 +335,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638193205848930888
+  lastModified: 638194173692473299
   FileSizes:
   - Name: Desktop
-    Value: 1346
+    Value: 1438
   Exists: 1
 --- !u!114 &4869754793914326706
 MonoBehaviour:
@@ -353,7 +409,7 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638182254583688838
+  lastModified: 638182127026021482
   FileSizes:
   - Name: Desktop
     Value: 1340

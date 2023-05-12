@@ -918,6 +918,7 @@ MonoBehaviour:
   maxHealth: 100
   damage: 0
   maxAmmoCount: 0
+  showDebug: 0
   rad: 0
   angle: 0
 --- !u!1 &765392694
@@ -2409,7 +2410,7 @@ PrefabInstance:
     - target: {fileID: 1097396327129438348, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1097396327129438350, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
