@@ -9,19 +9,23 @@ public class EnvySin : AbsSinClass
     //private EntityController EntityRef;
     private LayerMask lMask;
 
-    void OnAwake()
+    void OnEnable()
     {
         lMask = LayerMask.GetMask("Enemy,Ground");
     }
+
+    
     public override void SinFire(Transform shotOrigin )
     {
+          
         RaycastHit hit;
-        
-    
+        lMask = LayerMask.GetMask("Enemy,Ground");
+
+
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(shotOrigin.position, shotOrigin.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
-            Debug.DrawRay(shotOrigin.position, shotOrigin.TransformDirection(Vector3.forward) * hit.distance, Color.red,10000);
+            Debug.DrawRay(shotOrigin.position, shotOrigin.TransformDirection(Vector3.forward) * hit.distance, Color.red,1000);
             Debug.Log("Did Hit");
 
             //  RaycastHit pierceHit;
@@ -33,7 +37,7 @@ public class EnvySin : AbsSinClass
         }
         else
         {
-            Debug.DrawRay(shotOrigin.position,shotOrigin.TransformDirection(Vector3.forward) * 1000, Color.white,1000000);
+            Debug.DrawRay(shotOrigin.position,shotOrigin.TransformDirection(Vector3.forward) * 1000, Color.white,1000);
             Debug.Log("Did not Hit");
         }
 
@@ -46,13 +50,25 @@ public class EnvySin : AbsSinClass
         RaycastHit nextObj;
 
 
-        
+        Debug.Log(obj.point);
         Ray backRay = new Ray(obj.point + fireAngle * 6, -1 * fireAngle * 6);
-     
-            obj.collider.Raycast(backRay, out backHit, 100);
-       // Debug.Log(backHit.transform.gameObject.name);
+      
+            obj.collider.Raycast(backRay, out backHit, 1000);
+        Debug.Log("stinky");
+        Debug.Log(backHit.collider);
+        Debug.Log(backHit.point);
+      
+            if (backHit.collider == null ||backHit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+
+                return;
+            }
+        
+        
+
         if (backHit.collider!=null && backHit.transform.parent)
         {
+            Debug.Log(backHit.transform.gameObject.name);
             EntityController ShotEntity;
             ShotEntity = backHit.transform.parent.GetComponent<EntityController>();
             if (ShotEntity)
@@ -60,15 +76,20 @@ public class EnvySin : AbsSinClass
                 ShotEntity.Damage(10, shotOrigin);
 
             }
+          
 
         }
         //then get next  object, 
-        Debug.Log("stinky");
-            if (Physics.Raycast(backHit.point, fireAngle, out nextObj, 1000,lMask)) {
-                Debug.DrawRay(backHit.point, fireAngle*6, Color.green,10000);
+      
+       // Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
+        if (Physics.Raycast(backHit.point, fireAngle, out nextObj, 1000)&& backHit.point != obj.point) {
+          //  Debug.Log("stinky");
+            if (nextObj.collider != null )
+            {
+                Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
 
-            EnvyPierce(nextObj, fireAngle, shotOrigin);
-                
+                EnvyPierce(nextObj, fireAngle, shotOrigin);
+            }
             }
             else
             {
