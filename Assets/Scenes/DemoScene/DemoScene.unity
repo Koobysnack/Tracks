@@ -1141,6 +1141,83 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[0].name
+      value: 'Bullet 0: New Envy Sin (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[0].type
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
+        type: 2}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[1].name
+      value: 'Bullet 1: New Envy Sin (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[1].type
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
+        type: 2}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[2].name
+      value: 'Bullet 2: New Envy Sin (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[2].type
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
+        type: 2}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[3].name
+      value: 'Bullet 3: New Envy Sin (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[3].type
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
+        type: 2}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[4].name
+      value: 'Bullet 4: New Envy Sin (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[4].type
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
+        type: 2}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[5].name
+      value: 'Bullet 5: New Envy Sin (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[5].type
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
+        type: 2}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[6].name
+      value: 'Bullet 6: New Envy Sin (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
+        type: 3}
+      propertyPath: cylinder.Array.data[6].type
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
+        type: 2}
     - target: {fileID: 8189559791789088077, guid: 975f29b39c2189042a604aef5849856e,
         type: 3}
       propertyPath: m_RootOrder
@@ -6388,7 +6465,7 @@ GameObject:
   - component: {fileID: 2777151424131788356}
   - component: {fileID: 7773622552462160224}
   - component: {fileID: 7773622552462160225}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Cylinder.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21838,7 +21915,7 @@ GameObject:
   - component: {fileID: 5703941111685880410}
   - component: {fileID: 4933854438154318508}
   - component: {fileID: 8069888682442751652}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Cylinder.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
