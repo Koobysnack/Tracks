@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class UISinSelectManager : MonoBehaviour
 {
     public static UISinSelectManager instance;
-    [SerializeField] List<Image> buttons;
+    [SerializeField] List<GameObject> buttonSets;
     public bool isOpen { get; private set; }
-    int selectedChamber;
-    RectTransform rt;
+    int selectedChamber = -1;
 
     void Awake()
     {
@@ -21,24 +20,18 @@ public class UISinSelectManager : MonoBehaviour
         {
             instance = this;
         }
-        rt = GetComponent<RectTransform>();
-        gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         isOpen = false;
-        foreach(Image b in buttons)
-        {
-            b.alphaHitTestMinimumThreshold = 0.5f;
-        }
     }
 
-    public void OnClick(int selection)
+    public void SelectSin(Sin selection)
     {
-        print("chamber " + selectedChamber + ": " + (Sin)selection);
-        UIChamberMenuManager.instance.SetSin(selectedChamber, (Sin)selection);
+        print("chamber " + selectedChamber + ": " + selection);
+        UIChamberMenuManager.instance.SetSin(selectedChamber, selection);
         CloseMenu();
     }
 
@@ -49,15 +42,17 @@ public class UISinSelectManager : MonoBehaviour
             CloseMenu();
             return;
         }
-        rt.position = UIChamberMenuManager.instance.GetChamberPosition(chamber);
+        // Close previous menu
+        if(isOpen)
+            CloseMenu();
         isOpen = true;
         selectedChamber = chamber;
-        gameObject.SetActive(true);
+        buttonSets[selectedChamber].SetActive(true);
     }
 
     public void CloseMenu()
     {
         isOpen = false;
-        gameObject.SetActive(false);
+        buttonSets[selectedChamber].SetActive(false);
     }    
 }
