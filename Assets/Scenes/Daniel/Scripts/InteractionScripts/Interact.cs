@@ -18,7 +18,7 @@ public class Interact: MonoBehaviour
     {
         pInput = new PlayerInputActions();
         pInput.Player.Interact.performed += InteractRay;
-        interLayer = LayerMask.NameToLayer("Interact");
+        interLayer = LayerMask.GetMask("Interact");
     }
 
     void Start()
@@ -51,9 +51,12 @@ public class Interact: MonoBehaviour
         RaycastHit GetObj;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out GetObj, 100f, interLayer))
         {
-            if (GetObj.transform.gameObject.TryGetComponent< IInteractable >(out IInteractable GotInterface )) {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * GetObj.distance, Color.red, 1000);
+            if (GetObj.transform.gameObject.TryGetComponent<PickUp>(out PickUp  GotInterface )) {
+                print("getgot)");
                 GotInterface.Interaction();
             }
+            print(GetObj.transform.gameObject);
         }
  
     }

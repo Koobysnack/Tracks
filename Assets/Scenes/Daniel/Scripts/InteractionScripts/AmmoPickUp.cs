@@ -11,6 +11,8 @@ public class AmmoPickUp : PickUp
 
     void Start()
     {
+        PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
+        print(PlayerRef);
         if (ammoRand)
         {
             ammoAmount = RandAmmoAmount();
@@ -26,6 +28,8 @@ public class AmmoPickUp : PickUp
    public override void Interaction()
     {
         print("getAmmo");
+        PlayerRef.AddAmmo(ammoAmount);
+
     }
 
 

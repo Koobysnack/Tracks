@@ -5,6 +5,9 @@ using UnityEngine;
 public class DestructableBottle : DestructableController
 {
     // Start is called before the first frame update
+    public GameObject vfxshatter;
+
+
     void Awake()
     {
         currentHealth = maxHealth;
@@ -23,14 +26,20 @@ public class DestructableBottle : DestructableController
 
     protected override IEnumerator DeathRattle()
     {
-        print("glass shatter");
+          print("glass shatter");
+        Instantiate(vfxshatter, transform);
+    //    Destroy(gameObject);
+
         yield return null;
+           Destroy(gameObject);
     }
     protected override void Die()
     {
         GlassShatterSFX();
-        Destroy(gameObject);
-        DeathRattle();
+      StartCoroutine( DeathRattle());
+     //   Instantiate(vfxshatter, transform);
+    //  Destroy(gameObject);
+     //   DeathRattle();
     }
     public override void Damage(float damage, Transform opponent = null)
     {

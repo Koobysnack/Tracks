@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   damage: 0
+  vfxshatter: {fileID: 5303982361893631010, guid: ab39d3e93a4024940941a722475c6924,
+    type: 3}
 --- !u!1 &4262035966242585277
 GameObject:
   m_ObjectHideFlags: 0
