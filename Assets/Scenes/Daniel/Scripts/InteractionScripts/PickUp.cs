@@ -11,7 +11,7 @@ public class PickUp : MonoBehaviour, IInteractable
     void Start()
     {
         PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
-        print(PlayerRef);
+     //   print(PlayerRef);
     }
 
     // Update is called once per frame
@@ -22,6 +22,6 @@ public class PickUp : MonoBehaviour, IInteractable
 
     public virtual void Interaction()
     {
-        print("funny");
+        //print("funny");
     }
 }

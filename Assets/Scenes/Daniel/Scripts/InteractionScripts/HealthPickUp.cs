@@ -9,7 +9,7 @@ public class HealthPickUp : PickUp {
 
     void Start()
     {
-        
+        PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -20,8 +20,9 @@ public class HealthPickUp : PickUp {
 
     public override void Interaction()
     {
-        print("getHealth");
+      //  print("getHealth");
         PlayerRef.Heal(HealthAmount);
+        Destroy(gameObject);
 
     }
 

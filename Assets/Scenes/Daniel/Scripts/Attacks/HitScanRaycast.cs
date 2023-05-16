@@ -19,12 +19,12 @@ public class HitScanRaycast : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
+         //   Debug.Log("Did Hit");
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white,1000f);
-            Debug.Log("Did not Hit");
+           // Debug.Log("Did not Hit");
         }
 
     }
@@ -40,7 +40,7 @@ public class HitScanRaycast : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
+          //  Debug.Log("Did Hit");
           //  RaycastHit pierceHit;
 
             pierceRay = new Ray(hit.point + transform.TransformDirection(Vector3.forward) * 6, -1*transform.TransformDirection(Vector3.forward)*6);
@@ -49,11 +49,11 @@ public class HitScanRaycast : MonoBehaviour
             hit.collider.Raycast(pierceRay,out backHit,1000);
             if (hit.transform.parent)
             {
-                print("why");
+           //     print("why");
                 ShotEntity = hit.transform.parent.GetComponent<EntityController>();
                 if (ShotEntity)
                 {
-                    print("hello");
+           //         print("hello");
                     ShotEntity.Damage(EntityRef.damage, transform);
 
                 }
@@ -82,7 +82,7 @@ public class HitScanRaycast : MonoBehaviour
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-            Debug.Log("Did not Hit");
+      //      Debug.Log("Did not Hit");
         }
 
     }

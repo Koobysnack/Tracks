@@ -54,7 +54,7 @@ public class EnvySin : AbsSinClass
         Ray backRay = new Ray(obj.point + fireAngle * 6, -1 * fireAngle * 6);
       
             obj.collider.Raycast(backRay, out backHit, 1000);
-        Debug.Log("stinky");
+       // Debug.Log("stinky");
         Debug.Log(backHit.collider);
         Debug.Log(backHit.point);
       
@@ -68,7 +68,7 @@ public class EnvySin : AbsSinClass
 
         if (backHit.collider!=null && backHit.transform.parent)
         {
-            Debug.Log(backHit.transform.gameObject.name);
+           // Debug.Log(backHit.transform.gameObject.name);
             EntityController ShotEntity;
             ShotEntity = backHit.transform.parent.GetComponent<EntityController>();
             if (ShotEntity)

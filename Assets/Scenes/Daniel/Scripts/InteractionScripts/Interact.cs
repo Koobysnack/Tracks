@@ -19,6 +19,7 @@ public class Interact: MonoBehaviour
         pInput = new PlayerInputActions();
         pInput.Player.Interact.performed += InteractRay;
         interLayer = LayerMask.GetMask("Interact");
+        PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
     }
 
     void Start()
