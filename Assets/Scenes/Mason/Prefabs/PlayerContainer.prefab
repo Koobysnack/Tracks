@@ -3062,6 +3062,7 @@ GameObject:
   - component: {fileID: 7499814942224330899}
   - component: {fileID: 3642837764125037812}
   - component: {fileID: 2581604701308855641}
+  - component: {fileID: 3959514154072807643}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3222,6 +3223,19 @@ MonoBehaviour:
   - name: 'Bullet 6: New No Sin (NoSin)'
     type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
+--- !u!114 &3959514154072807643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189559791563336031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 033a70894f79ad747b97cff1c6eb2cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerRef: {fileID: 8189559792197788243}
 --- !u!1 &8189559791744703993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3402,7 +3416,6 @@ MonoBehaviour:
   maxHealth: 100
   damage: 20
   maxAmmoCount: 100
-  rad: 0
 --- !u!114 &8189559792197788252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3480,7 +3493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8189559792197788241}
-  cameraSensitivity: 15
+  cameraSensitivity: 5
 --- !u!1 &8189559792819520127
 GameObject:
   m_ObjectHideFlags: 0
