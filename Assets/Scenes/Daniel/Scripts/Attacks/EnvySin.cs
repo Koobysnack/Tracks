@@ -73,7 +73,7 @@ public class EnvySin : AbsSinClass
             ShotEntity = backHit.transform.parent.GetComponent<EntityController>();
             if (ShotEntity)
             {
-                ShotEntity.Damage(10, shotOrigin);
+                ShotEntity.Damage(20, shotOrigin);
 
             }
           
