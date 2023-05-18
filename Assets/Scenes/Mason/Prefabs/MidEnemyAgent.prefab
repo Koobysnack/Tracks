@@ -46,7 +46,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1097396327129438348}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -79,6 +79,7 @@ MonoBehaviour:
     type: 3}
   attackChance: 50
   telegraphTime: 3
+  section: {fileID: 0}
 --- !u!114 &1097396327129438344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +96,10 @@ MonoBehaviour:
   idealRange: 7
   rangeVariance: 3
   numSamples: 20
+  enemyDistThreshold: 3
+  playerVisWeight: 10
+  playerDistWeight: 5
+  enemyDistWeight: 2
 --- !u!114 &1097396327129438351
 MonoBehaviour:
   m_ObjectHideFlags: 0

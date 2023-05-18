@@ -22,6 +22,7 @@ public abstract class EnemyController : EntityController
     protected NavMeshAgent agent;
     protected Transform player;
     protected LayerMask playerLayer;
+    public SectionController section;
     
     // protected functions
     protected abstract void InitiateAttack();

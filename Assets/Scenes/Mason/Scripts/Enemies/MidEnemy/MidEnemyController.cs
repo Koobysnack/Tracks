@@ -85,7 +85,6 @@ public class MidEnemyController : EnemyController
 
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
-        print("Mid Enemy Damaged");
         currentHealth -= damage;
         if(currentHealth <= 0)
             Die();

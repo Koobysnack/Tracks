@@ -7,12 +7,37 @@ public class MidEnemyMovement : EnemyMovement
 {
     [Header("Mid Enemy Movement")]
     [SerializeField] private int numSamples;
+    [SerializeField] private float enemyDistThreshold;
+
+    [Header("Feature Weights")]
+    [SerializeField] private float playerVisWeight;
+    [SerializeField] private float playerDistWeight;
+    [SerializeField] private float enemyDistWeight;
+
     private Transform player;
+    private SectionController section;
+
+    private void Start() {
+        section = GetComponent<EnemyController>().section;
+    }
 
     private void Update() {
         if(player == null){
             player = GameManager.instance.player;
         }
+    }
+
+    private float GetClosestEnemyDist(Vector3 origin) {
+        if(section == null)
+            return 0;
+
+        // get closest enemy and add reciporical to score
+        List<Transform> enemies = section.GetEnemies();
+        float[] distances = new float[enemies.Count];
+        for(int i = 0; i < enemies.Count; ++i)
+            distances[i] = Vector3.Distance(origin, enemies[i].position);
+        float closestDist = distances.Length > 0 ? Mathf.Min(distances) : 0.1f;
+        return closestDist;
     }
 
     private float GetScore(Vector3 pos) {
@@ -24,13 +49,16 @@ public class MidEnemyMovement : EnemyMovement
         Vector3 dir = Vector3.Normalize(player.position - pos);
         bool canSeePlayer = Physics.Raycast(pos, dir, out hit, Mathf.Infinity);
         canSeePlayer = hit.transform != null ? hit.transform.tag == "Player" : false;
-        score += canSeePlayer ? 10 : 0;
+        score += canSeePlayer ? playerVisWeight : 0;
 
         // check if near ideal range
         float distFromPlayer = Vector3.Distance(transform.position, player.position);
         float distFromIdeal = Mathf.Abs(idealRange - distFromPlayer);
         distFromIdeal = distFromIdeal != 0 ? 0.1f : distFromIdeal;
-        score += 5 * (1 / distFromIdeal);
+        score += playerDistWeight * (1 / distFromIdeal);
+
+        // stay away from other enemies
+        score += enemyDistWeight * GetClosestEnemyDist(pos);
 
         return score;
     }
