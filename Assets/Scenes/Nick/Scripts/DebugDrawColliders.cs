@@ -42,13 +42,15 @@ public class DebugDrawColliders : MonoBehaviour
 
         for (int i = 0; i < triangles.Length; i += 3)
         {
-            Vector3 start = position + Vector3.Scale(rotation * vertices[triangles[i]], scale);
-            Vector3 middle = position + Vector3.Scale(rotation * vertices[triangles[i + 1]], scale);
-            Vector3 end = position + Vector3.Scale(rotation * vertices[triangles[i + 2]], scale);
+            Vector3 start = position + rotation * Vector3.Scale(vertices[triangles[i]], scale);
+            Vector3 middle = position + rotation * Vector3.Scale(vertices[triangles[i + 1]], scale);
+            Vector3 end = position + rotation * Vector3.Scale(vertices[triangles[i + 2]], scale);
 
             Gizmos.DrawLine(start, middle);
             Gizmos.DrawLine(middle, end);
             Gizmos.DrawLine(end, start);
         }
     }
+
+
 }
