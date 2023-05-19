@@ -43,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit currentGround;
     private Vector3 moveDir;
 
-    private bool onGround;
     private bool onSlope;
     private bool crouched;
     private bool canDash;
@@ -51,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
     private float currentMoveScalar;
     private float currentSpeed;
     #endregion
+
+    public bool onGround { get; private set; }
 
     #region Unity Functions
     private void Awake() {
@@ -112,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
             currentSpeed = crouchSpeed;
         else {
             // use sprint speed if sprinting, otherwise use walk speed
-            bool sprintPossible = pInput.Player.Sprint.ReadValue<float>() > 0.1f && onGround;
+            bool sprintPossible = pInput.Player.Sprint.ReadValue<float>() > 0.1f && onGround && moveDir.z > 0;
             currentSpeed = sprintPossible ? sprintSpeed : walkSpeed;
         }
     }

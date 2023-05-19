@@ -6,7 +6,7 @@ public class PlayerController : EntityController
 {
     [Header("Player Stats")]
     [SerializeField] private int maxAmmoCount;
-    private int currentAmmoCount;
+    public int currentAmmoCount { get; private set; }
 
     [Header("References")]
     public Revolver revolver;
@@ -41,7 +41,7 @@ public class PlayerController : EntityController
         return currentHealth / maxHealth;
     }
 
-    public void AddAmmo(int amt) {
+    public void ChangeAmmo(int amt) {
         currentAmmoCount = Mathf.Clamp(currentAmmoCount + amt, 0, maxAmmoCount);
     }
 }

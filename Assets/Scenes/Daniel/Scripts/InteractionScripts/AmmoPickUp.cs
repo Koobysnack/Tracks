@@ -28,7 +28,7 @@ public class AmmoPickUp : PickUp
    public override void Interaction()
     {
         print("getAmmo");
-        PlayerRef.AddAmmo(ammoAmount);
+        PlayerRef.ChangeAmmo(ammoAmount);
 
     }
 

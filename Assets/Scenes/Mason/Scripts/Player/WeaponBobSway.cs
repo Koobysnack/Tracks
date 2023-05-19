@@ -18,6 +18,14 @@ public class WeaponBobSway : MonoBehaviour
     [SerializeField] private float maxRotStepDist;
     private Vector3 swayRot;
 
+    [Header("Bobbing")]
+    [SerializeField] private float speedCurve;
+    private float curveSin { get => Mathf.Sin(speedCurve); }
+    private float curveCos { get => Mathf.Cos(speedCurve); }
+    private Vector3 travelLimit;
+    private Vector3 bobLimit;
+    private Vector3 bobPos;
+
     private PlayerMovement movement;
     private Rigidbody body;
 
@@ -29,6 +37,9 @@ public class WeaponBobSway : MonoBehaviour
         movement = player.GetComponent<PlayerMovement>();
         body = player.GetComponent<Rigidbody>();
         pInput = new PlayerInputActions();
+
+        travelLimit = Vector3.one * 0.025f;
+        bobLimit = Vector3.one * 0.01f;
     }
 
     private void OnEnable() {
@@ -71,6 +82,14 @@ public class WeaponBobSway : MonoBehaviour
     private void Sway() {
         //transform.localPosition = Vector3.Lerp(transform.localPosition, swayPos, Time.deltaTime * posSmooth);
         transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(swayRot), Time.deltaTime * rotSmooth);
+    }
+
+    private void BobPos() {
+        speedCurve += Time.deltaTime * (movement.onGround ? body.velocity.magnitude : 1);
+
+        bobPos.x = (curveCos * bobLimit.x + (movement.onGround ? 1 : 0)) - (moveInput.x * travelLimit.x);
+        bobPos.y = (curveSin * bobLimit.y) - (body.velocity.y * travelLimit.y);
+        bobPos.z = -(moveInput.y * travelLimit.z);
     }
 
 }
