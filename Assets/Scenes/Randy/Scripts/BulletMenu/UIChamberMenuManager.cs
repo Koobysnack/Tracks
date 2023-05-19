@@ -8,6 +8,7 @@ public class UIChamberMenuManager : MonoBehaviour
     public static UIChamberMenuManager instance;
     [SerializeField] List<Image> chamberButtons;
     public List<Bullet> chambers;
+    Revolver revolver;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,12 @@ public class UIChamberMenuManager : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    void Update()
+    {
+        if (GameManager.instance != null && revolver == null)
+            return;
     }
 
     public void SelectChamber(int c)

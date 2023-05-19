@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -223,11 +223,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337838}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1124926736}
+  - {fileID: 574681412}
   m_Father: {fileID: 1600385339}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -243,14 +245,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60db0e3ed4ba1164abda828a00a3fba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noSin: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+  unlockedSins: 00000000
+  noSin: {fileID: 1124926737}
   prideSin: {fileID: 0}
   greedSin: {fileID: 0}
   wrathSin: {fileID: 0}
-  envySin: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
+  envySin: {fileID: 574681413}
   lustSin: {fileID: 0}
   gluttonySin: {fileID: 0}
   slothSin: {fileID: 0}
+  normalBulletColor: {r: 1, g: 1, b: 1, a: 1}
+  prideBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  greedBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  wrathBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  envyBulletColor: {r: 0, g: 1, b: 0, a: 1}
+  lustBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  gluttonyBulletColor: {r: 0, g: 0, b: 0, a: 1}
+  slothBulletColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &41897817
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,14 +307,6 @@ MonoBehaviour:
   lustIcon: {fileID: 0}
   gluttonyIcon: {fileID: 0}
   slothIcon: {fileID: 0}
-  normalBulletColor: {r: 1, g: 1, b: 1, a: 1}
-  prideBulletColor: {r: 0, g: 0, b: 0, a: 1}
-  greedBulletColor: {r: 0, g: 0, b: 0, a: 1}
-  wrathBulletColor: {r: 0, g: 0, b: 0, a: 1}
-  envyBulletColor: {r: 1, g: 0, b: 1, a: 1}
-  lustBulletColor: {r: 0, g: 0, b: 0, a: 1}
-  gluttonyBulletColor: {r: 0, g: 0, b: 0, a: 1}
-  slothBulletColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!4 &41897819
 Transform:
   m_ObjectHideFlags: 0
@@ -461,6 +464,59 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -9.999999, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &574681411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 574681412}
+  - component: {fileID: 574681413}
+  m_Layer: 0
+  m_Name: Envy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &574681412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574681411}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 337839}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &574681413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574681411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bfda4d2bb5185c41a6f8fab8ff568dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  damage: 20
+  sfx: 
+  showDebugInfo: 1
+  ready: 0
+  runningCooldown: 0
+  lMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &719080859
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,6 +884,56 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1124926735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1124926736}
+  - component: {fileID: 1124926737}
+  m_Layer: 0
+  m_Name: No Sin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1124926736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124926735}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 337839}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1124926737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124926735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16fc8749dcea99f44bb11095f739a1ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  damage: 0
+  sfx: 
+  showDebugInfo: 1
+  ready: 0
+  runningCooldown: 0
 --- !u!1 &1174623884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,7 +1239,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 255.627, y: -31.267}
+  m_AnchoredPosition: {x: 255.62701, y: -31.267029}
   m_SizeDelta: {x: 500, y: 62.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1782680791

@@ -17,7 +17,7 @@ public class EnvySin : AbsSinClass
     
     public override void SinFire(Transform shotOrigin )
     {
-          
+        StartCoroutine(StartCooldown());
         RaycastHit hit;
         lMask = LayerMask.GetMask("Enemy,Ground");
 

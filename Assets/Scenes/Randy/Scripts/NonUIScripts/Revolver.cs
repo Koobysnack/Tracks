@@ -6,12 +6,15 @@ using UnityEngine.InputSystem;
 public class Revolver : MonoBehaviour
 {
     [Min(0.01f), SerializeField] float normalFireRate;
+    [SerializeField] PlayerController pController;
     public int currentBullet;
     public List<Bullet> cylinder = new List<Bullet>();
     HitScanRaycast hitRC;
     UIAmmoManager ammoMan;
+    SinManager sinMan;
     PlayerInputActions pInput;
     bool ready;
+    
 
     void OnValidate()
     {
@@ -49,14 +52,35 @@ public class Revolver : MonoBehaviour
 
     void Update()
     {
-        if (UIAmmoManager.instance != null && ammoMan == null)
+        if(UIAmmoManager.instance != null && ammoMan == null)
             ammoMan = UIAmmoManager.instance;
+        if(SinManager.instance != null && sinMan == null)
+        {
+            sinMan = SinManager.instance;
+            LateInit();
+        }
+    }
+
+    void LateInit()
+    {
+        foreach (Bullet bullet in cylinder)
+        {
+            bullet.type = sinMan.GetSinObj(Sin.ENVY);
+        }
+        if(ammoMan != null)
+            ammoMan.RequestBulletUpdate();
     }
 
     void Shoot(InputAction.CallbackContext context)
     {
         if (!ready)
             return;
+
+        if (pController.currentAmmoCount < 1)
+        {
+            // Warn out of ammo
+            return;
+        }
 
         if (cylinder[currentBullet].loaded == false)
         {
@@ -76,19 +100,32 @@ public class Revolver : MonoBehaviour
         CycleBullet();
     }
 
-    void AltShoot(InputAction.CallbackContext context)
+    void AltShoot(InputAction.CallbackContext context)  // TODO: Change to readySin
     {
+        Bullet bullet = cylinder[currentBullet];
         if (!ready)
             return;
+
+        if (!bullet.type.ready)
+        {
+            // Warn Sin not ready
+            return;
+        }
+
+        if (pController.currentAmmoCount < 1)
+        {
+            // Warn out of ammo
+            return;
+        }
 
         if (cylinder[currentBullet].loaded == false)
         {
             Reload();
             return;
         }
-        GunfireSFX();
-        cylinder[currentBullet].type.SinFire(transform);
-        cylinder[currentBullet].loaded = false;
+        
+        bullet.type.SinFire(transform);
+        bullet.loaded = false;
         if (ammoMan != null)
         {
             ammoMan.HideAmmoPanel();
@@ -96,7 +133,6 @@ public class Revolver : MonoBehaviour
         }
         CycleBullet();
     }
-
 
     void CycleBullet()
     {
@@ -116,7 +152,7 @@ public class Revolver : MonoBehaviour
             ammoMan.RotateTo(currentBullet, 1);
     }
 
-    void SelectBullet(InputAction.CallbackContext context) // Less than ideal argument but this is a quick prototype
+    void SelectBullet(InputAction.CallbackContext context)
     {
         float direction = context.ReadValue<float>();
         if (!cylinder.Exists(bullet => bullet.loaded == true))
@@ -138,8 +174,11 @@ public class Revolver : MonoBehaviour
         }
         while (!cylinder[currentBullet].loaded);
         {
-            ammoMan.ShowAmmoPanel();
-            ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
+            if (ammoMan != null)
+            {
+                ammoMan.ShowAmmoPanel();
+                ammoMan.RotateTo(currentBullet, Mathf.Sign(direction));
+            }
         }
     }
 
@@ -178,4 +217,8 @@ public class Revolver : MonoBehaviour
         //sound.release();
     }
 
+    public void SwapBullet(int chamber, AbsSinClass newType)
+    {
+        cylinder[chamber].type = newType;
+    }
 }

@@ -3200,27 +3200,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalFireRate: 5
+  pController: {fileID: 8189559792197788243}
   currentBullet: 0
   cylinder:
-  - name: 'Bullet 0: New No Sin (NoSin)'
+  - name: 'Bullet 0: null'
     type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 1: New No Sin (NoSin)'
+  - name: 'Bullet 1: null'
     type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 2: New No Sin (NoSin)'
+  - name: 'Bullet 2: null'
     type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 3: New No Sin (NoSin)'
+  - name: 'Bullet 3: null'
     type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 4: New No Sin (NoSin)'
+  - name: 'Bullet 4: null'
     type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 5: New No Sin (NoSin)'
+  - name: 'Bullet 5: null'
     type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
-  - name: 'Bullet 6: New No Sin (NoSin)'
+  - name: 'Bullet 6: null'
     type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
     loaded: 0
 --- !u!114 &3959514154072807643

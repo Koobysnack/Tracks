@@ -25,16 +25,6 @@ public class UIAmmoManager : MonoBehaviour
     [Foldout("UI Bullet Sprites")] public Sprite gluttonyIcon;
     [Foldout("UI Bullet Sprites")] public Sprite slothIcon;
 
-    [Foldout("BulletColors")] public Color normalBulletColor;
-    [Foldout("BulletColors")] public Color prideBulletColor;
-    [Foldout("BulletColors")] public Color greedBulletColor;
-    [Foldout("BulletColors")] public Color wrathBulletColor;
-    [Foldout("BulletColors")] public Color envyBulletColor;
-    [Foldout("BulletColors")] public Color lustBulletColor;
-    [Foldout("BulletColors")] public Color gluttonyBulletColor;
-    [Foldout("BulletColors")] public Color slothBulletColor;
-
-
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -84,9 +74,9 @@ public class UIAmmoManager : MonoBehaviour
         coordinator.Reload();
     }
 
-    public void RequestBulletUpdate(List<Bullet> newLoadout)
+    public void RequestBulletUpdate()
     {
-        coordinator.UpdateBulletDisplay(newLoadout);
+        coordinator.UpdateBulletDisplay();
         return;
     }
 }

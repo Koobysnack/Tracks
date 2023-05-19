@@ -6,10 +6,11 @@ using NaughtyAttributes;
 
 public class UIAmmoCoordinator : MonoBehaviour
 {
-    [SerializeField] private UIAmmoManager UIAmmoMan;
+    [SerializeField] UIAmmoManager UIAmmoMan;
+    SinManager sinMan;
     List<Image> bulletDisplay = new List<Image>();
-    [SerializeField] private GameObject uiPivot;
-    [SerializeField] private Image imagePrefab;
+    [SerializeField] GameObject uiPivot;
+    [SerializeField] Image imagePrefab;
 
     // Rotation vars
     Quaternion endAngle;
@@ -48,6 +49,8 @@ public class UIAmmoCoordinator : MonoBehaviour
             float step = UIAmmoMan.showHideSpeed * Time.deltaTime;
             uiPivotRT.position = Vector2.MoveTowards(currentPos, targetPos, step);
         }
+        if(SinManager.instance != null && sinMan == null)
+            sinMan = SinManager.instance;
     }
 
     void InstantiateBulletDisplay()
@@ -59,10 +62,10 @@ public class UIAmmoCoordinator : MonoBehaviour
         for (int i = 0; i < 7; i++)
         {
             Image newBullet = Instantiate(imagePrefab, uiPivot.transform, false);
-            newBullet.rectTransform.anchoredPosition = new Vector2(UIAmmoMan.radius * Mathf.Sin(360f / 7f * i * Mathf.Deg2Rad), UIAmmoMan.radius * Mathf.Cos(360f / 7f * i * Mathf.Deg2Rad));
+            newBullet.rectTransform.anchoredPosition = new Vector2(UIAmmoMan.radius * Mathf.Sin(360f / 7f * i * Mathf.Deg2Rad), 
+                                                                   UIAmmoMan.radius * Mathf.Cos(360f / 7f * i * Mathf.Deg2Rad));
             bulletDisplay.Add(newBullet);
         }
-        uiPivot.GetComponentInChildren<Image>().color = Color.blue;
     }
 
     [Button]
@@ -79,9 +82,9 @@ public class UIAmmoCoordinator : MonoBehaviour
         for (int i = 0; i < 7; i++)
         {
             Image newBullet = Instantiate(imagePrefab, uiPivot.transform, false);
-            newBullet.rectTransform.anchoredPosition = new Vector2(UIAmmoMan.radius * Mathf.Sin(360f / 7f * i * Mathf.Deg2Rad), UIAmmoMan.radius * Mathf.Cos(360f / 7f * i * Mathf.Deg2Rad));
+            newBullet.rectTransform.anchoredPosition = new Vector2(UIAmmoMan.radius * Mathf.Sin(360f / 7f * i * Mathf.Deg2Rad),
+                                                                   UIAmmoMan.radius * Mathf.Cos(360f / 7f * i * Mathf.Deg2Rad));
         }
-        uiPivot.GetComponentInChildren<Image>().color = Color.blue;
     }
 
     public IEnumerator RotateChamber(float target, float direction)
@@ -102,7 +105,9 @@ public class UIAmmoCoordinator : MonoBehaviour
         int i = 0;
         while (time < UIAmmoMan.rotateDuration)
         {
-            uiPivot.transform.rotation = Quaternion.Lerp(currentAngle, angles[i], (time - i * UIAmmoMan.rotateDuration / angles.Count) / (UIAmmoMan.rotateDuration * (i + 1) / angles.Count) );
+            uiPivot.transform.rotation = Quaternion.Lerp(currentAngle, angles[i], 
+                                                        (time - i * UIAmmoMan.rotateDuration / angles.Count) / 
+                                                        (UIAmmoMan.rotateDuration * (i + 1) / angles.Count) );
             time += Time.deltaTime;
             if((time - i * UIAmmoMan.rotateDuration / angles.Count) >= UIAmmoMan.rotateDuration * (i + 1) / angles.Count)
                 currentAngle = angles[i++];
@@ -156,44 +161,12 @@ public class UIAmmoCoordinator : MonoBehaviour
         }
     }
 
-    public void UpdateBulletDisplay(List<Bullet> newLoadout)
+    public void UpdateBulletDisplay()
     {
-        // To refactor: either move to different controller or somewhere else
-        for(int i = 0; i < newLoadout.Count; i++)
+        var cylinder = GameManager.instance.player.GetComponent<PlayerController>().revolver.cylinder;
+        for (int i = 0; i < cylinder.Count; i++)
         {
-            Sin s = SinManager.instance.GetSinEnum(newLoadout[i].type);
-            Color newColor;
-            switch(s)
-            {
-                case Sin.NORMAL:
-                    newColor = UIAmmoMan.normalBulletColor;
-                    break;
-                case Sin.PRIDE:
-                    newColor = UIAmmoMan.prideBulletColor;
-                    break;
-                case Sin.GREED:
-                    newColor = UIAmmoMan.greedBulletColor;
-                    break;
-                case Sin.WRATH:
-                    newColor = UIAmmoMan.wrathBulletColor;
-                    break;
-                case Sin.ENVY:
-                    newColor = UIAmmoMan.envyBulletColor;
-                    break;
-                case Sin.LUST:
-                    newColor = UIAmmoMan.lustBulletColor;
-                    break;
-                case Sin.GLUTTONY:
-                    newColor = UIAmmoMan.gluttonyBulletColor;
-                    break;
-                case Sin.SLOTH:
-                    newColor = UIAmmoMan.slothBulletColor;
-                    break;
-                default:
-                    continue;
-            }
-            bulletDisplay[i].color = newColor;
-            // When UI elements come in, update icon too
+            bulletDisplay[i].color = sinMan.GetSinColor(cylinder[i].type);
         }
     }
 }
