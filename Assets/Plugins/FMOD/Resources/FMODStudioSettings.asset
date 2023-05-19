@@ -496,7 +496,7 @@ MonoBehaviour:
   sourceProjectPath: FMOD/Tracks/Tracks.fspro
   sourceBankPath: FMODBanks
   sourceBankPathUnformatted: 
-  BankRefreshCooldown: 5
+  BankRefreshCooldown: 1
   ShowBankRefreshWindow: 1
   AutomaticEventLoading: 1
   BankLoadType: 0

@@ -27,6 +27,90 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7046137181035146847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Atmosphere/engineLoop
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Atmosphere/engineLoop
+  Guid:
+    Data1: -272785180
+    Data2: 1170772044
+    Data3: 1073405839
+    Data4: 958425871
+  Banks:
+  - {fileID: -339362182718478241}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 1800
+  Length: 3405
+--- !u!114 &-5962607478542957869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Atmosphere/lowBassLoop
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Atmosphere/lowBassLoop
+  Guid:
+    Data1: 1334910670
+    Data2: 1228875018
+    Data3: 1109925773
+    Data4: -1370032888
+  Banks:
+  - {fileID: 5590034813525607784}
+  - {fileID: -162880241216768530}
+  - {fileID: -339362182718478241}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 31236
+--- !u!114 &-5154588735589164147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/OTR_StemVersion
+  m_EditorClassIdentifier: 
+  Path: event:/Music/OTR_StemVersion
+  Guid:
+    Data1: 191412656
+    Data2: 1198868475
+    Data3: -513533020
+    Data4: -617739390
+  Banks:
+  - {fileID: -162880241216768530}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 3968998389199909180}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 104732
 --- !u!114 &-3218161429882708194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,10 +261,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638200078799269791
+  lastModified: 638200288896987345
   FileSizes:
   - Name: Desktop
-    Value: 928832
+    Value: 1147424
   Exists: 1
 --- !u!114 &-162880241216768530
 MonoBehaviour:
@@ -197,10 +281,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638200078799099688
+  lastModified: 638200288896158499
   FileSizes:
   - Name: Desktop
-    Value: 6530400
+    Value: 14081152
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -232,12 +316,16 @@ MonoBehaviour:
   - {fileID: -926193281343875481}
   - {fileID: -9221658621178764691}
   - {fileID: 81554277461604081}
+  - {fileID: -5154588735589164147}
+  - {fileID: 8445785410238246117}
+  - {fileID: -5962607478542957869}
+  - {fileID: -7046137181035146847}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5590034813525607784}
   StringsBanks:
   - {fileID: 2916603309723846210}
-  cacheTime: 638200078799269791
+  cacheTime: 638200288896987345
   cacheVersion: 131603
 --- !u!114 &81554277461604081
 MonoBehaviour:
@@ -335,10 +423,34 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638200078798409868
+  lastModified: 638200288894300715
   FileSizes:
   - Name: Desktop
-    Value: 1438
+    Value: 1732
+  Exists: 1
+--- !u!114 &3968998389199909180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OTR_StemVersion/inCombat
+  m_EditorClassIdentifier: 
+  Name: inCombat
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3269546747
+    data2: 1294097099
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &4869754793914326706
 MonoBehaviour:
@@ -409,10 +521,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638194102467773429
+  lastModified: 638200288894280715
   FileSizes:
   - Name: Desktop
-    Value: 1340
+    Value: 115104
   Exists: 1
 --- !u!114 &5978898169201344193
 MonoBehaviour:
@@ -441,3 +553,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 426716
+--- !u!114 &8445785410238246117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Atmosphere/SteamLoop
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Atmosphere/SteamLoop
+  Guid:
+    Data1: -1244006232
+    Data2: 1109707174
+    Data3: -1029572707
+    Data4: -128304691
+  Banks:
+  - {fileID: -339362182718478241}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 5.2000003
+  Length: 5320
