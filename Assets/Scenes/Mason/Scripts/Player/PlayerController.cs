@@ -13,6 +13,7 @@ public class PlayerController : EntityController
 
     private void Awake() {
         currentHealth = maxHealth;
+        currentAmmoCount = maxAmmoCount / 2;
     }
 
     private void Start() {

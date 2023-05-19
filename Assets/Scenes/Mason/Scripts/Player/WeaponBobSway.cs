@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponBobSway : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform weaponHolder;
     [SerializeField] private float posSmooth;
     [SerializeField] private float rotSmooth;
 
@@ -18,13 +18,17 @@ public class WeaponBobSway : MonoBehaviour
     [SerializeField] private float maxRotStepDist;
     private Vector3 swayRot;
 
-    [Header("Bobbing")]
-    [SerializeField] private float speedCurve;
+    [Header("Bob Position")]
+    private float speedCurve;
     private float curveSin { get => Mathf.Sin(speedCurve); }
     private float curveCos { get => Mathf.Cos(speedCurve); }
     private Vector3 travelLimit;
     private Vector3 bobLimit;
     private Vector3 bobPos;
+
+    [Header("Bob Rotation")]
+    [SerializeField] private Vector3 multiplier;
+    private Vector3 bobRot;
 
     private PlayerMovement movement;
     private Rigidbody body;
@@ -34,8 +38,8 @@ public class WeaponBobSway : MonoBehaviour
     private Vector2 mouseInput;
 
     private void Awake() {
-        movement = player.GetComponent<PlayerMovement>();
-        body = player.GetComponent<Rigidbody>();
+        movement = GetComponent<PlayerMovement>();
+        body = GetComponent<Rigidbody>();
         pInput = new PlayerInputActions();
 
         travelLimit = Vector3.one * 0.025f;
@@ -53,9 +57,13 @@ public class WeaponBobSway : MonoBehaviour
     private void Update() {
         GetInput();
 
-        SetSwayPosition();
+        //SetSwayPosition();
         SetSwayRotation();
-        Sway();
+
+        SetBobPosition();
+        SetBobRotation();
+
+        ApplySwayBob();
     }
 
     private void GetInput() {
@@ -79,12 +87,7 @@ public class WeaponBobSway : MonoBehaviour
         swayRot = new Vector3(invertMouse.y, invertMouse.x, invertMouse.x);
     }
 
-    private void Sway() {
-        //transform.localPosition = Vector3.Lerp(transform.localPosition, swayPos, Time.deltaTime * posSmooth);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(swayRot), Time.deltaTime * rotSmooth);
-    }
-
-    private void BobPos() {
+    private void SetBobPosition() {
         speedCurve += Time.deltaTime * (movement.onGround ? body.velocity.magnitude : 1);
 
         bobPos.x = (curveCos * bobLimit.x + (movement.onGround ? 1 : 0)) - (moveInput.x * travelLimit.x);
@@ -92,4 +95,17 @@ public class WeaponBobSway : MonoBehaviour
         bobPos.z = -(moveInput.y * travelLimit.z);
     }
 
+    private void SetBobRotation() {
+        bobRot.x = moveInput != Vector2.zero ? multiplier.x * Mathf.Sin(2 * speedCurve) : Mathf.Sin(2 * speedCurve) / 2;
+        bobRot.y = moveInput != Vector2.zero ? multiplier.y * curveCos : 0;
+        bobRot.z = moveInput != Vector2.zero ? multiplier.z * curveCos * moveInput.x : 0;
+    }
+
+    private void ApplySwayBob() {
+        //Vector3 newPos = swayPos + bobPos;
+        Quaternion newRot = Quaternion.Euler(swayRot) * Quaternion.Euler(bobRot);
+
+        //transform.localPosition = Vector3.Lerp(transform.localPosition, newPos, Time.deltaTime * posSmooth);
+        weaponHolder.transform.localRotation = Quaternion.Slerp(weaponHolder.transform.localRotation, newRot, Time.deltaTime * rotSmooth);
+    }
 }

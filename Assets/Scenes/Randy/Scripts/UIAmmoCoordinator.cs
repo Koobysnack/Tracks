@@ -163,6 +163,9 @@ public class UIAmmoCoordinator : MonoBehaviour
 
     public void UpdateBulletDisplay()
     {
+        if(!sinMan)
+            return;
+
         var cylinder = GameManager.instance.player.GetComponent<PlayerController>().revolver.cylinder;
         for (int i = 0; i < cylinder.Count; i++)
         {
