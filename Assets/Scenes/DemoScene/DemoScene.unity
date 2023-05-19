@@ -761,12 +761,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2132532595}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1196819850 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9061599029065281336, guid: 975f29b39c2189042a604aef5849856e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2118828011}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1448749409
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,26 +912,6 @@ MonoBehaviour:
   maxHealth: 20
   damage: 0
   vfxshatter: {fileID: 0}
---- !u!1 &1578856949 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8189559791563336031, guid: 975f29b39c2189042a604aef5849856e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2118828011}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1578856957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1578856949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 624fd5b856fdafe4c84980a48e1bcfc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletTrailEffect: {fileID: 1988581063112771194, guid: 5d742b930fe1d8047a8221ab99ded24f,
-    type: 3}
 --- !u!1 &1706672015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,93 +1145,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[0].name
-      value: 'Bullet 0: null'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[0].type
-      value: 
-      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
-        type: 2}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[1].name
-      value: 'Bullet 1: null'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[1].type
-      value: 
-      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
-        type: 2}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[2].name
-      value: 'Bullet 2: null'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[2].type
-      value: 
-      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
-        type: 2}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[3].name
-      value: 'Bullet 3: null'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[3].type
-      value: 
-      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
-        type: 2}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[4].name
-      value: 'Bullet 4: null'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[4].type
-      value: 
-      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
-        type: 2}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[5].name
-      value: 'Bullet 5: null'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[5].type
-      value: 
-      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
-        type: 2}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[6].name
-      value: 'Bullet 6: null'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2581604701308855641, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: cylinder.Array.data[6].type
-      value: 
-      objectReference: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309,
-        type: 2}
-    - target: {fileID: 3642837764125037812, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: gunBarrel
-      value: 
-      objectReference: {fileID: 1196819850}
-    - target: {fileID: 3642837764125037812, guid: 975f29b39c2189042a604aef5849856e,
-        type: 3}
-      propertyPath: bulletEffectManager
-      value: 
-      objectReference: {fileID: 1578856957}
     - target: {fileID: 8189559791789088077, guid: 975f29b39c2189042a604aef5849856e,
         type: 3}
       propertyPath: m_RootOrder
@@ -1318,8 +1205,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerContainer
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1690729782303944980, guid: 975f29b39c2189042a604aef5849856e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 975f29b39c2189042a604aef5849856e, type: 3}
 --- !u!1001 &2132532595
 PrefabInstance:

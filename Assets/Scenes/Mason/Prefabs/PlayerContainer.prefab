@@ -3063,6 +3063,7 @@ GameObject:
   - component: {fileID: 3642837764125037812}
   - component: {fileID: 2581604701308855641}
   - component: {fileID: 3959514154072807643}
+  - component: {fileID: 1578856957}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3187,6 +3188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityRef: {fileID: 8189559792197788243}
+  bulletEffectManager: {fileID: 1578856957}
+  gunBarrel: {fileID: 9061599029065281336}
 --- !u!114 &2581604701308855641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3204,25 +3207,25 @@ MonoBehaviour:
   currentBullet: 0
   cylinder:
   - name: 'Bullet 0: null'
-    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+    type: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
     loaded: 0
   - name: 'Bullet 1: null'
-    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+    type: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
     loaded: 0
   - name: 'Bullet 2: null'
-    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+    type: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
     loaded: 0
   - name: 'Bullet 3: null'
-    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+    type: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
     loaded: 0
   - name: 'Bullet 4: null'
-    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+    type: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
     loaded: 0
   - name: 'Bullet 5: null'
-    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+    type: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
     loaded: 0
   - name: 'Bullet 6: null'
-    type: {fileID: 11400000, guid: 9e0030158238fcb459960acd2d3d1b9f, type: 2}
+    type: {fileID: 11400000, guid: 3c4767c63fb9d704a869f08103c15309, type: 2}
     loaded: 0
 --- !u!114 &3959514154072807643
 MonoBehaviour:
@@ -3237,6 +3240,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRef: {fileID: 8189559792197788243}
+--- !u!114 &1578856957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189559791563336031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624fd5b856fdafe4c84980a48e1bcfc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletTrailEffect: {fileID: 1988581063112771194, guid: 5d742b930fe1d8047a8221ab99ded24f,
+    type: 3}
 --- !u!1 &8189559791744703993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3362,7 +3379,6 @@ GameObject:
   - component: {fileID: 8189559792197788241}
   - component: {fileID: 8189559792197788242}
   - component: {fileID: 8189559792197788243}
-  - component: {fileID: 1690729782303944980}
   - component: {fileID: 8189559792197788252}
   m_Layer: 6
   m_Name: Player
@@ -3419,21 +3435,6 @@ MonoBehaviour:
   damage: 20
   maxAmmoCount: 100
   revolver: {fileID: 2581604701308855641}
---- !u!114 &1690729782303944980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8189559792197788253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 624fd5b856fdafe4c84980a48e1bcfc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletTrailEffect: {fileID: 1988581063112771194, guid: 5d742b930fe1d8047a8221ab99ded24f,
-    type: 3}
-  hitEffectPrefab: {fileID: 0}
 --- !u!114 &8189559792197788252
 MonoBehaviour:
   m_ObjectHideFlags: 0
