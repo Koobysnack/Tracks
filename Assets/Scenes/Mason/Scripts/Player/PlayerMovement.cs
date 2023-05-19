@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     #region Private Variables
     private PlayerInputActions pInput;
     private Rigidbody body;
-    //private CapsuleCollider capsule;
     private RaycastHit currentGround;
     private Vector3 moveDir;
 
@@ -57,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
     private void Awake() {
         pInput = new PlayerInputActions();
         body = GetComponent<Rigidbody>();
-        //capsule = GetComponent<CapsuleCollider>();
         canDash = true;
         dashing = false;
 

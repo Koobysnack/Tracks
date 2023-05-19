@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 60
-  viewDistance: 20
+  viewDistance: 30
 --- !u!1 &1097396327641025466
 GameObject:
   m_ObjectHideFlags: 0

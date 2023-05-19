@@ -169,11 +169,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  damage: 0
   model: {fileID: 5949571263265782115}
   firePoint: {fileID: 0}
   attackObj: {fileID: 0}
   attackChance: 0
   telegraphTime: 3
+  section: {fileID: 0}
   explosionRange: 3
   damageAmount: 40
 --- !u!114 &5949571263816930723
@@ -189,6 +191,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkRadius: 0
+  idealRange: 0
+  rangeVariance: 0
 --- !u!114 &7789841132310070364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,4 +206,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 60
-  viewDistance: 15
+  viewDistance: 20

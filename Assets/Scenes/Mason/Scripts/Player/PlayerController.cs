@@ -8,6 +8,9 @@ public class PlayerController : EntityController
     [SerializeField] private int maxAmmoCount;
     private int currentAmmoCount;
 
+    [Header("References")]
+    public Revolver revolver;
+
     private void Awake() {
         currentHealth = maxHealth;
     }

@@ -3416,6 +3416,7 @@ MonoBehaviour:
   maxHealth: 100
   damage: 20
   maxAmmoCount: 100
+  revolver: {fileID: 2581604701308855641}
 --- !u!114 &8189559792197788252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3430,8 +3431,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capsule: {fileID: 8189559793554415320}
   leanPoint: {fileID: 8189559792819520126}
-  walkSpeed: 5
-  sprintSpeed: 7
+  walkSpeed: 4
+  sprintSpeed: 5.5
   crouchSpeed: 3
   minSpeedThreshold: 0.25
   drag: 5
@@ -3459,7 +3460,7 @@ GameObject:
   - component: {fileID: 8189559792640771827}
   - component: {fileID: 8189559792640771826}
   m_Layer: 6
-  m_Name: CameraContainer
+  m_Name: CameraHolder
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
