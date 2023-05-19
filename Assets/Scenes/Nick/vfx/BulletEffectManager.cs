@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class BulletEffectManager : MonoBehaviour
 {
+    public GameObject bulletShotEffect;
     public GameObject bulletTrailEffect;
+    public GameObject hitEffectPrefab;
+
+    public void TriggerShotEffect()
+    {
+        bulletShotEffect.GetComponent<ParticleSystem>().Play();
+    }
   
     public void CreateBulletTrail(Vector3 startPosition, Vector3 endPosition)
     {
@@ -24,6 +31,11 @@ public class BulletEffectManager : MonoBehaviour
         Debug.Log(shape.radius);
         // Destroy the bullet trail after some time
         Destroy(bulletTrail, 1.0f);
+    }
+    public void CreateHitEffect(Vector3 position)
+    {
+        GameObject hitEffect = Instantiate(hitEffectPrefab, position, Quaternion.identity);
+        Destroy(hitEffect, 1.0f); // Destroy after some time
     }
 
 }

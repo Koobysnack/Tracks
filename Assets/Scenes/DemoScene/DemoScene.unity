@@ -1145,6 +1145,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1578856957, guid: 975f29b39c2189042a604aef5849856e, type: 3}
+      propertyPath: hitEffectPrefab
+      value: 
+      objectReference: {fileID: 7998501871289942026, guid: 7f4b61d8f929f1046900c9fc99623da9,
+        type: 3}
     - target: {fileID: 8189559791789088077, guid: 975f29b39c2189042a604aef5849856e,
         type: 3}
       propertyPath: m_RootOrder

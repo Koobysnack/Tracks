@@ -43,6 +43,8 @@ public class HitScanRaycast : MonoBehaviour
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             bulletEffectManager.CreateBulletTrail(gunBarrel.transform.position, hit.point);
+            bulletEffectManager.CreateHitEffect(hit.point);
+            bulletEffectManager.TriggerShotEffect();
           //  Debug.Log("Did Hit");
           //  RaycastHit pierceHit;
 
