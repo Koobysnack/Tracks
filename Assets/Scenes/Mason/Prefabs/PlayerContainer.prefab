@@ -3362,6 +3362,7 @@ GameObject:
   - component: {fileID: 8189559792197788241}
   - component: {fileID: 8189559792197788242}
   - component: {fileID: 8189559792197788243}
+  - component: {fileID: 1690729782303944980}
   - component: {fileID: 8189559792197788252}
   m_Layer: 6
   m_Name: Player
@@ -3418,6 +3419,21 @@ MonoBehaviour:
   damage: 20
   maxAmmoCount: 100
   revolver: {fileID: 2581604701308855641}
+--- !u!114 &1690729782303944980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189559792197788253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624fd5b856fdafe4c84980a48e1bcfc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletTrailEffect: {fileID: 1988581063112771194, guid: 5d742b930fe1d8047a8221ab99ded24f,
+    type: 3}
+  hitEffectPrefab: {fileID: 0}
 --- !u!114 &8189559792197788252
 MonoBehaviour:
   m_ObjectHideFlags: 0

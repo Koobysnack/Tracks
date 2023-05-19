@@ -10,6 +10,8 @@ public class HitScanRaycast : MonoBehaviour
     //consturctor
     [SerializeField]
     protected EntityController EntityRef;
+    public BulletEffectManager bulletEffectManager;
+    public GameObject gunBarrel;
 
     #region BaseRays
     public void RegRayCaster()
@@ -40,6 +42,7 @@ public class HitScanRaycast : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            bulletEffectManager.CreateBulletTrail(gunBarrel.transform.position, hit.point);
           //  Debug.Log("Did Hit");
           //  RaycastHit pierceHit;
 
