@@ -23,6 +23,8 @@ public class MusicManager : MonoBehaviour
 
     [SerializeField]
     private FMODUnity.StudioEventEmitter emitter = null;
+    [SerializeField]
+    private bool playOnStart = true;
 
     [SerializeField]
     private bool playMetronome = false;
@@ -38,7 +40,7 @@ public class MusicManager : MonoBehaviour
         public FMOD.Studio.TIMELINE_BEAT_PROPERTIES beat;
     }
 
-    TimelineInfo timelineInfo;
+    TimelineInfo timelineInfo = null;
     GCHandle timelineHandle;
 
     FMOD.Studio.EVENT_CALLBACK timelineCallback;
@@ -61,17 +63,24 @@ public class MusicManager : MonoBehaviour
         if (emitter == null)
             emitter = GetComponent<FMODUnity.StudioEventEmitter>();
 
-        emitter.Play();
+        if (playOnStart)
+        {
+            emitter.Play();
+            SetMusicTrack(emitter);
+        }
 
+        sfxQueue = new List<QueueItem>();
+    }
+
+    public void SetMusicTrack(FMODUnity.StudioEventEmitter em)
+    {
         timelineCallback = new FMOD.Studio.EVENT_CALLBACK(TimelineCallback);
         timelineInfo = new TimelineInfo();
         // Pin the class that will store the data modified during the callback
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         // Pass the object through the userdata of the instance
-        emitter.EventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
-        emitter.EventInstance.setCallback(TimelineCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
-
-        sfxQueue = new List<QueueItem>();
+        em.EventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
+        em.EventInstance.setCallback(TimelineCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
     }
 
     private bool IsWholeNumber(float x)
@@ -87,6 +96,9 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (timelineInfo == null)
+            return;
+
         if (timelineInfo.newBeat)
         {
             timelineInfo.newBeat = false;

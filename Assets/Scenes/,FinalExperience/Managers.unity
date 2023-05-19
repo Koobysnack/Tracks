@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emitter: {fileID: 0}
+  playOnStart: 0
   playMetronome: 0
   metronomeSound: {fileID: 0}
   currentlySyncedToBeat: 0
