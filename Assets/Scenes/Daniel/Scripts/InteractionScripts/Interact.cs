@@ -19,7 +19,6 @@ public class Interact: MonoBehaviour
         pInput = new PlayerInputActions();
         pInput.Player.Interact.performed += InteractRay;
         interLayer = LayerMask.GetMask("Interact");
-        PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
     }
 
     void Start()
@@ -30,7 +29,8 @@ public class Interact: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameManager.instance && GameManager.instance.player && PlayerRef == null)
+            PlayerRef = GameManager.instance.player.GetComponent<PlayerController>();
     }
 
     private void OnEnable()
@@ -47,7 +47,7 @@ public class Interact: MonoBehaviour
     //Layer 
   
     //Works by casting ray on button press, will only activate Objects implementing IInteractable.
-     public void InteractRay(InputAction.CallbackContext context)
+    public void InteractRay(InputAction.CallbackContext context)
     {
         RaycastHit GetObj;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out GetObj, 100f, interLayer))

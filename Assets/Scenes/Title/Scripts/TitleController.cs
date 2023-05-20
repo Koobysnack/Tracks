@@ -16,22 +16,33 @@ public class TitleController : MonoBehaviour
         //loadScreen.SetActive(true);
         StartCoroutine(LoadSequence());
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     IEnumerator LoadSequence()
     {
         //FadeCoordinator animStatus = loadScreen.GetComponent<FadeCoordinator>();
         //yield return new WaitUntil(() => animStatus.animComplete);
         //loadIcon.SetActive(true);
         //loadText.SetActive(true);
-        LoadGame();
+        LoadDependencies();
         yield return new WaitUntil(() => finishedLoading()); // Wait until all scenes are loaded
         SceneManager.UnloadSceneAsync(1);
+        LoadGame();
+    }
+
+    void LoadDependencies()
+    {
+        loadingScenes.Add(SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive));  // UI
+        loadingScenes.Add(SceneManager.LoadSceneAsync(4, LoadSceneMode.Additive));  // Managers
     }
 
     void LoadGame()
     {
-        loadingScenes.Add(SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive));
         loadingScenes.Add(SceneManager.LoadSceneAsync(3, LoadSceneMode.Additive));
-        loadingScenes.Add(SceneManager.LoadSceneAsync(4, LoadSceneMode.Additive));
         loadingScenes.Add(SceneManager.LoadSceneAsync(5, LoadSceneMode.Additive));
         loadingScenes.Add(SceneManager.LoadSceneAsync(6, LoadSceneMode.Additive));
     }
@@ -44,5 +55,6 @@ public class TitleController : MonoBehaviour
         }
         return true;
     }
+
 
 }

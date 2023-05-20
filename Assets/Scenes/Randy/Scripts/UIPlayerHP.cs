@@ -22,7 +22,7 @@ public class UIPlayerHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance != null && player == null)
+        if (GameManager.instance && GameManager.instance.player && player == null)
             player = GameManager.instance.player.GetComponent<PlayerController>();
         if(player == null)
             return;
