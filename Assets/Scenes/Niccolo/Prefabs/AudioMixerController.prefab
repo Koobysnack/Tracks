@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4582313410414172335}
   - component: {fileID: 3562987563417150205}
   m_Layer: 0
-  m_Name: MixerController
+  m_Name: AudioMixerController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b36004cf81e5b64c81bf7e46c757cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMasterVolume: 0.8
+  defaultMasterVolume: 0.6
   defaultMusicVolume: 0.8
   defaultSFXVolume: 0.8
