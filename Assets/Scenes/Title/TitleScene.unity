@@ -1699,7 +1699,7 @@ MonoBehaviour:
   playOnStart: 0
   playMetronome: 0
   metronomeSound: {fileID: 0}
-  currentlySyncedToBeat: 1
+  currentlySyncedToBeat: 0
 --- !u!4 &763072263
 Transform:
   m_ObjectHideFlags: 0
