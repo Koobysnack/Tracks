@@ -65,7 +65,7 @@ public class Revolver : MonoBehaviour
     {
         foreach (Bullet bullet in cylinder)
         {
-            bullet.type = sinMan.GetSinObj(Sin.ENVY);
+            bullet.type = sinMan.GetSinObj(Sin.NORMAL);
         }
         if(ammoMan != null)
             ammoMan.RequestBulletUpdate();
@@ -104,6 +104,9 @@ public class Revolver : MonoBehaviour
     {
         Bullet bullet = cylinder[currentBullet];
         if (!ready)
+            return;
+
+        if (sinMan.GetSinEnum(bullet.type) == Sin.NORMAL)
             return;
 
         if (!bullet.type.ready)
