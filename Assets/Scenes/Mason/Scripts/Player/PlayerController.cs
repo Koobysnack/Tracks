@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : EntityController
 {
@@ -11,14 +12,56 @@ public class PlayerController : EntityController
     [Header("References")]
     public Revolver revolver;
 
+    private PlayerInputActions pInput;
+
     private void Awake() {
         currentHealth = maxHealth;
         currentAmmoCount = maxAmmoCount / 2;
+
+        pInput = new PlayerInputActions();
+        pInput.Gun.Fire.performed += RevolverShoot;
+        pInput.Gun.AltFire.performed += RevolverAltShoot;
+        pInput.Gun.RotateCylinder.performed += RevolverSelectBullet;
+        pInput.Gun.Reload.performed += RevolverReload;
     }
 
     private void Start() {
-        GameManager.instance.player = transform;
-        GameManager.instance.playerLayer = LayerMask.GetMask("Player");
+        if(GameManager.instance) {
+            GameManager.instance.player = transform;
+            GameManager.instance.playerLayer = LayerMask.GetMask("Player");
+        }
+    }
+
+    private void OnEnable() {
+        pInput.Enable();
+    }
+
+    private void OnDisable() {
+        pInput.Disable();
+    }
+
+    private void RevolverShoot(InputAction.CallbackContext context) {
+        if(PauseManager.instance && PauseManager.instance.paused)
+            return;
+        revolver.Shoot();
+    }
+
+    private void RevolverAltShoot(InputAction.CallbackContext context) {
+        if(PauseManager.instance && PauseManager.instance.paused)
+            return;
+        revolver.AltShoot();
+    }
+
+    private void RevolverSelectBullet(InputAction.CallbackContext context) {
+        if(PauseManager.instance && PauseManager.instance.paused)
+            return;
+        revolver.SelectBullet(context.ReadValue<float>());
+    }
+
+    private void RevolverReload(InputAction.CallbackContext context) {
+        if(PauseManager.instance && PauseManager.instance.paused)
+            return;
+        revolver.Reload();
     }
 
     protected override void Die() {

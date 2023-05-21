@@ -35,7 +35,8 @@ public class MidEnemyMovement : EnemyMovement
         List<Transform> enemies = section.GetEnemies();
         float[] distances = new float[enemies.Count];
         for(int i = 0; i < enemies.Count; ++i)
-            distances[i] = Vector3.Distance(origin, enemies[i].position);
+            if(enemies[i])
+                distances[i] = Vector3.Distance(origin, enemies[i].position);
         float closestDist = distances.Length > 0 ? Mathf.Min(distances) : 0.1f;
         return closestDist;
     }

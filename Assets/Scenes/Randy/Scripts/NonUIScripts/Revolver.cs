@@ -12,7 +12,7 @@ public class Revolver : MonoBehaviour
     HitScanRaycast hitRC;
     UIAmmoManager ammoMan;
     SinManager sinMan;
-    PlayerInputActions pInput;
+    // PlayerInputActions pInput;
     bool ready;
     
 
@@ -24,22 +24,22 @@ public class Revolver : MonoBehaviour
     void Awake()
     {
         hitRC = GetComponent<HitScanRaycast>();
-        pInput = new PlayerInputActions();
-        pInput.Gun.Fire.performed += Shoot;
-        pInput.Gun.AltFire.performed += AltShoot;
-        pInput.Gun.RotateCylinder.performed += SelectBullet;
-        pInput.Gun.Reload.performed += Reload;
+        // pInput = new PlayerInputActions();
+        // pInput.Gun.Fire.performed += Shoot;
+        // pInput.Gun.AltFire.performed += AltShoot;
+        // pInput.Gun.RotateCylinder.performed += SelectBullet;
+        // pInput.Gun.Reload.performed += Reload;
     }
 
-    void OnEnable()
-    {
-        pInput.Enable();
-    }
+    // void OnEnable()
+    // {
+    //     pInput.Enable();
+    // }
 
-    void OnDisable()
-    {
-        pInput.Disable();
-    }
+    // void OnDisable()
+    // {
+    //     pInput.Disable();
+    // }
 
     void Start()
     {
@@ -71,7 +71,7 @@ public class Revolver : MonoBehaviour
             ammoMan.RequestBulletUpdate();
     }
 
-    void Shoot(InputAction.CallbackContext context)
+    public void Shoot()//InputAction.CallbackContext context)
     {
         if (!ready)
             return;
@@ -100,7 +100,7 @@ public class Revolver : MonoBehaviour
         CycleBullet();
     }
 
-    void AltShoot(InputAction.CallbackContext context)  // TODO: Change to readySin
+    public void AltShoot()//InputAction.CallbackContext context)  // TODO: Change to readySin
     {
         Bullet bullet = cylinder[currentBullet];
         if (!ready)
@@ -152,9 +152,9 @@ public class Revolver : MonoBehaviour
             ammoMan.RotateTo(currentBullet, 1);
     }
 
-    void SelectBullet(InputAction.CallbackContext context)
+    public void SelectBullet(float direction)//InputAction.CallbackContext context)
     {
-        float direction = context.ReadValue<float>();
+        //float direction = context.ReadValue<float>();
         if (!cylinder.Exists(bullet => bullet.loaded == true))
         {
             currentBullet = (currentBullet + (int)Mathf.Sign(direction) + cylinder.Count) % cylinder.Count;
@@ -182,7 +182,7 @@ public class Revolver : MonoBehaviour
         }
     }
 
-    void Reload(InputAction.CallbackContext context = default(InputAction.CallbackContext))
+    public void Reload()//InputAction.CallbackContext context = default(InputAction.CallbackContext))
     {
         foreach (Bullet bullet in cylinder)
         {
