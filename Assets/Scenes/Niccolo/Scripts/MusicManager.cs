@@ -79,13 +79,20 @@ public class MusicManager : MonoBehaviour
 
     public void SetMusicTrack(FMODUnity.StudioEventEmitter em)
     {
+        emitter = em;
+
         timelineCallback = new FMOD.Studio.EVENT_CALLBACK(TimelineCallback);
         timelineInfo = new TimelineInfo();
         // Pin the class that will store the data modified during the callback
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         // Pass the object through the userdata of the instance
-        em.EventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
-        em.EventInstance.setCallback(TimelineCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+        emitter.EventInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
+        emitter.EventInstance.setCallback(TimelineCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+    }
+
+    public void SetPaused(bool paused)
+    {
+        emitter.EventInstance.setPaused(paused);
     }
 
     private bool IsWholeNumber(float x)
