@@ -65,7 +65,7 @@ public class PlayerController : EntityController
     }
 
     protected override void Die() {
-        print("Player is dead");
+        GameManager.instance.onPlayerDeath.Invoke();
     }
 
     public override void Damage(float dmgAmt, Transform opponent) {
@@ -81,11 +81,24 @@ public class PlayerController : EntityController
         currentHealth = Mathf.Clamp(currentHealth + healAmt, 0, maxHealth);
     }
 
+    public float GetCurrentHealth() {
+        return currentHealth;
+    }
+
     public float GetHealthPercent() {
         return currentHealth / maxHealth;
     }
 
     public void ChangeAmmo(int amt) {
         currentAmmoCount = Mathf.Clamp(currentAmmoCount + amt, 0, maxAmmoCount);
+    }
+
+    public void Respawn(Checkpoint cp) {
+        transform.position = cp.cpCoordinates;
+        transform.rotation = Quaternion.Euler(new Vector3(0, cp.cpPlayerRotation, 0));
+        transform.GetComponentInChildren<PlayerCamera>().ResetView();
+
+        currentHealth = cp.playerCurHealth;
+        currentAmmoCount = cp.playerCurAmmo;
     }
 }
