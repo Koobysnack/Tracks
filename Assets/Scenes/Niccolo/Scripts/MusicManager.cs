@@ -36,6 +36,8 @@ public class MusicManager : MonoBehaviour
     {
         public bool newMarker = false;
         public FMOD.StringWrapper markerName = new FMOD.StringWrapper();
+        public bool bpmSyncChange = false;
+        public bool bpmSync = false;
         public bool newBeat = false;
         public FMOD.Studio.TIMELINE_BEAT_PROPERTIES beat;
     }
@@ -47,6 +49,9 @@ public class MusicManager : MonoBehaviour
 
     [SerializeField]
     private bool currentlySyncedToBeat = false;
+
+    const string BPMSyncStartMarkerName = "BPMSync";
+    const string BPMSyncStopMarkerName = "NOBPMSync";
 
     public class QueueItem
     {
@@ -99,6 +104,38 @@ public class MusicManager : MonoBehaviour
         if (timelineInfo == null)
             return;
 
+        if (timelineInfo.newMarker)
+        {
+            timelineInfo.newMarker = false;
+
+            if (timelineInfo.bpmSyncChange)
+            {
+                timelineInfo.bpmSyncChange = false;
+
+                if (timelineInfo.bpmSync != currentlySyncedToBeat)
+                {
+                    currentlySyncedToBeat = timelineInfo.bpmSync;
+
+                    if (!currentlySyncedToBeat)
+                    {
+                        // immediately clean sfx queue
+                        foreach (var item in sfxQueue)
+                        {
+                            if (item.emitter != null)
+                                item.emitter.Play();
+                            else
+                            {
+                                item.instance.start();
+                                item.instance.release();
+                            }
+                        }
+
+                        sfxQueue.Clear();
+                    }
+                }
+            }
+        }
+
         if (timelineInfo.newBeat)
         {
             timelineInfo.newBeat = false;
@@ -126,8 +163,6 @@ public class MusicManager : MonoBehaviour
 
                     sfxQueue.RemoveAt(i);
                 }
-
-                //sfxQueue.Clear();
             }
         }
     }
@@ -160,6 +195,19 @@ public class MusicManager : MonoBehaviour
                 var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
                 timelineInfo.markerName = parameter.name;
                 timelineInfo.newMarker = true;
+
+                // bpm sync markers
+                if (timelineInfo.markerName == BPMSyncStartMarkerName)
+                {
+                    timelineInfo.bpmSyncChange = true;
+                    timelineInfo.bpmSync = true;
+                }
+                else if (timelineInfo.markerName == BPMSyncStopMarkerName)
+                {
+                    timelineInfo.bpmSyncChange = true;
+                    timelineInfo.bpmSync = false;
+                }
+
                 break;
             }
             case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT:

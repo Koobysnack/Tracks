@@ -132,8 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 180662341}
-  - component: {fileID: 180662342}
   - component: {fileID: 180662340}
+  - component: {fileID: 180662342}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -153,10 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d6858ac75c52449a238bb3327c1484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitter: {fileID: 0}
+  emitter: {fileID: 180662342}
   playOnStart: 0
   playMetronome: 0
-  metronomeSound: {fileID: 0}
+  metronomeSound: {fileID: 180662342}
   currentlySyncedToBeat: 0
 --- !u!4 &180662341
 Transform:
@@ -188,11 +188,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1715443426
-      Data2: 1338761228
-      Data3: 1054440872
-      Data4: -1320883372
-    Path: event:/Music/TempMusic 2
+      Data1: -1309291894
+      Data2: 1122004598
+      Data3: -1091725131
+      Data4: 1627998107
+    Path: event:/SFX/Misc/Metronome
   Event: 
   PlayEvent: 0
   StopEvent: 0
