@@ -77,7 +77,8 @@ MonoBehaviour:
   firePoint: {fileID: 1097396327641025467}
   attackObj: {fileID: 5559912003243980844, guid: 3aa75286bae0633408526fc4bb0e97e4,
     type: 3}
-  telegraphTime: 1.5
+  minTelegraphTime: 0.5
+  maxTelegraphTime: 2
   section: {fileID: 0}
 --- !u!114 &1097396327129438344
 MonoBehaviour:
@@ -100,7 +101,6 @@ MonoBehaviour:
   playerVisWeight: 10
   playerDistWeight: 5
   enemyDistWeight: 1.5
-  debug: 0
 --- !u!114 &1097396327129438351
 MonoBehaviour:
   m_ObjectHideFlags: 0
