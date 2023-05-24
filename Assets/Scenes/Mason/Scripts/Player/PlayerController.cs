@@ -72,7 +72,6 @@ public class PlayerController : EntityController
         currentHealth -= dmgAmt;
         if(currentHealth <= 0)
             Die();
-        print("Player Damaged. New Health: " + currentHealth);
         if(UIDamageIndicatorManager.instance != null)
             UIDamageIndicatorManager.instance.PlayerHit(opponent);
     }

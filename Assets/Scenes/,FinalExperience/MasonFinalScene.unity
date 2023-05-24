@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731703, g: 0.13414727, b: 0.121078506, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -367,7 +367,7 @@ PrefabInstance:
     - target: {fileID: 1097396327129438350, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1097396327129438350, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
@@ -435,12 +435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5331430f05fac404681276ca6cc6e01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 1083930644}
-  - {fileID: 935224580}
-  - {fileID: 1649314236}
-  - {fileID: 680150149}
-  - {fileID: 706459951}
+  waves: []
+  currentWave: 0
   doors: []
 --- !u!1001 &685448850
 PrefabInstance:
@@ -551,7 +547,7 @@ PrefabInstance:
     - target: {fileID: 5949571263816930722, guid: 9526c5585fc1e2b429f464b08fff6ecb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5949571263816930722, guid: 9526c5585fc1e2b429f464b08fff6ecb,
         type: 3}
@@ -619,12 +615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5331430f05fac404681276ca6cc6e01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 1083930644}
-  - {fileID: 935224580}
-  - {fileID: 1649314236}
-  - {fileID: 680150149}
-  - {fileID: 706459951}
+  waves: []
+  currentWave: 0
   doors: []
 --- !u!4 &843528113 stripped
 Transform:
@@ -661,9 +653,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc0cb758bee7b1498c2f05045d6479d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 582813289}
-  - {fileID: 310961589}
+  waves:
+  - enemies:
+    - {fileID: 582813289}
+    - {fileID: 310961589}
+  currentWave: 0
 --- !u!4 &862579523
 Transform:
   m_ObjectHideFlags: 0
@@ -706,7 +700,7 @@ PrefabInstance:
     - target: {fileID: 5949571263816930722, guid: 9526c5585fc1e2b429f464b08fff6ecb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5949571263816930722, guid: 9526c5585fc1e2b429f464b08fff6ecb,
         type: 3}
@@ -774,12 +768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5331430f05fac404681276ca6cc6e01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 1083930644}
-  - {fileID: 935224580}
-  - {fileID: 1649314236}
-  - {fileID: 680150149}
-  - {fileID: 706459951}
+  waves: []
+  currentWave: 0
   doors: []
 --- !u!1001 &978299616
 PrefabInstance:
@@ -881,7 +871,7 @@ PrefabInstance:
     - target: {fileID: 1097396327129438350, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1097396327129438350, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
@@ -954,12 +944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5331430f05fac404681276ca6cc6e01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 1083930644}
-  - {fileID: 935224580}
-  - {fileID: 1649314236}
-  - {fileID: 680150149}
-  - {fileID: 706459951}
+  waves: []
+  currentWave: 0
   doors: []
 --- !u!4 &1105228380 stripped
 Transform:
@@ -988,6 +974,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1399922590}
+  - component: {fileID: 1399922592}
+  - component: {fileID: 1399922591}
   m_Layer: 0
   m_Name: DiningRoom
   m_TagString: Untagged
@@ -1003,7 +991,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399922589}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 161.48}
+  m_LocalPosition: {x: 0, y: 1, z: 161.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1015,6 +1003,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1399922591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399922589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5331430f05fac404681276ca6cc6e01c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - enemies:
+    - {fileID: 1083930644}
+    - {fileID: 935224580}
+    - {fileID: 1649314236}
+    - {fileID: 680150149}
+    - {fileID: 706459951}
+  currentWave: 0
+  doors: []
+--- !u!65 &1399922592
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399922589}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 19.263042, y: 1, z: 33.997375}
+  m_Center: {x: -3.5963821, y: 0.6, z: -1.4797668}
 --- !u!1001 &1649314235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1040,7 +1062,7 @@ PrefabInstance:
     - target: {fileID: 5949571263816930722, guid: 9526c5585fc1e2b429f464b08fff6ecb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5949571263816930722, guid: 9526c5585fc1e2b429f464b08fff6ecb,
         type: 3}
@@ -1113,12 +1135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5331430f05fac404681276ca6cc6e01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 1083930644}
-  - {fileID: 935224580}
-  - {fileID: 1649314236}
-  - {fileID: 680150149}
-  - {fileID: 706459951}
+  waves: []
+  currentWave: 0
   doors: []
 --- !u!1001 &1698165493
 PrefabInstance:
@@ -1278,9 +1296,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc0cb758bee7b1498c2f05045d6479d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 978299617}
-  - {fileID: 2035252099}
+  waves:
+  - enemies:
+    - {fileID: 978299617}
+    - {fileID: 2035252099}
+  currentWave: 0
 --- !u!4 &1761055417
 Transform:
   m_ObjectHideFlags: 0

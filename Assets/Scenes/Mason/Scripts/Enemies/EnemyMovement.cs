@@ -8,7 +8,8 @@ public abstract class EnemyMovement : MonoBehaviour
     [Header("Base Enemy Movement")]
     [SerializeField] protected float walkRadius;
     [SerializeField] protected float idealRange;
-    [SerializeField] protected float rangeVariance;
+    [SerializeField] protected float closeRangeVariance;
+    [SerializeField] protected float farRangeVariance;
 
     public abstract Vector3 GetAttackPosition(Vector3 origin = default(Vector3));
     public abstract Vector3 GetCoverPosition();

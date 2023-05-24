@@ -14,6 +14,7 @@ public class MidEnemyMovement : EnemyMovement
     [SerializeField] private float playerDistWeight;
     [SerializeField] private float enemyDistWeight;
 
+    public bool debug;
     private Transform player;
     private SectionController section;
 
@@ -32,7 +33,7 @@ public class MidEnemyMovement : EnemyMovement
             return 0;
 
         // get closest enemy and add reciporical to score
-        List<Transform> enemies = section.GetEnemies();
+        List<Transform> enemies = section.GetEnemiesInWave();
         float[] distances = new float[enemies.Count];
         for(int i = 0; i < enemies.Count; ++i)
             if(enemies[i])
@@ -92,7 +93,7 @@ public class MidEnemyMovement : EnemyMovement
 
     private Vector3 FindRandomPos(Vector3 origin, float angle) {
         // make right and left edges of arc
-        float dirCoef = Vector3.Distance(origin, player.position) < idealRange - rangeVariance ? -1 : 1;
+        float dirCoef = Vector3.Distance(origin, player.position) < idealRange - closeRangeVariance ? -1 : 1;
         Vector3 arcLeft = GetEdgeVector(origin, -angle, dirCoef);
         Vector3 arcRight = GetEdgeVector(origin, angle, dirCoef);
 
@@ -135,7 +136,7 @@ public class MidEnemyMovement : EnemyMovement
         // sample positions, score them, and store in arrays
         for(int i = 0; i < numSamples; ++i) {
             NavMeshHit hit;
-            Vector3 pos = FindRandomPos(origin, 60);
+            Vector3 pos = FindRandomPos(origin, InComfortRange(origin) ? 90 : 60);
             NavMesh.SamplePosition(pos, out hit, walkRadius, 1);
             scores[i] = GetScore(hit.position);
             positions[i] = hit.position;
@@ -161,7 +162,8 @@ public class MidEnemyMovement : EnemyMovement
     public override bool GoodPosition(Vector3 pos, Transform player) {
         // good position if in comfort range and can see player
         RaycastHit hit;
-        bool canSeePlayer = Physics.Raycast(pos, player.position - pos, out hit, Mathf.Infinity);
+        Vector3 dir = Vector3.Normalize(player.position - pos);
+        bool canSeePlayer = Physics.Raycast(pos, dir, out hit, Mathf.Infinity, LayerMask.GetMask("Player"));
         canSeePlayer = hit.transform != null ? hit.transform.tag == "Player" : false;
         return InComfortRange(pos) && canSeePlayer;
     }
@@ -169,6 +171,6 @@ public class MidEnemyMovement : EnemyMovement
     public override bool InComfortRange(Vector3 pos) {
         // return if player is within ideal range +/- range variance
         float playerDist = Vector3.Distance(player.position, pos);
-        return (idealRange - rangeVariance) <= playerDist && playerDist <= (idealRange + rangeVariance);
+        return (idealRange - closeRangeVariance) <= playerDist && playerDist <= (idealRange + farRangeVariance);
     }
 }

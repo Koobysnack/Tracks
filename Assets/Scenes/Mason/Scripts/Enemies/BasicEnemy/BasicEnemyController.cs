@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class BasicEnemyController : EnemyController
 {
+    [Header("Basic Enemy Stats")]
+    [SerializeField] private float attackChance;
+
     #region Unity Functions
     private void Awake() {
         movement = GetComponent<EnemyMovement>();
