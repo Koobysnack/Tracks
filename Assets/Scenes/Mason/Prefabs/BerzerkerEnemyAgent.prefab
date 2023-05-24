@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b82f6590aa73d4e82a753507879f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
-  damage: 0
+  maxHealth: 100
+  damage: 40
   model: {fileID: 5949571263265782115}
   firePoint: {fileID: 0}
   attackObj: {fileID: 0}
@@ -177,7 +177,6 @@ MonoBehaviour:
   telegraphTime: 3
   section: {fileID: 0}
   explosionRange: 3
-  damageAmount: 40
 --- !u!114 &5949571263816930723
 MonoBehaviour:
   m_ObjectHideFlags: 0

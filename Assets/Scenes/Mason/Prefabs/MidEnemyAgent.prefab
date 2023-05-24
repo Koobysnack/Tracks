@@ -71,14 +71,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96032e824fab95444aba5b9caf74a73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 150
   damage: 10
   model: {fileID: 1097396328459506016}
   firePoint: {fileID: 1097396327641025467}
   attackObj: {fileID: 5559912003243980844, guid: 3aa75286bae0633408526fc4bb0e97e4,
     type: 3}
-  attackChance: 50
-  telegraphTime: 3
+  telegraphTime: 1.5
   section: {fileID: 0}
 --- !u!114 &1097396327129438344
 MonoBehaviour:
@@ -94,12 +93,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkRadius: 5
   idealRange: 7
-  rangeVariance: 3
+  closeRangeVariance: 3
+  farRangeVariance: 3
   numSamples: 20
-  enemyDistThreshold: 3
+  enemyDistThreshold: 1.5
   playerVisWeight: 10
   playerDistWeight: 5
-  enemyDistWeight: 2
+  enemyDistWeight: 1.5
+  debug: 0
 --- !u!114 &1097396327129438351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAngle: 60
   viewDistance: 30
+  status: 0
 --- !u!1 &1097396327641025466
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ public class BerzerkerEnemyController : EnemyController
 {
     [Header("Berzerker Stats")]
     [SerializeField] private float explosionRange;
-    [SerializeField] private float damageAmount;
 
     #region Unity Functions
     private void Awake() {
@@ -55,7 +54,7 @@ public class BerzerkerEnemyController : EnemyController
 
     protected override IEnumerator Attack() {
         if(Vector3.Distance(transform.position, player.position) < explosionRange)
-            player.GetComponent<PlayerController>().Damage(damageAmount, transform);
+            player.GetComponent<PlayerController>().Damage(damage, transform);
         Destroy(gameObject);
         yield break;
     }
@@ -63,7 +62,10 @@ public class BerzerkerEnemyController : EnemyController
 
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
-        print("Berzerker Enemy Damaged");
+        if(section.GetType() == typeof(ArenaController))
+            section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
+        else
+            alert.status = EnemyAlert.AlertStatus.ALERT;
         currentHealth -= damage;
         if(currentHealth <= 0)
             Die();

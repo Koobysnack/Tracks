@@ -8,7 +8,7 @@ public class EnemyAlert : MonoBehaviour
 
     [SerializeField] private float viewAngle;
     [SerializeField] private float viewDistance;
-    [HideInInspector] public AlertStatus status { get; private set; }
+    [HideInInspector] public AlertStatus status;
 
     private Transform player;
     private LayerMask playerLayer;

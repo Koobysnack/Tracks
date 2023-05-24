@@ -23,7 +23,7 @@ public class MidEnemyController : EnemyController
         // move and attack if alert
         if(alert.status == EnemyAlert.AlertStatus.ALERT) {
             // attack if in good position and not attacking
-            if(movement.GoodPosition(agent.destination, player)) {
+            if(movement.GoodPosition(agent.destination + Vector3.up, player)) {
                 if(agent.remainingDistance < 0.1f && !attacking)
                     InitiateAttack();
             }
@@ -85,6 +85,10 @@ public class MidEnemyController : EnemyController
 
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
+        if(section && section.GetType() == typeof(ArenaController))
+            section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
+        else
+            alert.status = EnemyAlert.AlertStatus.ALERT;
         currentHealth -= damage;
         if(currentHealth <= 0)
             Die();

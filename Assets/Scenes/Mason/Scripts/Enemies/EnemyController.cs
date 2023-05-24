@@ -11,7 +11,6 @@ public abstract class EnemyController : EntityController
 
     [Header("Attacking")]
     [SerializeField] protected GameObject attackObj;
-    [SerializeField] protected float attackChance;
     [SerializeField] protected float telegraphTime;
     protected bool attacking;
     protected bool attackedLast;
