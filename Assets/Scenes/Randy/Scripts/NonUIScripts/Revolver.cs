@@ -14,6 +14,7 @@ public class Revolver : MonoBehaviour
     SinManager sinMan;
     // PlayerInputActions pInput;
     bool ready;
+    bool useSin;
     
 
     void OnValidate()
@@ -48,6 +49,7 @@ public class Revolver : MonoBehaviour
             bullet.loaded = true;
         }
         ready = true;
+        useSin = false;
     }
 
     void Update()
@@ -87,54 +89,21 @@ public class Revolver : MonoBehaviour
             Reload();
             return;
         }
-        
-        hitRC.PierceRayCaster();
-        StartCoroutine(NormalShootCooldown());
-        GunfireSFX();
-        cylinder[currentBullet].loaded = false;
-        if (ammoMan != null)
-        {
-            ammoMan.HideAmmoPanel();
-            ammoMan.FireBullet(currentBullet);
-        }
-        CycleBullet();
+
+        if (!(sinMan.GetSinEnum(cylinder[currentBullet].type) == Sin.NORMAL || !useSin)) // only when using a bullet with sin infusion and RMB held
+            DoShootSin();
+        else
+            DoShootBullet();
     }
 
-    public void AltShoot()//InputAction.CallbackContext context)  // TODO: Change to readySin
+    public void ReadySin()//InputAction.CallbackContext context)
     {
-        Bullet bullet = cylinder[currentBullet];
-        if (!ready)
-            return;
+        useSin = true;
+    }
 
-        if (sinMan.GetSinEnum(bullet.type) == Sin.NORMAL)
-            return;
-
-        if (!bullet.type.ready)
-        {
-            // Warn Sin not ready
-            return;
-        }
-
-        if (pController.currentAmmoCount < 1)
-        {
-            // Warn out of ammo
-            return;
-        }
-
-        if (cylinder[currentBullet].loaded == false)
-        {
-            Reload();
-            return;
-        }
-        
-        bullet.type.SinFire(transform);
-        bullet.loaded = false;
-        if (ammoMan != null)
-        {
-            ammoMan.HideAmmoPanel();
-            ammoMan.FireBullet(currentBullet);
-        }
-        CycleBullet();
+    public void CancelSin()
+    {
+        useSin = false;
     }
 
     void CycleBullet()
@@ -223,5 +192,50 @@ public class Revolver : MonoBehaviour
     public void SwapBullet(int chamber, AbsSinClass newType)
     {
         cylinder[chamber].type = newType;
+    }
+
+    void DoShootBullet()
+    {
+        hitRC.PierceRayCaster();
+        StartCoroutine(NormalShootCooldown());
+        GunfireSFX();
+        cylinder[currentBullet].loaded = false;
+        if (ammoMan != null)
+        {
+            ammoMan.HideAmmoPanel();
+            ammoMan.FireBullet(currentBullet);
+        }
+        CycleBullet();
+    }
+
+    void DoShootSin()
+    {
+        Bullet bullet = cylinder[currentBullet];
+        if (!bullet.type.ready)
+        {
+            // Warn Sin not ready
+            return;
+        }
+
+        if (pController.currentAmmoCount < 1)
+        {
+            // Warn out of ammo
+            return;
+        }
+
+        if (cylinder[currentBullet].loaded == false)
+        {
+            Reload();
+            return;
+        }
+
+        bullet.type.SinFire(transform);
+        bullet.loaded = false;
+        if (ammoMan != null)
+        {
+            ammoMan.HideAmmoPanel();
+            ammoMan.FireBullet(currentBullet);
+        }
+        CycleBullet();
     }
 }
