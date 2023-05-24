@@ -20,7 +20,8 @@ public class PlayerController : EntityController
 
         pInput = new PlayerInputActions();
         pInput.Gun.Fire.performed += RevolverShoot;
-        pInput.Gun.AltFire.performed += RevolverAltShoot;
+        pInput.Gun.AltFire.performed += ReadySin;
+        pInput.Gun.AltFire.canceled += CancelSin;
         pInput.Gun.RotateCylinder.performed += RevolverSelectBullet;
         pInput.Gun.Reload.performed += RevolverReload;
     }
@@ -46,10 +47,13 @@ public class PlayerController : EntityController
         revolver.Shoot();
     }
 
-    private void RevolverAltShoot(InputAction.CallbackContext context) {
+    private void ReadySin(InputAction.CallbackContext context) {
         if(PauseManager.instance && PauseManager.instance.paused)
             return;
-        revolver.AltShoot();
+        revolver.ReadySin();
+    }
+    private void CancelSin(InputAction.CallbackContext context) {   // No pause check since it would be easier to cancel regardless of pause status
+        revolver.CancelSin();
     }
 
     private void RevolverSelectBullet(InputAction.CallbackContext context) {
