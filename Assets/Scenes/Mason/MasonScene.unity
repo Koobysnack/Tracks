@@ -3357,16 +3357,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1097396327129438345, guid: 75540cccde422e44a95229ee84593750,
-        type: 3}
-      propertyPath: maxTelegraphTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1097396327129438345, guid: 75540cccde422e44a95229ee84593750,
-        type: 3}
-      propertyPath: minTelegraphTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1097396327129438348, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
       propertyPath: m_Name
@@ -3375,7 +3365,7 @@ PrefabInstance:
     - target: {fileID: 1097396327129438348, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1097396327129438350, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
