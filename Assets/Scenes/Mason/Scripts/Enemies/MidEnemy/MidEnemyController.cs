@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Mathematics;
 
 public class MidEnemyController : EnemyController
 {
@@ -57,7 +58,7 @@ public class MidEnemyController : EnemyController
     protected override void InitiateAttack() {
         // attack if can see player
         attacking = true;
-        bool canSeePlayer = Physics.Raycast(transform.position, player.position - transform.position, Mathf.Infinity, playerLayer);
+        bool canSeePlayer = Physics.Raycast(transform.position, (player.position - transform.position).normalized , Mathf.Infinity, playerLayer);
         if(canSeePlayer)
             StartCoroutine("Telegraph");
         else
@@ -70,6 +71,10 @@ public class MidEnemyController : EnemyController
 
     protected override IEnumerator Telegraph() {
         // do some telegraph stuff here
+        float playerDist = Vector3.Distance(transform.position, player.position);
+        Vector2 range = movement.GetRange();
+        float telegraphTime = math.remap(range.x, range.y, minTelegraphTime, maxTelegraphTime, playerDist);
+        
         yield return new WaitForSeconds(telegraphTime);
         StartCoroutine("Attack");
     }

@@ -17,4 +17,7 @@ public abstract class EnemyMovement : MonoBehaviour
     public abstract void MovetoCoverPosition(NavMeshAgent agent, Vector3 movePos);
     public abstract bool GoodPosition(Vector3 pos, Transform player);
     public abstract bool InComfortRange(Vector3 pos);
+    public Vector2 GetRange() {
+        return new Vector2(idealRange - closeRangeVariance, idealRange + farRangeVariance);
+    }
 }

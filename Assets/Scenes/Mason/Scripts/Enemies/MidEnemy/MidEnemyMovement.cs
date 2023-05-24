@@ -14,7 +14,6 @@ public class MidEnemyMovement : EnemyMovement
     [SerializeField] private float playerDistWeight;
     [SerializeField] private float enemyDistWeight;
 
-    public bool debug;
     private Transform player;
     private SectionController section;
 

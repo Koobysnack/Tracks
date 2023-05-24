@@ -48,7 +48,7 @@ public class BerzerkerEnemyController : EnemyController
 
     protected override IEnumerator Telegraph() {
         attacking = true;
-        yield return new WaitForSeconds(telegraphTime);
+        yield return new WaitForSeconds(minTelegraphTime);
         StartCoroutine("Attack");
     }
 
