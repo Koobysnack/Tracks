@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Leaning")]
     [SerializeField] private float leanDegree;
     [SerializeField] private float leanSpeed;
+    [SerializeField] private float leanStepScalar;
 
     [Header("Slopes and Steps")]
     [SerializeField] private float maxSlopeAngle;
@@ -47,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
     private bool crouched;
     private bool canDash;
     private bool dashing;
+    private bool leanMove;
+    private float leanVal;
     private float currentMoveScalar;
     private float currentSpeed;
     #endregion
@@ -113,7 +116,8 @@ public class PlayerMovement : MonoBehaviour
             currentSpeed = crouchSpeed;
         else {
             // use sprint speed if sprinting, otherwise use walk speed
-            bool sprintPossible = pInput.Player.Sprint.ReadValue<float>() > 0.1f && onGround && moveDir.z > 0;
+            bool movingForward = transform.InverseTransformDirection(moveDir).z > 0;
+            bool sprintPossible = pInput.Player.Sprint.ReadValue<float>() > 0.1f && onGround && movingForward;
             currentSpeed = sprintPossible ? sprintSpeed : walkSpeed;
         }
     }
@@ -131,12 +135,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetLean() {
         // get lean direction
-        float leanVal = pInput.Player.Lean.ReadValue<float>();
+        float prevLeanVal = leanVal;
+        leanVal = pInput.Player.Lean.ReadValue<float>();
         float targetZ = -leanVal * leanDegree;
 
-        // KEEPING THESE JUST IN CASE
-        // float lerpVal = Mathf.LerpAngle(transform.localEulerAngles.z, targetZ, leanSpeed * Time.deltaTime);
-        // transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, lerpVal);
+        if(leanVal == 0) {
+            // if previously leaning, move step back from lean
+            if(leanMove) {
+                Vector3 leanMoveDir = transform.right * -prevLeanVal * leanStepScalar * walkSpeed;
+                body.AddForce(leanMoveDir, ForceMode.Force);
+            }
+            leanMove = false;
+        }
+        else if(!leanMove) {
+            // take step out in direction of lean
+            Vector3 leanMoveDir = transform.right * leanVal * leanStepScalar * walkSpeed;
+            body.AddForce(leanMoveDir, ForceMode.Force);
+            leanMove = true;
+        }
 
         // lerp player to lean in that direction smoothely
         float lerpVal = Mathf.LerpAngle(leanPoint.localEulerAngles.z, targetZ, leanSpeed * Time.deltaTime);
@@ -160,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool Grounded() {
+        // boxcast from player downwards to see if on ground
         Vector3 center = capsule.bounds.center;
         Vector3 halfExtents = capsule.bounds.extents * 0.5f;
         halfExtents.y = 0.1f;
@@ -172,9 +189,8 @@ public class PlayerMovement : MonoBehaviour
 
     #region CallbackEvents
     private void Jump(InputAction.CallbackContext context) {
-        if(onGround && !crouched) {
+        if(onGround && !crouched)
             body.AddForce(jumpForce * transform.up, ForceMode.Impulse);
-        }
     }
 
     private void ToggleCrouch(InputAction.CallbackContext context) {

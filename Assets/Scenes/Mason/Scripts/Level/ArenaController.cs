@@ -6,7 +6,6 @@ public class ArenaController : SectionController
 {
     [SerializeField] private List<ArenaDoor> doors;
     private bool arenaEntered;
-    private bool allDead;
     
     private void Awake() {
         OpenDoors(false);
@@ -27,10 +26,8 @@ public class ArenaController : SectionController
             // spawn next wave or end arena battle if no more waves
             if(currentWave < waves.Count)
                 SpawnWave(true);
-            else {
-                allDead = true;
+            else
                 OpenDoors(true);
-            }
         }
     }
 
@@ -39,7 +36,6 @@ public class ArenaController : SectionController
             CloseDoors();
             SpawnWave(false);
             arenaEntered = true;
-            allDead = false;
         }
     }
 

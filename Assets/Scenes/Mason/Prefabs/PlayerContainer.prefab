@@ -3470,6 +3470,7 @@ MonoBehaviour:
   dashCooldown: 2
   leanDegree: 15
   leanSpeed: 5
+  leanStepScalar: 75
   maxSlopeAngle: 45
   maxStepHeight: 0.25
 --- !u!114 &6369004728623343633
@@ -3537,7 +3538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8189559792197788241}
-  cameraSensitivity: 5
+  cameraSensitivity: 10
 --- !u!1 &8189559792819520127
 GameObject:
   m_ObjectHideFlags: 0
