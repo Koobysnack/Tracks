@@ -90,7 +90,7 @@ public class Revolver : MonoBehaviour
             return;
         }
 
-        if (!(sinMan.GetSinEnum(cylinder[currentBullet].type) == Sin.NORMAL || !useSin)) // only when using a bullet with sin infusion and RMB held
+        if (!((sinMan == null || sinMan.GetSinEnum(cylinder[currentBullet].type) == Sin.NORMAL) || !useSin)) // only when using a bullet with sin infusion and RMB held
             DoShootSin();
         else
             DoShootBullet();
@@ -184,7 +184,8 @@ public class Revolver : MonoBehaviour
 
         var sound = FMODUnity.RuntimeManager.CreateInstance(eventName);
         sound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-        MusicManager.instance.TriggerSFX(sound, 8);
+        if(MusicManager.instance != null)
+            MusicManager.instance.TriggerSFX(sound, 8);
         //sound.start();
         //sound.release();
     }
