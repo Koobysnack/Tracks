@@ -67,7 +67,7 @@ public class BasicEnemyController : EnemyController
 
     protected override IEnumerator Telegraph() {
         // do some telegraph stuff here
-        yield return new WaitForSeconds(telegraphTime);
+        yield return new WaitForSeconds(minTelegraphTime);
         StartCoroutine("Attack");
     }
 
