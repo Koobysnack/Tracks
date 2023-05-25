@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickUp : PickUp { 
+public class HealthPickUp : PickUp {
     // Start is called before the first frame update
-
+    
     public int HealthAmount;
 
     void Start()

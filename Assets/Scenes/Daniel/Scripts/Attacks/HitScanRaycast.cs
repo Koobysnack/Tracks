@@ -54,11 +54,11 @@ public class HitScanRaycast : MonoBehaviour
             hit.collider.Raycast(pierceRay,out backHit,1000);
             if (hit.transform.parent)
             {
-           //     print("why");
+      
                 ShotEntity = hit.transform.parent.GetComponent<EntityController>();
                 if (ShotEntity)
                 {
-           //         print("hello");
+           
                     ShotEntity.Damage(EntityRef.damage, transform);
 
                 }

@@ -9,6 +9,7 @@ public class EnvySin : AbsSinClass
     //private EntityController EntityRef;
     private LayerMask lMask;
 
+
     void OnEnable()
     {
         lMask = LayerMask.GetMask("Enemy,Ground");

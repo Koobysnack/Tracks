@@ -7,15 +7,16 @@ public class AmmoPickUp : PickUp
     // Start is called before the first frame update
 
     public int ammoAmount;
+    public int ammoRandMax;
+    public int ammoRandMin;
     public bool ammoRand;
-
     void Start()
     {
         PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
         print(PlayerRef);
         if (ammoRand)
         {
-            ammoAmount = RandAmmoAmount();
+            ammoAmount = RandAmmoAmount(ammoRandMax,ammoRandMin);
         }
     }
 
@@ -34,8 +35,8 @@ public class AmmoPickUp : PickUp
 
 
 
-    private int RandAmmoAmount()
+    private int RandAmmoAmount(int ammoRandMax, int ammoRandMin)
     {
-        return Random.Range(0, 7);
+        return Random.Range(ammoRandMin,ammoRandMax);
     }
 }
