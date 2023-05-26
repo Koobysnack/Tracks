@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public abstract class EnemyController : EntityController
 {
+    [Header("Enemy Spawn Particles")]
+    [SerializeField] protected GameObject spawnParticlesPrefab;
+
     [Header("Children")]
     [SerializeField] protected Transform model;
     [SerializeField] protected Transform firePoint;
@@ -28,4 +31,8 @@ public abstract class EnemyController : EntityController
     protected abstract void InitiateAttack();
     protected abstract IEnumerator Telegraph();
     protected abstract IEnumerator Attack();
+
+    private void OnEnable() {
+        Instantiate(spawnParticlesPrefab, transform.position, transform.rotation);
+    }
 }

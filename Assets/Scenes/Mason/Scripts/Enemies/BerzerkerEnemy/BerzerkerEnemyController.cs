@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class BerzerkerEnemyController : EnemyController
 {
-    [Header("Berzerker Stats")]
+    [Header("Berzerker")]
+    [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private float explosionRange;
 
     #region Unity Functions
@@ -55,6 +56,7 @@ public class BerzerkerEnemyController : EnemyController
     protected override IEnumerator Attack() {
         if(Vector3.Distance(transform.position, player.position) < explosionRange)
             player.GetComponent<PlayerController>().Damage(damage, transform);
+        Instantiate(explosionPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
         yield break;
     }
@@ -62,7 +64,7 @@ public class BerzerkerEnemyController : EnemyController
 
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
-        if(section.GetType() == typeof(ArenaController))
+        if(section && section.GetType() == typeof(ArenaController))
             section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
         else
             alert.status = EnemyAlert.AlertStatus.ALERT;
