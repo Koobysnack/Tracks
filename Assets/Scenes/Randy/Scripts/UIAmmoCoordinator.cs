@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using NaughtyAttributes;
 
 public class UIAmmoCoordinator : MonoBehaviour
 {
     [SerializeField] UIAmmoManager UIAmmoMan;
     SinManager sinMan;
+    Revolver revolver;
     List<Image> bulletDisplay = new List<Image>();
     [SerializeField] GameObject uiPivot;
+    [SerializeField] GameObject numIndicator;
+    [SerializeField] TextMeshProUGUI numIndicatorText;
     [SerializeField] Image imagePrefab;
+    PlayerController pCont;
 
     // Rotation vars
     Quaternion endAngle;
@@ -22,6 +27,8 @@ public class UIAmmoCoordinator : MonoBehaviour
     bool hideTimerStarted;
     float timeUntilHidden;
     RectTransform uiPivotRT;
+    RectTransform numIndicatorRT;
+    Vector2 numIndicatorStartPos;
     [SerializeField] Canvas canvas;
 
     private void Awake()
@@ -30,6 +37,8 @@ public class UIAmmoCoordinator : MonoBehaviour
         hideTimerStarted = false;
         showAllBullets = false;
         uiPivotRT = uiPivot.GetComponent<RectTransform>();
+        numIndicatorRT = numIndicator.GetComponent<RectTransform>();
+        numIndicatorStartPos = numIndicatorRT.position;
     }
 
     // Start is called before the first frame update
@@ -44,13 +53,27 @@ public class UIAmmoCoordinator : MonoBehaviour
     {
         if(uiPivotRT.position.y != (showAllBullets ? UIAmmoMan.radius + 10 : 0))
         {
-            Vector2 currentPos = uiPivotRT.position;
-            Vector2 targetPos = new Vector2(uiPivotRT.position.x, showAllBullets ? UIAmmoMan.showPivotHeight * canvas.scaleFactor : 0);
             float step = UIAmmoMan.showHideSpeed * Time.deltaTime;
-            uiPivotRT.position = Vector2.MoveTowards(currentPos, targetPos, step);
+            Vector2 revPos = uiPivotRT.position;
+            Vector2 currentNumPos = numIndicatorRT.position;
+            Vector2 targetRevPos = new Vector2(uiPivotRT.position.x, showAllBullets ? UIAmmoMan.showPivotHeight * canvas.scaleFactor : 0);
+            Vector2 targetNumPos = showAllBullets ? targetRevPos : numIndicatorStartPos;
+            uiPivotRT.position = Vector2.MoveTowards(revPos, targetRevPos, step);
+            numIndicatorRT.position = Vector2.MoveTowards(currentNumPos, targetNumPos, step);
         }
-        if(SinManager.instance != null && sinMan == null)
+        if(SinManager.instance && sinMan == null)
             sinMan = SinManager.instance;
+        if (GameManager.instance && GameManager.instance.player && revolver == null)
+        {
+            pCont = GameManager.instance.player.gameObject.GetComponent<PlayerController>();
+            revolver = pCont.revolver;
+        }
+        if(pCont != null)
+        {
+            print(numIndicatorText);
+            if(pCont.currentAmmoCount.ToString() != numIndicatorText.text)
+                numIndicatorText.text = pCont.currentAmmoCount.ToString();
+        }
     }
 
     void InstantiateBulletDisplay()
@@ -155,9 +178,9 @@ public class UIAmmoCoordinator : MonoBehaviour
 
     public void Reload()
     {
-        foreach(Image bullet in bulletDisplay)
+        for (int i = 0; i < revolver.cylinder.Count; i++)
         {
-            bullet.sprite = UIAmmoMan.loadedBullet;
+            bulletDisplay[i].sprite = revolver.cylinder[i].loaded ? UIAmmoMan.loadedBullet : UIAmmoMan.firedBullet;
         }
     }
 

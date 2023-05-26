@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class Revolver : MonoBehaviour
 {
     [Min(0.01f), SerializeField] float normalFireRate;
+    [SerializeField] float reloadTime;
     [SerializeField] PlayerController pController;
     public int currentBullet;
     public List<Bullet> cylinder = new List<Bullet>();
@@ -14,6 +15,7 @@ public class Revolver : MonoBehaviour
     SinManager sinMan;
     // PlayerInputActions pInput;
     bool ready;
+    bool isReloading;
     bool useSin;
     
 
@@ -78,19 +80,13 @@ public class Revolver : MonoBehaviour
         if (!ready)
             return;
 
-        if (pController.currentAmmoCount < 1)
-        {
-            // Warn out of ammo
-            return;
-        }
-
         if (cylinder[currentBullet].loaded == false)
         {
-            Reload();
+            StartReload();
             return;
         }
-
-        if (!((sinMan == null || sinMan.GetSinEnum(cylinder[currentBullet].type) == Sin.NORMAL) || !useSin)) // only when using a bullet with sin infusion and RMB held
+        InterruptReload();  // If ammo is still available, interrupt reload and shoot
+        if (!((sinMan == null || sinMan.GetSinEnum(cylinder[currentBullet].type) == Sin.NORMAL) || !useSin))    // only when using a bullet with sin infusion and RMB held
             DoShootSin();
         else
             DoShootBullet();
@@ -154,19 +150,19 @@ public class Revolver : MonoBehaviour
         }
     }
 
-    public void Reload()//InputAction.CallbackContext context = default(InputAction.CallbackContext))
+    public void StartReload()//InputAction.CallbackContext context = default(InputAction.CallbackContext))
     {
-        foreach (Bullet bullet in cylinder)
-        {
-            bullet.loaded = true;
-        }
-        currentBullet = 0;
-        if (ammoMan != null)
-        {
-            ammoMan.Reload();
-            ammoMan.ShowAmmoPanel();
-            ammoMan.RotateTo(currentBullet, 1);
-        }
+        if (isReloading)
+            return;
+        StartCoroutine(Reload());
+    }
+
+    public void InterruptReload()
+    {
+        if (!isReloading)
+            return;
+        StopCoroutine(Reload());
+        isReloading = false;
     }
 
     IEnumerator NormalShootCooldown()
@@ -239,4 +235,26 @@ public class Revolver : MonoBehaviour
         }
         CycleBullet();
     }
+
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(reloadTime);
+        foreach (Bullet bullet in cylinder)
+        {
+            if (pController.currentAmmoCount < 1)
+                break;
+            bullet.loaded = true;
+            pController.ChangeAmmo(-1);
+        }
+        currentBullet = 0;
+        if (ammoMan != null)
+        {
+            ammoMan.Reload();
+            ammoMan.ShowAmmoPanel();
+            ammoMan.RotateTo(currentBullet, 1);
+        }
+        isReloading = false;
+    }
+
 }

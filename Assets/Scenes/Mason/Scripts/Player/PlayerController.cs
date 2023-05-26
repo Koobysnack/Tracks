@@ -65,7 +65,7 @@ public class PlayerController : EntityController
     private void RevolverReload(InputAction.CallbackContext context) {
         if(PauseManager.instance && PauseManager.instance.paused)
             return;
-        revolver.Reload();
+        revolver.StartReload();
     }
 
     protected override void Die() {
