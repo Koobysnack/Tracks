@@ -19,11 +19,11 @@ public class PlayerController : EntityController
         currentAmmoCount = maxAmmoCount / 2;
 
         pInput = new PlayerInputActions();
-        pInput.Gun.Fire.performed += RevolverShoot;
-        pInput.Gun.AltFire.performed += ReadySin;
-        pInput.Gun.AltFire.canceled += CancelSin;
-        pInput.Gun.RotateCylinder.performed += RevolverSelectBullet;
-        pInput.Gun.Reload.performed += RevolverReload;
+        pInput.Attack.Fire.performed += RevolverShoot;
+        pInput.Attack.AltFire.performed += ReadySin;
+        pInput.Attack.AltFire.canceled += CancelSin;
+        pInput.Attack.RotateCylinder.performed += RevolverSelectBullet;
+        pInput.Attack.Reload.performed += RevolverReload;
     }
 
     private void Start() {
@@ -74,6 +74,7 @@ public class PlayerController : EntityController
 
     public override void Damage(float dmgAmt, Transform opponent) {
         currentHealth -= dmgAmt;
+        print("Player Damaged: New Health: " + currentHealth);
         if(currentHealth <= 0)
             Die();
         if(UIDamageIndicatorManager.instance != null)

@@ -93,6 +93,10 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region General Functions
+    public Vector3 GetMoveDir() {
+        return moveDir;
+    }
+
     private void SetMoveDir() {
         // get player input and set initial move direction
         Vector2 input = pInput.Player.Movement.ReadValue<Vector2>();

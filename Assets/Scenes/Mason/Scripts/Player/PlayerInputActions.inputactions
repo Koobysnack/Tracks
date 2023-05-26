@@ -236,7 +236,7 @@
             ]
         },
         {
-            "name": "Gun",
+            "name": "Attack",
             "id": "bd6a6ae3-9066-46c5-81d0-6bb9ee1fbd8c",
             "actions": [
                 {
@@ -274,6 +274,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Melee",
+                    "type": "Button",
+                    "id": "2e6d6927-ee10-4677-bd83-8181b239ac45",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -318,6 +327,17 @@
                     "processors": "",
                     "groups": "Keyboard/Mouse",
                     "action": "RotateCylinder",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c74881f2-8281-4f55-87ed-a8ed94c41225",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "Melee",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
