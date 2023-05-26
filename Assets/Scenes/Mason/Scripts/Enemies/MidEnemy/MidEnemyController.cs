@@ -5,7 +5,9 @@ using UnityEngine.AI;
 
 public class MidEnemyController : EnemyController
 {
+    [Header("Mid Enemy")]
     [SerializeField] private float aimVariance;
+    [SerializeField] private float rotationSpeed;
     private PlayerMovement pMovement;
     private bool shot;
 
@@ -28,7 +30,6 @@ public class MidEnemyController : EnemyController
 
         if(GameManager.instance.playerDead) {
             StopAllCoroutines();
-            print("ajksdfkas");
             return;
         }
 
@@ -61,7 +62,9 @@ public class MidEnemyController : EnemyController
     private void RotateTowardsPlayer() {
         // rotate body to player
         agent.updateRotation = false;
-        transform.LookAt(player.position, transform.up);
+        Quaternion target = Quaternion.LookRotation(player.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * rotationSpeed);
+        transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
 
         // random aiming
         float aimX = Random.Range(-aimVariance, aimVariance);

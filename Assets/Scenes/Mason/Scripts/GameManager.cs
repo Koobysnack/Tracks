@@ -33,12 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void PlayerDeath() {
         Time.timeScale = 0.5f;
-        playerDead = true;
-        StartCoroutine("TestWaitForRespawn");
-    }
-
-    private IEnumerator TestWaitForRespawn() {
-        yield return new WaitForSeconds(4);
+        // TODO: bring up death menu
         RespawnPlayer();
     }
 

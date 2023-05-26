@@ -81,7 +81,7 @@ public class PlayerController : EntityController
     }
 
     private IEnumerator DeathAnim() {
-        GameManager.instance.onPlayerDeath.Invoke();
+        // pause player for a moment before starting animation
         weaponHolder.localEulerAngles = new Vector3(0, weaponHolder.localEulerAngles.y, weaponHolder.localEulerAngles.z);
         yield return new WaitForSecondsRealtime(0.25f);
         StartCoroutine("LowerWeapon");
@@ -103,8 +103,8 @@ public class PlayerController : EntityController
 
         // ready for respawn screen
         StopCoroutine("LowerWeapon");
-        // yield return new WaitForSecondsRealtime(1);
-        // GameManager.instance.onPlayerDeath.Invoke();
+        yield return new WaitForSecondsRealtime(1);
+        GameManager.instance.onPlayerDeath.Invoke();
     }
 
     private IEnumerator LowerWeapon() {
@@ -119,6 +119,7 @@ public class PlayerController : EntityController
 
     protected override void Die() {
         pInput.Disable();
+        GameManager.instance.playerDead = true;
         movement.enabled = false;
         pCam.enabled = false;
         wBob.enabled = false;
