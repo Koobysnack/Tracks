@@ -10,6 +10,7 @@ public class PlayerController : EntityController
     public int currentAmmoCount { get; private set; }
 
     [Header("References")]
+    [SerializeField] private ParticleSystem muzzleFlash;
     public Revolver revolver;
 
     private PlayerInputActions pInput;
@@ -44,6 +45,7 @@ public class PlayerController : EntityController
     private void RevolverShoot(InputAction.CallbackContext context) {
         if(PauseManager.instance && PauseManager.instance.paused)
             return;
+        muzzleFlash.Play();
         revolver.Shoot();
     }
 

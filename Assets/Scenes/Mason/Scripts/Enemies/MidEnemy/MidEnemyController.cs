@@ -53,6 +53,7 @@ public class MidEnemyController : EnemyController
 
     #region PrivateFunctions
     private void RotateTowardsPlayer() {
+        // rotate body to player
         agent.updateRotation = false;
         transform.LookAt(player.position, transform.up);
 
@@ -60,9 +61,6 @@ public class MidEnemyController : EnemyController
         float aimX = Random.Range(-aimVariance, aimVariance);
         Vector3 aimVarianceVec = pMovement.GetMoveDir().normalized * aimX;
         firePoint.LookAt(player.position + aimVarianceVec, transform.up);
-        // Vector3 playerDir = player.position - transform.position;
-        // if(Vector3.Angle(playerDir, transform.forward) > 5)
-        //     transform.Rotate(0, 10 * Time.deltaTime, 0);
     }
     #endregion
 
@@ -92,10 +90,8 @@ public class MidEnemyController : EnemyController
     }
 
     protected override IEnumerator Attack() {
-        //GameObject shot = Instantiate(attackObj, firePoint.position, transform.rotation);
-        //shot.GetComponent<TestEnemyBullet>().SetShooter(transform);
+        // TODO: Fire sound
         firePoint.GetComponent<HitScanRaycast>().PierceRayCaster();
-        print("SHOOT!");
         yield return new WaitForSeconds(0.5f);
         attacking = false;
         attackedLast = true;
@@ -105,10 +101,14 @@ public class MidEnemyController : EnemyController
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
         shot = true;
+
+        // alert enemies in arena or alert self if not in arena
         if(section && section.GetType() == typeof(ArenaController))
             section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
         else
             alert.status = EnemyAlert.AlertStatus.ALERT;
+        
+        // deal damage and die if no health
         currentHealth -= damage;
         if(currentHealth <= 0)
             Die();

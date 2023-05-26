@@ -126,7 +126,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5949571263816930720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.6, y: 0, z: 6.99}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -170,12 +170,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage: 40
+  spawnParticlesPrefab: {fileID: 3516712206214827913, guid: 434fb388cbf8b5a4e9edede026f798bd,
+    type: 3}
   model: {fileID: 5949571263265782115}
   firePoint: {fileID: 0}
   attackObj: {fileID: 0}
-  attackChance: 0
-  telegraphTime: 3
+  minTelegraphTime: 3
+  maxTelegraphTime: 0
   section: {fileID: 0}
+  explosionPrefab: {fileID: 5759258790651287485, guid: 8e7889104eaca974fb3b25c725c7c91f,
+    type: 3}
   explosionRange: 3
 --- !u!114 &5949571263816930723
 MonoBehaviour:
@@ -191,7 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkRadius: 0
   idealRange: 0
-  rangeVariance: 0
+  closeRangeVariance: 0
+  farRangeVariance: 0
 --- !u!114 &7789841132310070364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,3 +211,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAngle: 60
   viewDistance: 20
+  status: 0
