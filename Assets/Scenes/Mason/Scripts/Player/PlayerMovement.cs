@@ -97,6 +97,10 @@ public class PlayerMovement : MonoBehaviour
         return moveDir;
     }
 
+    public bool GetCrouched() {
+        return crouched;
+    }
+
     private void SetMoveDir() {
         // get player input and set initial move direction
         Vector2 input = pInput.Player.Movement.ReadValue<Vector2>();

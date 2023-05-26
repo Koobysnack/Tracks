@@ -12,13 +12,16 @@ public class GameManager : MonoBehaviour
     public LayerMask playerLayer;
     public UnityAction onPlayerDeath;
 
+    public bool playerDead;
+
     private void Awake() {
         if(instance == null)
             instance = this;
         else if(instance != null)
             Destroy(this);
         DontDestroyOnLoad(this);
-        onPlayerDeath += RespawnPlayer;
+        playerDead = false;
+        onPlayerDeath += PlayerDeath;
     }
 
     public void SetCurrentCheckpoint(Checkpoint cp) {
@@ -28,7 +31,20 @@ public class GameManager : MonoBehaviour
         print("current checkpoint set to " + currentCheckpoint.cpCoordinates);
     }
 
+    private void PlayerDeath() {
+        Time.timeScale = 0.5f;
+        playerDead = true;
+        StartCoroutine("TestWaitForRespawn");
+    }
+
+    private IEnumerator TestWaitForRespawn() {
+        yield return new WaitForSeconds(4);
+        RespawnPlayer();
+    }
+
     public void RespawnPlayer() {
+        Time.timeScale = 1;
+        playerDead = false;
         player.GetComponent<PlayerController>().Respawn(currentCheckpoint);
     }
 }

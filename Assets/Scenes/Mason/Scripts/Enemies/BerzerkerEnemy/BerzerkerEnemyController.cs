@@ -23,6 +23,12 @@ public class BerzerkerEnemyController : EnemyController
             playerLayer = GameManager.instance.playerLayer;
             return;
         }
+
+        if(GameManager.instance.playerDead) {
+            agent.destination = transform.position;
+            StopAllCoroutines();
+            return;
+        }
         
         // attack if alert
         if(alert.status == EnemyAlert.AlertStatus.ALERT) {

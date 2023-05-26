@@ -26,6 +26,12 @@ public class MidEnemyController : EnemyController
             return;
         }
 
+        if(GameManager.instance.playerDead) {
+            StopAllCoroutines();
+            print("ajksdfkas");
+            return;
+        }
+
         // move and attack if alert
         if(alert.status == EnemyAlert.AlertStatus.ALERT) {
             // if in bad position or shot while attacking

@@ -8,6 +8,7 @@ public class Revolver : MonoBehaviour
     [Min(0.01f), SerializeField] float normalFireRate;
     [SerializeField] float reloadTime;
     [SerializeField] PlayerController pController;
+    [SerializeField] private ParticleSystem muzzleParticles;
     public int currentBullet;
     public List<Bullet> cylinder = new List<Bullet>();
     HitScanRaycast hitRC;
@@ -90,6 +91,7 @@ public class Revolver : MonoBehaviour
             DoShootSin();
         else
             DoShootBullet();
+        muzzleParticles.Play();
     }
 
     public void ReadySin()//InputAction.CallbackContext context)
@@ -244,8 +246,11 @@ public class Revolver : MonoBehaviour
         {
             if (pController.currentAmmoCount < 1)
                 break;
-            bullet.loaded = true;
-            pController.ChangeAmmo(-1);
+            if(!bullet.loaded) 
+            {
+                bullet.loaded = true;
+                pController.ChangeAmmo(-1);
+            }
         }
         currentBullet = 0;
         if (ammoMan != null)
