@@ -7,11 +7,21 @@ public class HitScanRaycast : MonoBehaviour
 {
 
 
-    //consturctor
+
+   
     [SerializeField]
     protected EntityController EntityRef;
     public BulletEffectManager bulletEffectManager;
     public GameObject gunBarrel;
+    public int pierceAmount;
+    public int pierceMax;
+
+    void Start()
+    {
+    
+    }
+
+
 
     #region BaseRays
     public void RegRayCaster()
@@ -38,6 +48,10 @@ public class HitScanRaycast : MonoBehaviour
         RaycastHit hit2;
         Ray pierceRay;
         EntityController ShotEntity;
+     //       if (pierceAmount >= pierceMax)
+       // {
+         //   return;
+    //    }
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
@@ -47,18 +61,19 @@ public class HitScanRaycast : MonoBehaviour
             bulletEffectManager.TriggerShotEffect();
           //  Debug.Log("Did Hit");
           //  RaycastHit pierceHit;
-
+            
             pierceRay = new Ray(hit.point + transform.TransformDirection(Vector3.forward) * 6, -1*transform.TransformDirection(Vector3.forward)*6);
             Debug.DrawRay(hit.point + transform.TransformDirection(Vector3.forward)*6, -1 * transform.TransformDirection(Vector3.forward)*6, Color.red);
 
             hit.collider.Raycast(pierceRay,out backHit,1000);
             if (hit.transform.parent)
             {
-      
+
                 ShotEntity = hit.transform.parent.GetComponent<EntityController>();
+                ShotEntity = ShotEntity == null ? hit.transform.GetComponent<EntityController>() : ShotEntity;
                 if (ShotEntity)
                 {
-           
+                    
                     ShotEntity.Damage(EntityRef.damage, transform);
 
                 }
@@ -87,7 +102,11 @@ public class HitScanRaycast : MonoBehaviour
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-      //      Debug.Log("Did not Hit");
+          // Debug.Log(gunBarrel.transform.position);
+          //  Debug.Log("Did not Hit");
+        //   bulletEffectManager.CreateBulletTrail(gunBarrel.transform.position,gunBarrel.transform.TransformDirection(Vector3.left)*2);
+           // Debug.Log(gunBarrel.transform.position * 10);
+        //   bulletEffectManager.TriggerShotEffect();
         }
 
     }

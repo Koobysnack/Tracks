@@ -22,8 +22,8 @@ public class PlayerRayControl : MonoBehaviour
         RegShotRay = GetComponent<HitScanRaycast>();
         SinShotControl = GetComponent<SinController>();
         pInput = new PlayerInputActions();
-        pInput.Gun.Fire.performed += RegRay;
-        pInput.Gun.AltFire.performed += SinRay;
+        pInput.Attack.Fire.performed += RegRay;
+        pInput.Attack.AltFire.performed += SinRay;
 
 
     }

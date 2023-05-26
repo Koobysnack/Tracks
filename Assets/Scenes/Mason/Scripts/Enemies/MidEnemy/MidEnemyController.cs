@@ -2,37 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Unity.Mathematics;
 
 public class MidEnemyController : EnemyController
 {
+    [SerializeField] private float aimVariance;
+    private PlayerMovement pMovement;
+    private bool shot;
+
     #region Unity Functions
     private void Awake() {
         movement = GetComponent<EnemyMovement>();
         alert = GetComponent<EnemyAlert>();
         agent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
+        shot = false;
     }
 
     private void Update() {
         if(player == null) {
             player = GameManager.instance.player;
+            pMovement = player.GetComponent<PlayerMovement>();
             playerLayer = GameManager.instance.playerLayer;
             return;
         }
 
         // move and attack if alert
         if(alert.status == EnemyAlert.AlertStatus.ALERT) {
-            // attack if in good position and not attacking
-            if(movement.GoodPosition(agent.destination + Vector3.up, player)) {
-                if(agent.remainingDistance < 0.1f && !attacking)
-                    InitiateAttack();
-            }
-            else {
+            // if in bad position or shot while attacking
+            if(!movement.GoodPosition(agent.destination + Vector3.up, player) || (shot && attacking)) {
                 // find new position
                 bool inRange = movement.InComfortRange(agent.destination);
                 Vector3 movePos = movement.GetAttackPosition(inRange ? transform.position : agent.destination);
                 movement.MoveToAttackPosition(agent, movePos);
+                shot = false;   
+            }
+            else {
+                // attack if in good position and not attacking
+                if(agent.remainingDistance < 0.1f && !attacking)
+                    InitiateAttack();
             }
 
             // rotate towards player when attacking
@@ -48,6 +55,11 @@ public class MidEnemyController : EnemyController
     private void RotateTowardsPlayer() {
         agent.updateRotation = false;
         transform.LookAt(player.position, transform.up);
+
+        // random aiming
+        float aimX = Random.Range(-aimVariance, aimVariance);
+        Vector3 aimVarianceVec = pMovement.GetMoveDir().normalized * aimX;
+        firePoint.LookAt(player.position + aimVarianceVec, transform.up);
         // Vector3 playerDir = player.position - transform.position;
         // if(Vector3.Angle(playerDir, transform.forward) > 5)
         //     transform.Rotate(0, 10 * Time.deltaTime, 0);
@@ -73,15 +85,17 @@ public class MidEnemyController : EnemyController
         // do some telegraph stuff here
         float playerDist = Vector3.Distance(transform.position, player.position);
         Vector2 range = movement.GetRange();
-        float telegraphTime = math.remap(range.x, range.y, minTelegraphTime, maxTelegraphTime, playerDist);
+        float telegraphTime = Unity.Mathematics.math.remap(range.x, range.y, minTelegraphTime, maxTelegraphTime, playerDist);
         
         yield return new WaitForSeconds(telegraphTime);
         StartCoroutine("Attack");
     }
 
     protected override IEnumerator Attack() {
-        GameObject shot = Instantiate(attackObj, firePoint.position, transform.rotation);
-        shot.GetComponent<TestEnemyBullet>().SetShooter(transform);
+        //GameObject shot = Instantiate(attackObj, firePoint.position, transform.rotation);
+        //shot.GetComponent<TestEnemyBullet>().SetShooter(transform);
+        firePoint.GetComponent<HitScanRaycast>().PierceRayCaster();
+        print("SHOOT!");
         yield return new WaitForSeconds(0.5f);
         attacking = false;
         attackedLast = true;
@@ -90,6 +104,7 @@ public class MidEnemyController : EnemyController
 
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
+        shot = true;
         if(section && section.GetType() == typeof(ArenaController))
             section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
         else

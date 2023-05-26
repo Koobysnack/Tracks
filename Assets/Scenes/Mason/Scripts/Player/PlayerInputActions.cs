@@ -258,7 +258,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Gun"",
+            ""name"": ""Attack"",
             ""id"": ""bd6a6ae3-9066-46c5-81d0-6bb9ee1fbd8c"",
             ""actions"": [
                 {
@@ -296,6 +296,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""2e6d6927-ee10-4677-bd83-8181b239ac45"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -340,6 +349,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard/Mouse"",
                     ""action"": ""RotateCylinder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c74881f2-8281-4f55-87ed-a8ed94c41225"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -403,12 +423,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Lean = m_Player.FindAction("Lean", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        // Gun
-        m_Gun = asset.FindActionMap("Gun", throwIfNotFound: true);
-        m_Gun_Fire = m_Gun.FindAction("Fire", throwIfNotFound: true);
-        m_Gun_AltFire = m_Gun.FindAction("AltFire", throwIfNotFound: true);
-        m_Gun_Reload = m_Gun.FindAction("Reload", throwIfNotFound: true);
-        m_Gun_RotateCylinder = m_Gun.FindAction("RotateCylinder", throwIfNotFound: true);
+        // Attack
+        m_Attack = asset.FindActionMap("Attack", throwIfNotFound: true);
+        m_Attack_Fire = m_Attack.FindAction("Fire", throwIfNotFound: true);
+        m_Attack_AltFire = m_Attack.FindAction("AltFire", throwIfNotFound: true);
+        m_Attack_Reload = m_Attack.FindAction("Reload", throwIfNotFound: true);
+        m_Attack_RotateCylinder = m_Attack.FindAction("RotateCylinder", throwIfNotFound: true);
+        m_Attack_Melee = m_Attack.FindAction("Melee", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_TogglePause = m_Menu.FindAction("TogglePause", throwIfNotFound: true);
@@ -572,30 +593,32 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public PlayerActions @Player => new PlayerActions(this);
 
-    // Gun
-    private readonly InputActionMap m_Gun;
-    private List<IGunActions> m_GunActionsCallbackInterfaces = new List<IGunActions>();
-    private readonly InputAction m_Gun_Fire;
-    private readonly InputAction m_Gun_AltFire;
-    private readonly InputAction m_Gun_Reload;
-    private readonly InputAction m_Gun_RotateCylinder;
-    public struct GunActions
+    // Attack
+    private readonly InputActionMap m_Attack;
+    private List<IAttackActions> m_AttackActionsCallbackInterfaces = new List<IAttackActions>();
+    private readonly InputAction m_Attack_Fire;
+    private readonly InputAction m_Attack_AltFire;
+    private readonly InputAction m_Attack_Reload;
+    private readonly InputAction m_Attack_RotateCylinder;
+    private readonly InputAction m_Attack_Melee;
+    public struct AttackActions
     {
         private @PlayerInputActions m_Wrapper;
-        public GunActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Fire => m_Wrapper.m_Gun_Fire;
-        public InputAction @AltFire => m_Wrapper.m_Gun_AltFire;
-        public InputAction @Reload => m_Wrapper.m_Gun_Reload;
-        public InputAction @RotateCylinder => m_Wrapper.m_Gun_RotateCylinder;
-        public InputActionMap Get() { return m_Wrapper.m_Gun; }
+        public AttackActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Fire => m_Wrapper.m_Attack_Fire;
+        public InputAction @AltFire => m_Wrapper.m_Attack_AltFire;
+        public InputAction @Reload => m_Wrapper.m_Attack_Reload;
+        public InputAction @RotateCylinder => m_Wrapper.m_Attack_RotateCylinder;
+        public InputAction @Melee => m_Wrapper.m_Attack_Melee;
+        public InputActionMap Get() { return m_Wrapper.m_Attack; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GunActions set) { return set.Get(); }
-        public void AddCallbacks(IGunActions instance)
+        public static implicit operator InputActionMap(AttackActions set) { return set.Get(); }
+        public void AddCallbacks(IAttackActions instance)
         {
-            if (instance == null || m_Wrapper.m_GunActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GunActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_AttackActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_AttackActionsCallbackInterfaces.Add(instance);
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
@@ -608,9 +631,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RotateCylinder.started += instance.OnRotateCylinder;
             @RotateCylinder.performed += instance.OnRotateCylinder;
             @RotateCylinder.canceled += instance.OnRotateCylinder;
+            @Melee.started += instance.OnMelee;
+            @Melee.performed += instance.OnMelee;
+            @Melee.canceled += instance.OnMelee;
         }
 
-        private void UnregisterCallbacks(IGunActions instance)
+        private void UnregisterCallbacks(IAttackActions instance)
         {
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
@@ -624,23 +650,26 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RotateCylinder.started -= instance.OnRotateCylinder;
             @RotateCylinder.performed -= instance.OnRotateCylinder;
             @RotateCylinder.canceled -= instance.OnRotateCylinder;
+            @Melee.started -= instance.OnMelee;
+            @Melee.performed -= instance.OnMelee;
+            @Melee.canceled -= instance.OnMelee;
         }
 
-        public void RemoveCallbacks(IGunActions instance)
+        public void RemoveCallbacks(IAttackActions instance)
         {
-            if (m_Wrapper.m_GunActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_AttackActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IGunActions instance)
+        public void SetCallbacks(IAttackActions instance)
         {
-            foreach (var item in m_Wrapper.m_GunActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_AttackActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_GunActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_AttackActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public GunActions @Gun => new GunActions(this);
+    public AttackActions @Attack => new AttackActions(this);
 
     // Menu
     private readonly InputActionMap m_Menu;
@@ -707,12 +736,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnLean(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
     }
-    public interface IGunActions
+    public interface IAttackActions
     {
         void OnFire(InputAction.CallbackContext context);
         void OnAltFire(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnRotateCylinder(InputAction.CallbackContext context);
+        void OnMelee(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
