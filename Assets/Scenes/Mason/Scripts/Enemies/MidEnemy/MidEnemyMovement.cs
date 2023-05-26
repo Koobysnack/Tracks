@@ -92,7 +92,7 @@ public class MidEnemyMovement : EnemyMovement
 
     private Vector3 FindRandomPos(Vector3 origin, float angle) {
         // make right and left edges of arc
-        float dirCoef = Vector3.Distance(origin, player.position) < idealRange - closeRangeVariance ? -1 : 1;
+        float dirCoef = Vector3.Distance(origin, player.position) < idealRange ? -1 : 1;
         Vector3 arcLeft = GetEdgeVector(origin, -angle, dirCoef);
         Vector3 arcRight = GetEdgeVector(origin, angle, dirCoef);
 
@@ -122,9 +122,6 @@ public class MidEnemyMovement : EnemyMovement
         float newX = (randX * Mathf.Cos(forwardAngle * Mathf.Deg2Rad)) - (randZ * Mathf.Sin(forwardAngle * Mathf.Deg2Rad));
         float newZ = (randX * Mathf.Sin(forwardAngle * Mathf.Deg2Rad)) + (randZ * Mathf.Cos(forwardAngle * Mathf.Deg2Rad));
         Vector3 vec = new Vector3(newX, origin.y, newZ) + transform.position;
-        //Vector3 vec2 = new Vector3(newX, 100, newZ) + transform.position;
-        //Debug.DrawLine(vec, vec2, Color.red, 1f);
-
         return vec;
     }
 
@@ -159,11 +156,13 @@ public class MidEnemyMovement : EnemyMovement
     }
 
     public override bool GoodPosition(Vector3 pos, Transform player) {
-        // good position if in comfort range and can see player
+        // good position if in not too far and can see player
         RaycastHit hit;
         Vector3 dir = Vector3.Normalize(player.position - pos);
-        bool canSeePlayer = Physics.Raycast(pos, dir, out hit, Mathf.Infinity, LayerMask.GetMask("Player"));
+        bool canSeePlayer = Physics.Raycast(pos, dir, out hit, Mathf.Infinity);
         canSeePlayer = hit.transform != null ? hit.transform.tag == "Player" : false;
+        //float playerDist = Vector3.Distance(player.position, pos);
+        //return playerDist <= (idealRange + farRangeVariance) && canSeePlayer;
         return InComfortRange(pos) && canSeePlayer;
     }
 
