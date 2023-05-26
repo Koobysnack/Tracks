@@ -825,6 +825,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
+  playerDead: 0
 --- !u!4 &671003860
 Transform:
   m_ObjectHideFlags: 0
@@ -2808,6 +2809,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerContainerVCAM
       objectReference: {fileID: 0}
+    - target: {fileID: 8189559792197788243, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: test
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df9a38d1cfb20c745b900ced7c29a411, type: 3}
 --- !u!1 &1758454098
@@ -3429,7 +3435,7 @@ PrefabInstance:
     - target: {fileID: 1097396327129438348, guid: 75540cccde422e44a95229ee84593750,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1097396327129438350, guid: 75540cccde422e44a95229ee84593750,
         type: 3}

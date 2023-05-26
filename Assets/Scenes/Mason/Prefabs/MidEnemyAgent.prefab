@@ -83,6 +83,7 @@ MonoBehaviour:
   maxTelegraphTime: 2
   section: {fileID: 0}
   aimVariance: 1.5
+  rotationSpeed: 5
 --- !u!114 &1097396327129438344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +169,8 @@ MonoBehaviour:
   EntityRef: {fileID: 1097396327129438345}
   bulletEffectManager: {fileID: 2903329780263134314}
   gunBarrel: {fileID: 1097396327641025466}
+  pierceAmount: 0
+  pierceMax: 0
 --- !u!114 &2903329780263134314
 MonoBehaviour:
   m_ObjectHideFlags: 0
