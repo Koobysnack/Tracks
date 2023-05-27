@@ -42,3 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: SplosionFront
+    uniqueID: 709525885
+    locked: 0
+  - name: SplosionBehind
+    uniqueID: 653846823
+    locked: 0
