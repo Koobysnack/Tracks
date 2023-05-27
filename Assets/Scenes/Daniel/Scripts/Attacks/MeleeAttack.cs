@@ -8,22 +8,21 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField]
     public float attackDamage;
     public float attackRange;
-    public Vector3 meleeBoxCenter;
+   public Vector3 meleeBoxCenter;
     public Vector3 meleeBoxHalfExtents;
+   // public GameObject whereisit;
     
 
     void Start()
     {
-        attackDamage = 0;
-        if (meleeBoxCenter==null)
-        {
-            meleeBoxCenter = transform.position;
+       
+       
+          
 
-        }
-        if (meleeBoxHalfExtents==null)
-        {
-            meleeBoxHalfExtents = new Vector3(1, 1, 1);
-        }
+        
+      
+            meleeBoxHalfExtents = new Vector3(1, 2, 1);
+        
 
     }
 
@@ -40,10 +39,12 @@ public class MeleeAttack : MonoBehaviour
 
     public void ShovelAttack()
     {
+        meleeBoxCenter = transform.position;
+       // Instantiate(whereisit, transform);
         RaycastHit smackedObj;
         EntityController ShotEntity;
         Physics.BoxCast(meleeBoxCenter,meleeBoxHalfExtents,transform.TransformDirection(Vector3.forward), out smackedObj ,Quaternion.identity,attackRange);
-        Debug.DrawRay(meleeBoxCenter, transform.TransformDirection(Vector3.forward), Color.blue);
+      //  Debug.DrawRay(meleeBoxCenter, transform.TransformDirection(Vector3.forward)*10000, Color.white,100f);
         if (smackedObj.transform == null || smackedObj.transform.parent == null)
             return;
        

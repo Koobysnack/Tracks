@@ -9,7 +9,7 @@ public class HealthPickUp : PickUp {
 
     void Start()
     {
-        PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
+        PlayerRef = GameObject.Find("PlayerContainerVCAM/Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
