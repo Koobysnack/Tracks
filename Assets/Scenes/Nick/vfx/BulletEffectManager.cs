@@ -32,10 +32,10 @@ public class BulletEffectManager : MonoBehaviour
         // Destroy the bullet trail after some time
         Destroy(bulletTrail, 1.0f);
     }
-    public void CreateHitEffect(Vector3 position)
+    public void CreateHitEffect(Vector3 position, Vector3 normal)
     {
-        GameObject hitEffect = Instantiate(hitEffectPrefab, position, Quaternion.identity);
-        Destroy(hitEffect, 1.0f); // Destroy after some time
+        Quaternion rotation = Quaternion.LookRotation(normal);
+        GameObject hitEffect = Instantiate(hitEffectPrefab, position, rotation);
     }
 
 }
