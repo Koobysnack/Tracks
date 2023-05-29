@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class EnvySin : AbsSinClass
 {
-
+    public bool AltAbility;
     [SerializeField]
     //private EntityController EntityRef;
     private LayerMask lMask;
+    private LayerMask xRayed;
+    [SerializeField]
+    private int pierceMax;
+    [SerializeField]
+    private int pierceCurr;
+    public Vector3 XrayExtents;
+
 
 
     void OnEnable()
     {
+        //add "revealed" 
         lMask = LayerMask.GetMask("Enemy,Ground");
     }
 
@@ -32,7 +40,11 @@ public class EnvySin : AbsSinClass
             //  RaycastHit pierceHit;
 
             // print(hit);
-
+           // if (AltAbility)
+           // {
+            //    Physics.BoxCastAll()
+         //   }
+            pierceCurr += 1;
             EnvyPierce(hit, shotOrigin.TransformDirection(Vector3.forward), shotOrigin);
 
         }
@@ -44,19 +56,18 @@ public class EnvySin : AbsSinClass
 
     }
     //recursively call this function each time a pierce occurs
-    private void EnvyPierce(RaycastHit obj, Vector3 fireAngle, Transform shotOrigin)
+
+    private void  EnvyPierce(RaycastHit obj, Vector3 fireAngle, Transform shotOrigin)
     {
+
         //   RaycastHit hit;
         RaycastHit backHit;
         RaycastHit nextObj;
-
-        Debug.Log(obj.point);
         Ray backRay = new Ray(obj.point + fireAngle * 6, -1 * fireAngle * 6);
 
         obj.collider.Raycast(backRay, out backHit, 1000);
         // Debug.Log("stinky");
-        Debug.Log(backHit.collider);
-        Debug.Log(backHit.point);
+  
 
         if (backHit.collider == null || backHit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
@@ -66,6 +77,7 @@ public class EnvySin : AbsSinClass
         if (backHit.collider != null && backHit.transform.parent)
         {
             // Debug.Log(backHit.transform.gameObject.name);
+            
             EntityController ShotEntity;
             ShotEntity = backHit.transform.parent.GetComponent<EntityController>();
             if (ShotEntity)
@@ -73,7 +85,10 @@ public class EnvySin : AbsSinClass
                 ShotEntity.Damage(damage, shotOrigin);
 
             }
+            //Boxcast of x size with only enemy layer
+            // change enemy layer to revealed layer
         }
+
         //then get next  object, 
 
         // Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
@@ -83,7 +98,7 @@ public class EnvySin : AbsSinClass
             if (nextObj.collider != null)
             {
                 Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
-
+                pierceCurr += 1;
                 EnvyPierce(nextObj, fireAngle, shotOrigin);
             }
         }
@@ -97,4 +112,9 @@ public class EnvySin : AbsSinClass
 
 
     }
+
+   // IEnumerator EnemyReveal()
+  //  {
+
+   // }
 }
