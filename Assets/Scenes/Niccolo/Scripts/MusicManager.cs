@@ -90,6 +90,8 @@ public class MusicManager : MonoBehaviour
         emitter.EventInstance.setCallback(TimelineCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
     }
 
+    public FMODUnity.StudioEventEmitter GetCurrentEmitter() { return emitter; }
+
     public void SetPaused(bool paused)
     {
         emitter.EventInstance.setPaused(paused);
@@ -251,5 +253,31 @@ public class MusicManager : MonoBehaviour
         }
         else
             sfx.start();
+    }
+
+    public void StartLERPParam(string paramName, float target, float duration)
+    {
+        StartLERPParam(emitter, paramName, target, duration);
+    }
+    public void StartLERPParam(FMODUnity.StudioEventEmitter emitter, string paramName, float target, float duration)
+    {
+        StartCoroutine(LERPEmitterParam(emitter, paramName, target, duration));
+    }
+    private IEnumerator LERPEmitterParam(FMODUnity.StudioEventEmitter emitter, string paramName, float target, float duration)
+    {
+        float start;
+        emitter.EventInstance.getParameterByName(paramName, out start);
+
+        float remaining = duration;
+        while (remaining > 0)
+        {
+            remaining -= Time.unscaledDeltaTime;
+            float value = start + ((target - start) * (1.0f - (remaining / duration)));
+            emitter.EventInstance.setParameterByName(paramName, value);
+            Debug.Log("remaining: " + remaining);
+            yield return null;
+        }
+
+        emitter.EventInstance.setParameterByName(paramName, target);
     }
 }

@@ -7,7 +7,7 @@ public class PauseController : MonoBehaviour
     [SerializeField] GameObject hud;
     [SerializeField] GameObject pauseScreen;
     [SerializeField] GameObject optionsScreen;
-    [SerializeField] FMODUnity.StudioEventEmitter pauseMusic;
+    [SerializeField] float musicLERPTime = 0.5f;
     CanvasGroup pScreenCG;
     CanvasGroup oScreenCG;
 
@@ -31,17 +31,19 @@ public class PauseController : MonoBehaviour
         pauseScreen.SetActive(paused);
         Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
 
-        if (paused)
-        {
-            pauseMusic.Play();
-        }
-        else
-        {
-            pauseMusic.Stop();
-        }
-        if(MusicManager.instance)
-            MusicManager.instance.SetPaused(paused);
+        PausedMusicLogic(paused);
     }
+
+    private void PausedMusicLogic(bool paused)
+    {
+        const string pauseParamName = "isPaused";
+
+        if (paused)
+            MusicManager.instance.StartLERPParam(pauseParamName, 1.0f, musicLERPTime);
+        else
+            MusicManager.instance.StartLERPParam(pauseParamName, 0.0f, musicLERPTime);
+    }
+    
 
     public void OpenOptions()
     {

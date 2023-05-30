@@ -107,6 +107,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 31236
+--- !u!114 &-5680585718087052565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OTR_StemVersion/isPaused
+  m_EditorClassIdentifier: 
+  Name: isPaused
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 4142764939
+    data2: 2913972012
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-5154588735589164147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +156,7 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: 3968998389199909180}
+  - {fileID: -5680585718087052565}
   MinDistance: 1
   MaxDistance: 20
   Length: 104732
@@ -367,7 +392,7 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638204554339154215
+  lastModified: 638209919203820207
   FileSizes:
   - Name: Desktop
     Value: 1148608
@@ -387,10 +412,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638204725040469011
+  lastModified: 638209919202550198
   FileSizes:
   - Name: Desktop
-    Value: 20270016
+    Value: 20271968
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -434,7 +459,7 @@ MonoBehaviour:
   - {fileID: 5590034813525607784}
   StringsBanks:
   - {fileID: 2916603309723846210}
-  cacheTime: 638204725040469011
+  cacheTime: 638209919203820207
   cacheVersion: 131603
 --- !u!114 &81554277461604081
 MonoBehaviour:
@@ -532,10 +557,10 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638204725036341819
+  lastModified: 638209919199510219
   FileSizes:
   - Name: Desktop
-    Value: 1908
+    Value: 1958
   Exists: 1
 --- !u!114 &3968998389199909180
 MonoBehaviour:
@@ -630,7 +655,7 @@ MonoBehaviour:
   Path: FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638200288894280715
+  lastModified: 638209919199480231
   FileSizes:
   - Name: Desktop
     Value: 115104

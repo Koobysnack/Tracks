@@ -2233,7 +2233,7 @@ MonoBehaviour:
   hud: {fileID: 72037806}
   pauseScreen: {fileID: 1472892160}
   optionsScreen: {fileID: 106272869}
-  pauseMusic: {fileID: 9830086}
+  musicLERPTime: 1
 --- !u!1 &545281237
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,9 +2358,13 @@ MonoBehaviour:
   showDebugInfo: 1
   ready: 0
   runningCooldown: 0
+  AltAbility: 0
   lMask:
     serializedVersion: 2
     m_Bits: 0
+  pierceMax: 0
+  pierceCurr: 0
+  XrayExtents: {x: 0, y: 0, z: 0}
 --- !u!1 &648809984
 GameObject:
   m_ObjectHideFlags: 0
