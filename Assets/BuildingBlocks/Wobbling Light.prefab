@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2060139732146050910}
   - component: {fileID: 2060139732146050911}
-  - component: {fileID: 5717283625681607151}
   m_Layer: 0
   m_Name: Wobbling Light
   m_TagString: Untagged
@@ -49,18 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   maxRotation: 2.1
---- !u!114 &5717283625681607151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060139732146050905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03db98ea5d1972242a63810edd2184b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2060139732685684077
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,6 +59,7 @@ GameObject:
   - component: {fileID: 2060139732685684066}
   - component: {fileID: 2060139732685684064}
   - component: {fileID: 2060139732685684065}
+  - component: {fileID: 1332338533100351636}
   - component: {fileID: 2060139732685684067}
   m_Layer: 0
   m_Name: Spot Light
@@ -174,6 +162,19 @@ MonoBehaviour:
   minFlickerSpeed: 0.07
   maxFlickerSpeed: 0.13
   transitionTime: 0.1
+--- !u!114 &1332338533100351636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060139732685684077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03db98ea5d1972242a63810edd2184b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  room: 
 --- !u!114 &2060139732685684067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +285,7 @@ PrefabInstance:
     - target: {fileID: 4802488749222782995, guid: e2d554e0b22c31341a406cfc2f5021fc,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 17
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 5664024367920424758, guid: e2d554e0b22c31341a406cfc2f5021fc,
         type: 3}
@@ -309,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 8521454111410829060, guid: e2d554e0b22c31341a406cfc2f5021fc,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 146
+      value: 161
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d554e0b22c31341a406cfc2f5021fc, type: 3}

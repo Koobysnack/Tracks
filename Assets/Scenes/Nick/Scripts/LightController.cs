@@ -3,45 +3,27 @@ using System.Collections.Generic;
 
 public class LightController : MonoBehaviour
 {
+    public string room;  // The room that this controller manages
     [SerializeField]
     private List<Light> lights = new List<Light>();
-    private int currentLightCount = 0;
-    private const int maxLightCount = 4;
-    private BoxCollider boxCollider;
 
-    void Start()
+    private void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();
-
-        if (boxCollider == null)
+        foreach (LightTag lightTag in FindObjectsOfType<LightTag>())
         {
-            Debug.LogError("No BoxCollider component found on this GameObject. Please attach a BoxCollider for this script to function properly.");
-            return;
+            if (lightTag.room == room)
+            {
+                lights.Add(lightTag.Light);
+            }
         }
 
-        foreach (LightTag lightTag in LightTag.AllLights)
+        if (lights.Count > 4)
         {
-            foreach (Light light in lightTag.Lights)
-            {
-                if (boxCollider.bounds.Contains(light.transform.position))
-                {
-                    if (currentLightCount < maxLightCount)
-                    {
-                        light.enabled = false;
-                        lights.Add(light);
-                        currentLightCount++;
-                    }
-                    else
-                    {
-                        Debug.LogError($"Too many lights! Found more than {maxLightCount}. Please ensure no more than {maxLightCount} non-directional lights are within the collider on GameObject: {this.gameObject.name}");
-                        return;
-                    }
-                }
-            }
+            Debug.LogError($"Too many lights in {room} on GameObject: {this.gameObject.name}. Please ensure no more than 4 non-directional lights are added.");
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -52,7 +34,7 @@ public class LightController : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
