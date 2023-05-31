@@ -62,7 +62,7 @@ public class BerzerkerEnemyController : EnemyController
     protected override IEnumerator Attack() {
         if(Vector3.Distance(transform.position, player.position) < explosionRange)
             player.GetComponent<PlayerController>().Damage(damage, transform);
-        Instantiate(explosionPrefab, transform.position, transform.rotation);
+        Instantiate(explosionPrefab, transform.position, explosionPrefab.transform.rotation);
         Destroy(gameObject);
         yield break;
     }

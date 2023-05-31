@@ -178,7 +178,7 @@ MonoBehaviour:
   minTelegraphTime: 3
   maxTelegraphTime: 0
   section: {fileID: 0}
-  explosionPrefab: {fileID: 5759258790651287485, guid: 8e7889104eaca974fb3b25c725c7c91f,
+  explosionPrefab: {fileID: 7925432295526643169, guid: b0590f19550d2a44098a1f4fb2cd9d07,
     type: 3}
   explosionRange: 3
 --- !u!114 &5949571263816930723
