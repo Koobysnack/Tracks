@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2060139732146050910}
   - component: {fileID: 2060139732146050911}
+  - component: {fileID: 5717283625681607151}
   m_Layer: 0
   m_Name: Wobbling Light
   m_TagString: Untagged
@@ -24,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060139732146050905}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.522, y: 6.684, z: 55.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48,6 +49,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   maxRotation: 2.1
+--- !u!114 &5717283625681607151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060139732146050905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03db98ea5d1972242a63810edd2184b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2060139732685684077
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,6 +211,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2823632912428607666, guid: e2d554e0b22c31341a406cfc2f5021fc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ece52c242f2fc234f852fc540c33949c, type: 2}
     - target: {fileID: 3567227844293012927, guid: e2d554e0b22c31341a406cfc2f5021fc,
         type: 3}
       propertyPath: m_Mesh
@@ -263,11 +281,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4802488749222782995, guid: e2d554e0b22c31341a406cfc2f5021fc,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5664024367920424758, guid: e2d554e0b22c31341a406cfc2f5021fc,
         type: 3}
       propertyPath: m_Name
       value: Hanging Light
       objectReference: {fileID: 0}
+    - target: {fileID: 6217758649801492861, guid: e2d554e0b22c31341a406cfc2f5021fc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ece52c242f2fc234f852fc540c33949c, type: 2}
     - target: {fileID: 7547684093811872965, guid: e2d554e0b22c31341a406cfc2f5021fc,
         type: 3}
       propertyPath: m_Mesh
@@ -277,6 +305,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521454111410829060, guid: e2d554e0b22c31341a406cfc2f5021fc,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 146
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d554e0b22c31341a406cfc2f5021fc, type: 3}
