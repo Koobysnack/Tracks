@@ -37,4 +37,24 @@ public class PauseManager : MonoBehaviour
             pauseController.TogglePause(paused);
         Time.timeScale = paused ? 0 : 1;
     }
+
+    public void TogglePauseSinMenu()
+    {
+        paused = !paused;
+        // Bandaid fix to prevent using togglePause during a UI interface open. Ideally pressing Esc with it open should close the interface
+        if (paused)
+        {
+            pInput.Menu.TogglePause.Disable();
+            pInput.Player.Interact.Disable();
+        }
+        else
+        {
+            pInput.Menu.TogglePause.Enable();
+            pInput.Player.Interact.Enable();
+            UIChamberMenuManager.instance.CloseMenu();
+
+        }
+        
+        Time.timeScale = paused ? 0 : 1;
+    }
 }

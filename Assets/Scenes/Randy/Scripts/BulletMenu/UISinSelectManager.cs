@@ -32,27 +32,29 @@ public class UISinSelectManager : MonoBehaviour
     {
         print("chamber " + selectedChamber + ": " + selection);
         UIChamberMenuManager.instance.SetSin(selectedChamber, selection);
-        CloseMenu();
+        CloseSubMenu();
     }
 
-    public void OpenMenu(int chamber)
+    public void OpenSubMenu(int chamber)
     {
         if (isOpen && chamber == selectedChamber)
         {
-            CloseMenu();
+            CloseSubMenu();
             return;
         }
         // Close previous menu
         if(isOpen)
-            CloseMenu();
+            CloseSubMenu();
         isOpen = true;
         selectedChamber = chamber;
         buttonSets[selectedChamber].SetActive(true);
     }
 
-    public void CloseMenu()
+    public void CloseSubMenu()
     {
         isOpen = false;
+        if (selectedChamber == -1)
+            return;
         buttonSets[selectedChamber].SetActive(false);
-    }    
+    }
 }
