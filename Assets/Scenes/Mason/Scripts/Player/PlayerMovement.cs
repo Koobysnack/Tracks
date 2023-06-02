@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Dashing")]
+    [SerializeField] private ParticleSystem dashParticle;
     [SerializeField] private float dashForce;
     [SerializeField] private float dashTime;
     [SerializeField] private float dashCooldown;
@@ -216,6 +217,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash(InputAction.CallbackContext context) {
         if(!onGround || crouched || !canDash) return;
+        dashParticle.Play();
 
         dashing = true;
         body.AddForce(moveDir.normalized * dashForce, ForceMode.Impulse);
