@@ -3503,6 +3503,7 @@ GameObject:
   - component: {fileID: 8189559792197788242}
   - component: {fileID: 8189559792197788243}
   - component: {fileID: 8189559792197788252}
+  - component: {fileID: 2082284268994794158}
   - component: {fileID: 3984123031440694039}
   m_Layer: 6
   m_Name: Player
@@ -3609,6 +3610,18 @@ MonoBehaviour:
   leanStepScalar: 75
   maxSlopeAngle: 45
   maxStepHeight: 0.25
+--- !u!114 &2082284268994794158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189559792197788253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b88f9fab5e4bc04c8bb879ad2e4193f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3984123031440694039
 MonoBehaviour:
   m_ObjectHideFlags: 0
