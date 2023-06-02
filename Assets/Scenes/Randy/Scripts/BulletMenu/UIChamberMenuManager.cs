@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class UIChamberMenuManager : MonoBehaviour
 {
     public static UIChamberMenuManager instance;
+    [SerializeField] Canvas canvas;
     [SerializeField] List<Image> chamberButtons;
-    public List<Bullet> chambers;
     Revolver revolver;
 
     // Start is called before the first frame update
@@ -21,22 +21,23 @@ public class UIChamberMenuManager : MonoBehaviour
         {
             instance = this;
         }
+        canvas.enabled = false;
     }
 
     void Update()
     {
-        if (GameManager.instance != null && revolver == null)
-            return;
+        if (GameManager.instance && GameManager.instance.player && revolver == null)
+            revolver = GameManager.instance.player.gameObject.GetComponent<PlayerController>().revolver;
     }
 
     public void SelectChamber(int c)
     {
-        UISinSelectManager.instance.OpenMenu(c);
+        UISinSelectManager.instance.OpenSubMenu(c);
     }
 
-    public void ExitMenu()
+    public void ExitSubMenu()
     {
-        foreach(Bullet b in chambers)
+        foreach(Bullet b in revolver.cylinder)
         {
             print("Bullet: " + b.type);
         }
@@ -44,13 +45,31 @@ public class UIChamberMenuManager : MonoBehaviour
 
     public void SetSin(int c, Sin sin)
     {
-        //print("set!");
-        //chambers[c].type = sin;
+        print("attempting to set sin");
+        if(revolver == null)
+        {
+            print("revolver not found");
+            return;
+        }
+        print("sin swapped");
+        revolver.cylinder[c].type = SinManager.instance.GetSinObj(sin);
         // Change Button Color/Icon
     }
 
     public Vector3 GetChamberPosition(int c)
     {
         return chamberButtons[c].GetComponent<RectTransform>().position;
+    }
+    public void OpenMenu()
+    {
+        canvas.enabled = true;
+    }
+
+    public void CloseMenu()
+    {
+        // Close any submenus first
+        UISinSelectManager.instance.CloseSubMenu();
+        // Hide Canvas
+        canvas.enabled = false;
     }
 }
