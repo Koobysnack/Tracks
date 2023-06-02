@@ -4,35 +4,46 @@ using UnityEngine;
 
 public class ArenaController : SectionController
 {
+    [System.Serializable]
+    private class ArenaDoor {
+        public Vector3 doorPosition;
+        public Vector3 doorRotation;
+        [HideInInspector] public GameObject doorObj;
+    }
+
+    [SerializeField] private GameObject doorPrefab;
     [SerializeField] private List<ArenaDoor> doors;
     private bool arenaEntered;
+    private bool spawnedFirstWave;
     
     private void Awake() {
         OpenDoors(false);
-        SetEnemySection(this);
-
-        foreach(EnemyWave wave in waves) 
-            foreach(Transform enemy in wave.enemies)
-                enemy.gameObject.SetActive(false);
+        updateWaves = CopyWaves();
+        spawnedFirstWave = false;
     }
 
     private void Update() {
-        waves[currentWave].enemies.RemoveAll(enemy => enemy == null);
+        if(!spawnedFirstWave)
+            return;
 
         // check if all enemies in current wave are dead
-        if(waves[currentWave].enemies.Count == 0) {
+        if(updateWaves[currentWave].enemies.Count == 0) {
             currentWave++;
 
             // spawn next wave or end arena battle if no more waves
-            if(currentWave < waves.Count)
+            if(currentWave < updateWaves.Count)
                 SpawnWave(true);
             else
                 OpenDoors(true);
         }
+
+        if(currentWave < updateWaves.Count)
+            updateWaves[currentWave].enemies.RemoveAll(enemy => enemy.enemyObj == null);
     }
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player" && !arenaEntered) {
+            currentWave = 0;
             CloseDoors();
             SpawnWave(false);
             arenaEntered = true;
@@ -40,27 +51,43 @@ public class ArenaController : SectionController
     }
 
     private void SpawnWave(bool alert) {
-        foreach(Transform enemy in waves[currentWave].enemies) {
-            enemy.gameObject.SetActive(true);
-            enemy.GetComponent<EnemyAlert>().status = alert ? EnemyAlert.AlertStatus.ALERT : EnemyAlert.AlertStatus.UNALERT;
+        for(int i = 0; i < updateWaves[currentWave].enemies.Count; ++i) {
+            GameObject spawnedEnemy = SpawnEnemy(updateWaves[currentWave].enemies[i], this);
+            spawnedEnemy.GetComponent<EnemyAlert>().status = alert ? EnemyAlert.AlertStatus.ALERT : EnemyAlert.AlertStatus.UNALERT;
         }
+        spawnedFirstWave = true;
     }
 
     private void CloseDoors() {
         foreach(ArenaDoor door in doors)
-            door.CloseDoor();
+            door.doorObj = Instantiate(doorPrefab, door.doorPosition, Quaternion.Euler(door.doorRotation));
     }
 
     private void OpenDoors(bool destroy) {
-        foreach(ArenaDoor door in doors)
-            door.OpenDoor();
+        foreach(ArenaDoor door in doors) {
+            if(door.doorObj)
+                Destroy(door.doorObj);
+        }
 
         if(destroy)
             Destroy(gameObject);
     }
 
     public void AlertAll() {
-        foreach(Transform enemy in waves[currentWave].enemies)
+        List<GameObject> enemiesInWave = GetEnemiesInWave();
+        foreach(GameObject enemy in enemiesInWave)
             enemy.GetComponent<EnemyAlert>().status = EnemyAlert.AlertStatus.ALERT;
+    }
+
+    public new void ResetSection() {
+        foreach(EnemyWave wave in updateWaves)
+            foreach(ArenaEnemy enemy in wave.enemies)
+                Destroy(enemy.enemyObj);
+
+        currentWave = 0;
+        updateWaves = CopyWaves();
+        OpenDoors(false);
+        arenaEntered = false;
+        spawnedFirstWave = false;
     }
 }
