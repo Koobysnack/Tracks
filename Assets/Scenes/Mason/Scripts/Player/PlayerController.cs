@@ -48,11 +48,6 @@ public class PlayerController : EntityController
         pInput.Disable();
     }
 
-    private void Update() {
-        if(Input.GetKeyDown(KeyCode.L))
-            Damage(1000, null);
-    }
-
     private void RevolverShoot(InputAction.CallbackContext context) {
         if(PauseManager.instance && PauseManager.instance.paused)
             return;

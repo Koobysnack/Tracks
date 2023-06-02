@@ -32,11 +32,11 @@ public class MidEnemyMovement : EnemyMovement
             return 0;
 
         // get closest enemy and add reciporical to score
-        List<Transform> enemies = section.GetEnemiesInWave();
+        List<GameObject> enemies = section.GetEnemiesInWave();
         float[] distances = new float[enemies.Count];
         for(int i = 0; i < enemies.Count; ++i)
             if(enemies[i])
-                distances[i] = Vector3.Distance(origin, enemies[i].position);
+                distances[i] = Vector3.Distance(origin, enemies[i].transform.position);
         float closestDist = distances.Length > 0 ? Mathf.Min(distances) : 0.1f;
         return closestDist;
     }
