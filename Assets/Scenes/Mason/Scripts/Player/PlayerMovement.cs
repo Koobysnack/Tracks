@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Dashing")]
     [SerializeField] private ParticleSystem dashParticle;
+    [SerializeField] private float dashAddFOV;
+    [SerializeField] private Camera affectedCamera;
     [SerializeField] private float dashForce;
     [SerializeField] private float dashTime;
     [SerializeField] private float dashCooldown;
@@ -53,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
     private float leanVal;
     private float currentMoveScalar;
     private float currentSpeed;
+    private float originalFOV;
+    private float dashFOV;
     #endregion
 
     public bool onGround { get; private set; }
@@ -67,6 +71,9 @@ public class PlayerMovement : MonoBehaviour
         pInput.Player.Jump.performed += Jump;
         pInput.Player.Crouch.performed += ToggleCrouch;
         pInput.Player.Dash.performed += Dash;
+
+        originalFOV = affectedCamera.fieldOfView;
+        dashFOV = originalFOV + dashAddFOV;
     }
 
     private void OnEnable() {
@@ -221,6 +228,7 @@ public class PlayerMovement : MonoBehaviour
 
         dashing = true;
         body.AddForce(moveDir.normalized * dashForce, ForceMode.Impulse);
+        StartCoroutine(ChangeFOV());
         StartCoroutine("DashCooldown");
     }
     #endregion
@@ -232,6 +240,38 @@ public class PlayerMovement : MonoBehaviour
         dashing = false;
         yield return new WaitForSeconds(dashCooldown - dashTime);
         canDash = true;
+    }
+    private IEnumerator ChangeFOV()
+    {
+        float elapsedTime = 0;
+
+        // Increase FOV
+        while (elapsedTime < (dashTime / 2))
+        {
+            affectedCamera.fieldOfView = Mathf.Lerp(originalFOV, dashFOV, (elapsedTime / (dashTime / 2)));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure we hit the target FOV
+        affectedCamera.fieldOfView = dashFOV;
+
+        // Wait for cooldown
+        yield return new WaitForSeconds(dashTime);
+
+        // Reset elapsedTime
+        elapsedTime = 0;
+
+        // Decrease FOV back to initial
+        while (elapsedTime < 0.3f)
+        {
+            affectedCamera.fieldOfView = Mathf.Lerp(dashFOV, originalFOV, (elapsedTime / 0.3f));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure we return to the initial FOV
+        affectedCamera.fieldOfView = originalFOV;
     }
     #endregion
 }
