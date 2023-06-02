@@ -40,6 +40,11 @@ public class PlayerController : EntityController
         }
     }
 
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.L))
+            Damage(1000, null);
+    }
+
     private void OnEnable() {
         pInput.Enable();
     }

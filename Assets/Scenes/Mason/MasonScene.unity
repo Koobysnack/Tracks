@@ -637,6 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f069297c692e146a80ebc1b6dbd5d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arenaSceneName: MasonScene
   player: {fileID: 0}
   playerLayer:
     serializedVersion: 2

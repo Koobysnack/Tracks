@@ -71,4 +71,19 @@ public class SectionController : MonoBehaviour
             enemies.Add(enemy.enemyObj);
         return enemies;
     }
+
+    public void ResetSection() {
+        foreach(EnemyWave wave in updateWaves)
+            foreach(ArenaEnemy enemy in wave.enemies)
+                Destroy(enemy.enemyObj);
+
+        currentWave = 0;
+        updateWaves = CopyWaves();
+
+        for(int i = 0; i < waves.Count; ++i) {
+            for(int j = 0; j < waves[i].enemies.Count; ++j) {
+                SpawnEnemy(waves[i].enemies[j], this);
+            }
+        }
+    }
 }

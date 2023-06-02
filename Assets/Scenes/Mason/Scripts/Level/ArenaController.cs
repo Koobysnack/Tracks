@@ -78,4 +78,16 @@ public class ArenaController : SectionController
         foreach(GameObject enemy in enemiesInWave)
             enemy.GetComponent<EnemyAlert>().status = EnemyAlert.AlertStatus.ALERT;
     }
+
+    public new void ResetSection() {
+        foreach(EnemyWave wave in updateWaves)
+            foreach(ArenaEnemy enemy in wave.enemies)
+                Destroy(enemy.enemyObj);
+
+        currentWave = 0;
+        updateWaves = CopyWaves();
+        OpenDoors(false);
+        arenaEntered = false;
+        spawnedFirstWave = false;
+    }
 }
