@@ -101,8 +101,8 @@ public class HitScanRaycast : MonoBehaviour
         }
         else
         {
-            Debug.DrawRay(gunBarrel.transform.position, gunBarrel.transform.TransformDirection(Vector3.left) * 1000, Color.white,100f);
-           Debug.Log(gunBarrel.transform.position);
+         //   Debug.DrawRay(gunBarrel.transform.position, gunBarrel.transform.TransformDirection(Vector3.left) * 1000, Color.white,100f);
+          // Debug.Log(gunBarrel.transform.position);
           //  Debug.Log("Did not Hit");
        //    bulletEffectManager.CreateBulletTrail(gunBarrel.transform.position,transform.TransformPoint(gunBarrel.transform.localPosition+ gunBarrel.transform.TransformDirection(Vector3.forward) * 1000));
          //  Debug.Log(gunBarrel.transform.position + new Vector3(10,10,10));

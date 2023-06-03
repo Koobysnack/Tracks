@@ -123,15 +123,27 @@ public class EnvySin : AbsSinClass
    {
         foreach(RaycastHit blip in revealList)
         {
-            blip.collider.gameObject.layer = LayerMask.NameToLayer("Revealed");
-            print("hello");
+            //  blip.collider.gameObject.layer = LayerMask.NameToLayer("Revealed");
+
+            var outline = blip.collider.gameObject.GetComponent<Outline>();
+            outline = outline == null ? blip.collider.gameObject.transform.parent.GetComponent<Outline>() : outline;
+            if (outline)
+            {
+                outline.enabled = true;
+            }
             yield return null;
         }
         yield return new WaitForSeconds(7);
         foreach (RaycastHit blip in revealList)
         {
-            blip.collider.gameObject.layer = LayerMask.NameToLayer("Enemy");
-            print("bybye");
+            //   blip.collider.gameObject.layer = LayerMask.NameToLayer("Enemy");
+            var outline = blip.collider.gameObject.GetComponent<Outline>();
+            outline = outline == null ? blip.collider.gameObject.transform.parent.GetComponent<Outline>() : outline;
+            if (outline)
+            {
+                outline.enabled = false ;
+            }
+            
             yield return null;
         }
     }
