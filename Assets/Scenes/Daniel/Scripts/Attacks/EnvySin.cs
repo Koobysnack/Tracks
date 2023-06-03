@@ -14,6 +14,7 @@ public class EnvySin : AbsSinClass
     [SerializeField]
     private int pierceCurr;
     public Vector3 XrayExtents;
+   
 
 
 
@@ -21,11 +22,14 @@ public class EnvySin : AbsSinClass
     {
         //add "revealed" 
         lMask = LayerMask.GetMask("Enemy,Ground");
+        xRayed = LayerMask.GetMask("Revealed");
     }
 
 
     public override void SinFire(Transform shotOrigin)
     {
+        pierceCurr = 0;
+        print("SHOOTING");
         StartCoroutine(StartCooldown());
         RaycastHit hit;
         lMask = LayerMask.GetMask("Enemy,Ground");
@@ -40,10 +44,7 @@ public class EnvySin : AbsSinClass
             //  RaycastHit pierceHit;
 
             // print(hit);
-           // if (AltAbility)
-           // {
-            //    Physics.BoxCastAll()
-         //   }
+          
             pierceCurr += 1;
             EnvyPierce(hit, shotOrigin.TransformDirection(Vector3.forward), shotOrigin);
 
@@ -69,10 +70,11 @@ public class EnvySin : AbsSinClass
         // Debug.Log("stinky");
   
 
-        if (backHit.collider == null || backHit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (backHit.collider == null || backHit.collider.gameObject.layer == LayerMask.NameToLayer("Ground") || pierceCurr >7)
         {
             return;
         }
+
 
         if (backHit.collider != null && backHit.transform.parent)
         {
@@ -85,8 +87,12 @@ public class EnvySin : AbsSinClass
                 ShotEntity.Damage(damage, shotOrigin);
 
             }
+            RaycastHit[] RevealedEnemies = Physics.BoxCastAll(backHit.point + backHit.point.normalized * XrayExtents.x, XrayExtents, fireAngle, Quaternion.LookRotation(fireAngle, Vector3.up), 2f, LayerMask.GetMask("Enemy"));
+             Debug.DrawRay(backHit.point+backHit.point.normalized* XrayExtents.x, fireAngle, Color.green, 10000);
+            StartCoroutine("EnemyReveal",RevealedEnemies);
+            
             //Boxcast of x size with only enemy layer
-            // change enemy layer to revealed layer
+            // Ienumerate reveal duration
         }
 
         //then get next  object, 
@@ -97,7 +103,7 @@ public class EnvySin : AbsSinClass
             //  Debug.Log("stinky");
             if (nextObj.collider != null)
             {
-                Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
+              //  Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
                 pierceCurr += 1;
                 EnvyPierce(nextObj, fireAngle, shotOrigin);
             }
@@ -107,14 +113,26 @@ public class EnvySin : AbsSinClass
             return;
         }
 
-        //pass obj into envy again
+ 
 
 
 
     }
 
-   // IEnumerator EnemyReveal()
-  //  {
-
-   // }
+   IEnumerator EnemyReveal(RaycastHit[] revealList )
+   {
+        foreach(RaycastHit blip in revealList)
+        {
+            blip.collider.gameObject.layer = LayerMask.NameToLayer("Revealed");
+            print("hello");
+            yield return null;
+        }
+        yield return new WaitForSeconds(7);
+        foreach (RaycastHit blip in revealList)
+        {
+            blip.collider.gameObject.layer = LayerMask.NameToLayer("Enemy");
+            print("bybye");
+            yield return null;
+        }
+    }
 }

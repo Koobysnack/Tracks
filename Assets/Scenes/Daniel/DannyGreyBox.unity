@@ -28561,6 +28561,116 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[0].name
+      value: 'Bullet 0: CM vcam2 (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[0].type
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[1].name
+      value: 'Bullet 1: CM vcam2 (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[1].type
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[2].name
+      value: 'Bullet 2: CM vcam2 (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[2].type
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[3].name
+      value: 'Bullet 3: CM vcam2 (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[3].type
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[4].name
+      value: 'Bullet 4: CM vcam2 (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[4].type
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[5].name
+      value: 'Bullet 5: CM vcam2 (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[5].type
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[6].name
+      value: 'Bullet 6: CM vcam2 (EnvySin)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[6].type
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[0].loaded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[1].loaded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[2].loaded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[3].loaded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[4].loaded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[5].loaded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422673133323723369, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: cylinder.Array.data[6].loaded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6707001896346013506, guid: df9a38d1cfb20c745b900ced7c29a411,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8189559791789088077, guid: df9a38d1cfb20c745b900ced7c29a411,
         type: 3}
       propertyPath: m_RootOrder
