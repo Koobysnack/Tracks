@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] GameObject titleScreenParent, optionScreenParent;
+    [SerializeField] GameObject titleScreenParent, optionScreenParent, creditsParent;
     
     public void OpenOptions()
     {
@@ -17,4 +17,17 @@ public class MenuController : MonoBehaviour
         optionScreenParent.SetActive(false);
         titleScreenParent.SetActive(true);
     }
+
+    public void OpenCredits()
+    {
+        creditsParent.SetActive(true);
+        optionScreenParent.SetActive(false);
+    }
+
+    public void CloseCredits()
+    {
+        creditsParent.SetActive(false);
+        optionScreenParent.SetActive(true);
+    }
+
 }
