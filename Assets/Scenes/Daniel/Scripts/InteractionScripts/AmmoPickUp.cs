@@ -12,7 +12,8 @@ public class AmmoPickUp : PickUp
     public bool ammoRand;
     void Start()
     {
-        PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
+        //PlayerRef = GameObject.Find("PlayerContainer/Player").GetComponent<PlayerController>();
+        PlayerRef = GameManager.instance.player.GetComponent<PlayerController>();
         print(PlayerRef);
         if (ammoRand)
         {

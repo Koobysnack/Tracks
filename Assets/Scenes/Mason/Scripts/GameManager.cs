@@ -58,4 +58,8 @@ public class GameManager : MonoBehaviour
         playerDead = false;
         player.GetComponent<PlayerController>().Respawn(currentCheckpoint);
     }
+
+    public void DemoFinished() {
+        print("DEMO FINISHED");
+    }
 }

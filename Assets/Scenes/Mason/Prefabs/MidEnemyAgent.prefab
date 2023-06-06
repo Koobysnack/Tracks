@@ -83,6 +83,8 @@ MonoBehaviour:
   minTelegraphTime: 0.5
   maxTelegraphTime: 2
   section: {fileID: 0}
+  ammoPrefab: {fileID: 527064499711219366, guid: 2f7d15bad0d90b24c920a1629fa9afa4,
+    type: 3}
   aimVariance: 1.5
   rotationSpeed: 5
 --- !u!114 &1097396327129438344

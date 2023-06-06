@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ArenaController : SectionController
 {
@@ -15,15 +16,18 @@ public class ArenaController : SectionController
     [SerializeField] private List<ArenaDoor> doors;
     private bool arenaEntered;
     private bool spawnedFirstWave;
+    private bool arenaBeat;
+    public UnityEvent completeCallback;
     
     private void Awake() {
-        OpenDoors(false);
+        OpenDoors();
         updateWaves = CopyWaves();
         spawnedFirstWave = false;
+        arenaBeat = false;
     }
 
     private void Update() {
-        if(!spawnedFirstWave)
+        if(!spawnedFirstWave || arenaBeat)
             return;
 
         // check if all enemies in current wave are dead
@@ -34,7 +38,7 @@ public class ArenaController : SectionController
             if(currentWave < updateWaves.Count)
                 SpawnWave(true);
             else
-                OpenDoors(true);
+                StartCoroutine("ArenaComplete");
         }
 
         if(currentWave < updateWaves.Count)
@@ -63,14 +67,19 @@ public class ArenaController : SectionController
             door.doorObj = Instantiate(doorPrefab, door.doorPosition, Quaternion.Euler(door.doorRotation));
     }
 
-    private void OpenDoors(bool destroy) {
+    private void OpenDoors(){
         foreach(ArenaDoor door in doors) {
             if(door.doorObj)
                 Destroy(door.doorObj);
         }
+    }
 
-        if(destroy)
-            Destroy(gameObject);
+    private IEnumerator ArenaComplete() {
+        arenaBeat = true;
+        completeCallback.Invoke();
+        OpenDoors();
+        yield return new WaitForSeconds(0.1f);
+        Destroy(gameObject);
     }
 
     public void AlertAll() {
@@ -86,8 +95,9 @@ public class ArenaController : SectionController
 
         currentWave = 0;
         updateWaves = CopyWaves();
-        OpenDoors(false);
+        OpenDoors();
         arenaEntered = false;
         spawnedFirstWave = false;
+        arenaBeat = false;
     }
 }

@@ -3603,6 +3603,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  dashParticle: {fileID: 1343694923080882340}
+  dashAddFOV: 10
+  affectedCamera: {fileID: 6707001896346013506}
   dashForce: 15
   dashTime: 0.25
   dashCooldown: 2
@@ -4569,6 +4572,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 594e7c9f3de2e3442967a172b7561055, type: 3}
+--- !u!198 &1343694923080882340 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3494919079309260434, guid: 594e7c9f3de2e3442967a172b7561055,
+    type: 3}
+  m_PrefabInstance: {fileID: 2460567432504143414}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2204679567261538946 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4376699946546656436, guid: 594e7c9f3de2e3442967a172b7561055,

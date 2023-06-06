@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class MidEnemyController : EnemyController
 {
     [Header("Mid Enemy")]
+    [SerializeField] private GameObject ammoPrefab;
     [SerializeField] private float aimVariance;
     [SerializeField] private float rotationSpeed;
     private PlayerMovement pMovement;
@@ -85,6 +86,8 @@ public class MidEnemyController : EnemyController
     }
 
     protected override void Die() {
+        if(ammoPrefab)
+            Instantiate(ammoPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
