@@ -1,14 +1,17 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class BulletEffectManager : MonoBehaviour
 {
     public GameObject bulletShotEffect;
     public GameObject bulletTrailEffect;
     public GameObject hitEffectPrefab;
+    public GameObject muzzleFlash;
 
     public void TriggerShotEffect()
     {
         bulletShotEffect.GetComponent<ParticleSystem>().Play();
+        muzzleFlash.GetComponent<VisualEffect>().Play();
     }
   
     public void CreateBulletTrail(Vector3 startPosition, Vector3 endPosition)
