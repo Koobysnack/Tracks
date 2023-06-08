@@ -70,7 +70,7 @@ public class Revolver : MonoBehaviour
     {
         foreach (Bullet bullet in cylinder)
         {
-            bullet.type = sinMan.GetSinObj(Sin.NORMAL);
+            bullet.type = sinMan.GetSinObj(Sin.ENVY);
         }
         if(ammoMan != null)
             ammoMan.RequestBulletUpdate();
