@@ -26,14 +26,15 @@ public class BulletEffectManager : MonoBehaviour
         Vector3 direction = (endPosition - startPosition).normalized;
 
         // Instantiate the bullet trail effect at the middle position
-        GameObject bulletTrail = Instantiate(bulletTrailEffect, middlePosition, Quaternion.LookRotation(direction));
-
-        // Stretch the bullet trail to span the entire distance
-        ParticleSystem.ShapeModule shape = bulletTrail.GetComponent<ParticleSystem>().shape;
-        shape.radius = distance;
-        Debug.Log(shape.radius);
-        // Destroy the bullet trail after some time
-        Destroy(bulletTrail, 1.0f);
+        if(bulletTrailEffect != null) {
+            GameObject bulletTrail = Instantiate(bulletTrailEffect, middlePosition, Quaternion.LookRotation(direction));
+            // Stretch the bullet trail to span the entire distance
+            ParticleSystem.ShapeModule shape = bulletTrail.GetComponent<ParticleSystem>().shape;
+            shape.radius = distance;
+            Debug.Log(shape.radius);
+            // Destroy the bullet trail after some time
+            Destroy(bulletTrail, 1.0f);
+        }
     }
     public void CreateHitEffect(Vector3 position, Vector3 normal)
     {
