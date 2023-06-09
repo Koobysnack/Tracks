@@ -2354,7 +2354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 10
-  damage: 20
+  damage: 300
   sfx: 
   showDebugInfo: 1
   ready: 0
