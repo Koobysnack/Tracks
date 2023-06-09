@@ -1271,7 +1271,8 @@ MonoBehaviour:
     type: 3}
   hitEffectPrefab: {fileID: 7998501871289942026, guid: 7f4b61d8f929f1046900c9fc99623da9,
     type: 3}
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 5014146331608570495, guid: dade64c914cb32f4c90bd61cf831c97a,
+    type: 3}
 --- !u!20 &6707001896346013506
 Camera:
   m_ObjectHideFlags: 0
