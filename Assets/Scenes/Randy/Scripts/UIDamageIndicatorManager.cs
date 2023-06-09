@@ -14,6 +14,7 @@ public class UIDamageIndicatorManager : MonoBehaviour
     [SerializeField] Indicator IndicatorPrefab;
     [SerializeField] Color hitColor;
     [SerializeField] Color warningColor;
+    [SerializeField] HealthVFXController hpVFX;
     
     Transform player;
     ObjectPool<Indicator> indicatorPool;
@@ -56,6 +57,8 @@ public class UIDamageIndicatorManager : MonoBehaviour
 
     public void PlayerHit(Transform target)
     {
+        if(hpVFX.gameObject.activeSelf)
+            hpVFX.SetIntensity(1 - player.gameObject.GetComponent<PlayerController>().GetHealthPercent());
         if (onScreenCheck(target.gameObject, showOnScreenHit))
             return;
         Indicator i;
