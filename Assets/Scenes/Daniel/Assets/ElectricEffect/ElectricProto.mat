@@ -38,7 +38,8 @@ Material:
     - _ElectricAmount: 2
     - _ElectricThickness: 0.051
     - _ElectricityScale: 7
-    - _FadeAmount: 1
+    - _FadeAmount: 0
+    - _OpacityControl: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

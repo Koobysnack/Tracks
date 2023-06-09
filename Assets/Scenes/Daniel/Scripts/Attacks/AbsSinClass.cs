@@ -13,6 +13,7 @@ public abstract class  AbsSinClass : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected string sfx;
 
+
     public bool showDebugInfo;
     [ShowIf("showDebugInfo")] public bool ready;
     [SerializeField, ShowIf("showDebugInfo")] float runningCooldown;

@@ -206,9 +206,11 @@ public class EnvySin : AbsSinClass
 
             }
 
-    //  Destroy(Beam);
+     Destroy(Beam);
         
     }
+
+
 
 }
 
