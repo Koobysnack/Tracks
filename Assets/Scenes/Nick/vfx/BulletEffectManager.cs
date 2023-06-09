@@ -12,10 +12,12 @@ public class BulletEffectManager : MonoBehaviour
     {
         bulletShotEffect.GetComponent<ParticleSystem>().Play();
         muzzleFlash.GetComponent<VisualEffect>().Play();
+        bulletTrailEffect.GetComponent<ParticleSystem>().Play();
     }
   
     public void CreateBulletTrail(Vector3 startPosition, Vector3 endPosition)
     {
+        /*// This code sucks. Don't use it please for the love of all that is holy.
         // Calculate the middle position
         Vector3 middlePosition = (startPosition + endPosition) / 2.0f;
 
@@ -34,7 +36,7 @@ public class BulletEffectManager : MonoBehaviour
             Debug.Log(shape.radius);
             // Destroy the bullet trail after some time
             Destroy(bulletTrail, 1.0f);
-        }
+        }*/
     }
     public void CreateHitEffect(Vector3 position, Vector3 normal)
     {
