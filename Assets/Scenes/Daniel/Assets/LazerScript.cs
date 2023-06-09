@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class LazerScript : MonoBehaviour
 {
+
+    public Material MainLazer;
+    public ParticleSystem ImpactRipple;
+    public ParticleSystem LazerFlash;
+
     // Start is called before the first frame update
 
     //start the beam
@@ -25,5 +30,6 @@ public class LazerScript : MonoBehaviour
         
     }
 
+   
 
 }

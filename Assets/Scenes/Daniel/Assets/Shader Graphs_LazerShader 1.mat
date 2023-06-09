@@ -64,8 +64,9 @@ Material:
     - _Blend: 0
     - _CastShadows: 0
     - _Cull: 2
-    - _DissolveAmount: 0.231
+    - _DissolveAmount: 0.279
     - _DstBlend: 10
+    - _FadeOpacity: 1
     - _NoisePower: 2
     - _NoiseScale: 25
     - _QueueControl: 0
@@ -75,7 +76,7 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
-    - _noiseAmount: 0.214
+    - _noiseAmount: 0.252
     m_Colors:
     - _Color: {r: 0.52688926, g: 5.268893, b: 0, a: 0}
     - _MainSpeed: {r: -0.5, g: 0, b: 0, a: 0}
