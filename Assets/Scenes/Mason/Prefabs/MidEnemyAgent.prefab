@@ -4997,7 +4997,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 2.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -6081,6 +6081,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ranged
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c54b514e219dc44e86ceda94900dcac,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c54b514e219dc44e86ceda94900dcac,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1107542333065666024, guid: 1c54b514e219dc44e86ceda94900dcac,
         type: 3}

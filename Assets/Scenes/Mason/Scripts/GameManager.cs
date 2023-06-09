@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
                 else
                     ((ArenaController)section).ResetSection();
             }
+            else {
+                AmmoPickUp ammo = obj.GetComponent<AmmoPickUp>();
+                if(ammo)
+                    Destroy(ammo.gameObject);
+            }
         }
     }
 

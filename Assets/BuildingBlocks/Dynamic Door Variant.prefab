@@ -128,3 +128,19 @@ MonoBehaviour:
   openAngle: 90
   openSpeed: 3
   angleThreshold: 0.1
+--- !u!208 &1768218701947247488
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3651011443095237317}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.92800003, y: 1.3750001, z: 0.134}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0.92800003, y: 1.3750001, z: 0.008}
+  m_TimeToStationary: 0.5

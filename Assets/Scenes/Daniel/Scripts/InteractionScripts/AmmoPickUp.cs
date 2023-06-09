@@ -31,7 +31,7 @@ public class AmmoPickUp : PickUp
     {
         print("getAmmo");
         PlayerRef.ChangeAmmo(ammoAmount);
-
+        Destroy(gameObject);
     }
 
 
