@@ -57,7 +57,8 @@ public class UIDamageIndicatorManager : MonoBehaviour
 
     public void PlayerHit(Transform target)
     {
-        hpVFX.SetIntensity(1 - player.gameObject.GetComponent<PlayerController>().GetHealthPercent());
+        if(hpVFX.gameObject.activeSelf)
+            hpVFX.SetIntensity(1 - player.gameObject.GetComponent<PlayerController>().GetHealthPercent());
         if (onScreenCheck(target.gameObject, showOnScreenHit))
             return;
         Indicator i;
