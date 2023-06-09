@@ -78,7 +78,7 @@ MonoBehaviour:
   model: {fileID: 0}
   firePoint: {fileID: 0}
   attackObj: {fileID: 0}
-  minTelegraphTime: 3
+  minTelegraphTime: 2
   maxTelegraphTime: 0
   section: {fileID: 0}
   explosionPrefab: {fileID: 7925432295526643169, guid: b0590f19550d2a44098a1f4fb2cd9d07,

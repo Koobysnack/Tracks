@@ -5043,7 +5043,7 @@ MonoBehaviour:
   walkRadius: 5
   idealRange: 7
   closeRangeVariance: 3
-  farRangeVariance: 3
+  farRangeVariance: 5
   numSamples: 20
   enemyDistThreshold: 1.5
   playerVisWeight: 10
