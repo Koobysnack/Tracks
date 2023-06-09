@@ -10,7 +10,11 @@ public class MidEnemyController : EnemyController
     [SerializeField] private float aimVariance;
     [SerializeField] private float rotationSpeed;
     private PlayerMovement pMovement;
+    private Animator anim;
     private bool shot;
+
+    private bool telegraphIsDone;
+    private bool shotIsDone;
 
     #region Unity Functions
     private void Awake() {
@@ -19,12 +23,16 @@ public class MidEnemyController : EnemyController
         agent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
         shot = false;
+
+        telegraphIsDone = false;
+        shotIsDone = false;
     }
 
     private void Update() {
         if(player == null) {
             player = GameManager.instance.player;
             pMovement = player.GetComponent<PlayerMovement>();
+            anim = GetComponentInChildren<Animator>();
             playerLayer = GameManager.instance.playerLayer;
             return;
         }
@@ -56,6 +64,14 @@ public class MidEnemyController : EnemyController
             else
                 agent.updateRotation = true;
         }
+
+        if(agent.remainingDistance > 0.1f) {
+            anim.SetBool("isMoving", true);
+        }
+        else {
+            anim.SetBool("isMoving", false);
+        }
+        
     }
     #endregion
 
@@ -95,18 +111,20 @@ public class MidEnemyController : EnemyController
         // do some telegraph stuff here
         float playerDist = Vector3.Distance(transform.position, player.position);
         Vector2 range = movement.GetRange();
-        float telegraphTime = Unity.Mathematics.math.remap(range.x, range.y, minTelegraphTime, maxTelegraphTime, playerDist);
-        
-        yield return new WaitForSeconds(telegraphTime);
+        anim.SetBool("isShooting", true);
+        yield return new WaitUntil(() => telegraphIsDone);
+        telegraphIsDone = false;
         StartCoroutine("Attack");
     }
 
     protected override IEnumerator Attack() {
         // TODO: Fire sound
         firePoint.GetComponent<HitScanRaycast>().PierceRayCaster();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitUntil(() => shotIsDone);
         attacking = false;
         attackedLast = true;
+        shotIsDone = false;
+        anim.SetBool("isShooting", false); 
     }
     #endregion
 
@@ -124,6 +142,14 @@ public class MidEnemyController : EnemyController
         currentHealth -= damage;
         if(currentHealth <= 0)
             Die();
+    }
+
+    public void TelegraphDone() {
+        telegraphIsDone = true;
+    }
+
+    public void ShotDone() {
+        shotIsDone = true;
     }
     #endregion
 }
