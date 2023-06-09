@@ -17,13 +17,18 @@ public class HealthVFXController : MonoBehaviour
         float windDownRate;
     [SerializeField, Tooltip("The amount of time (seconds) after getting hit to wind down intensity")]
         float windDownDelay;
-    [SerializeField] Image temp;
+    [SerializeField] Material mat;
+    [SerializeField] string floatVar;
 
     // Start is called before the first frame update
     void Start()
     {
         activeIntensity = 0;
-        temp.color = new Color(255, 0, 0, 0);
+        mat.SetFloat(floatVar, 1);
+        foreach(string s in mat.GetTexturePropertyNames())
+        {
+            print(s);
+        }
     }
 
     // Update is called once per frame
@@ -48,7 +53,7 @@ public class HealthVFXController : MonoBehaviour
         {
             activeIntensity += (activeIntensity + step) > targetIntensity ? targetIntensity - activeIntensity : step;
             // TODO: Set vfx intensity value based on activeIntensity
-            temp.color = new Color(255, 0, 0, activeIntensity);
+            mat.SetFloat(floatVar, 1 - activeIntensity);
             yield return null;
         }
     }
@@ -74,7 +79,7 @@ public class HealthVFXController : MonoBehaviour
         {
             activeIntensity += (activeIntensity + step) < 0 ? -activeIntensity : step;
             // TODO: Set vfx intensity value based on activeIntensity
-            temp.color = new Color(255, 0, 0, activeIntensity);
+            mat.SetFloat(floatVar, 1 - activeIntensity);
             yield return null;
         }
 
