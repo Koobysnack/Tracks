@@ -65,6 +65,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void DemoFinished() {
-        print("DEMO FINISHED");
+        // destroy all don't destroy on load gameobjects
+        GameObject x = new GameObject();
+        DontDestroyOnLoad(x);
+        foreach(GameObject obj in x.scene.GetRootGameObjects())
+            Destroy(obj);
+
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("MainScene");
     }
 }

@@ -75,7 +75,8 @@ public class BerzerkerEnemyController : EnemyController
     #region Public Functions
     public override void Damage(float damage, Transform opponent=null) {
         if(section && section.GetType() == typeof(ArenaController))
-            section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
+            //section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
+            ((ArenaController)section).AlertAll();
         else
             alert.status = EnemyAlert.AlertStatus.ALERT;
         currentHealth -= damage;

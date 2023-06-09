@@ -134,7 +134,8 @@ public class MidEnemyController : EnemyController
 
         // alert enemies in arena or alert self if not in arena
         if(section && section.GetType() == typeof(ArenaController))
-            section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
+            //section.GetType().InvokeMember("AlertAll", System.Reflection.BindingFlags.InvokeMethod, null, section, null);
+            ((ArenaController)section).AlertAll();
         else
             alert.status = EnemyAlert.AlertStatus.ALERT;
         
