@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] GameObject titleScreenParent, optionScreenParent, creditsParent;
+    [SerializeField] GameObject titleScreenParent,controlsParent, optionScreenParent, creditsParent;
     
+    public void OpenControls()
+    {
+        titleScreenParent.SetActive(false);
+        controlsParent.SetActive(true);
+    }
+
+    public void CloseControls()
+    {
+        titleScreenParent.SetActive(true);
+        controlsParent.SetActive(false);
+    }
+
     public void OpenOptions()
     {
         titleScreenParent.SetActive(false);
