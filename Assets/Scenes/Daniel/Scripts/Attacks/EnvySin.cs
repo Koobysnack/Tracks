@@ -50,7 +50,7 @@ public class EnvySin : AbsSinClass
              print(hit.transform);
           
             pierceCurr += 1;
-            StartCoroutine(MakeLazerEffect(VFXStart, hit, true, shotOrigin.TransformDirection(Vector3.forward), true));
+            StartCoroutine(MakeLazerEffect(VFXStart, hit, true, shotOrigin.TransformDirection(Vector3.forward), true,hit));
             EnvyPierce(hit, shotOrigin.TransformDirection(Vector3.forward), shotOrigin);
 
         }
@@ -72,7 +72,7 @@ public class EnvySin : AbsSinClass
         Ray backRay = new Ray(obj.point + fireAngle * 6, -1 * fireAngle * 6);
 
         obj.collider.Raycast(backRay, out backHit, 1000);
-        // Debug.Log("stinky");
+        //Debug.Log("stinky");
   
 
         if (backHit.collider == null || backHit.collider.gameObject.layer == LayerMask.NameToLayer("Ground") || pierceCurr >7)
@@ -83,7 +83,7 @@ public class EnvySin : AbsSinClass
 
         if (backHit.collider != null && backHit.transform.parent)
         {
-            // Debug.Log(backHit.transform.gameObject.name);
+            Debug.Log(backHit.transform.gameObject.name);
             
             EntityController ShotEntity;
             ShotEntity = backHit.transform.parent.GetComponent<EntityController>();
@@ -93,7 +93,7 @@ public class EnvySin : AbsSinClass
 
             }
             RaycastHit[] RevealedEnemies = Physics.BoxCastAll(backHit.point + backHit.point.normalized * XrayExtents.x, XrayExtents, fireAngle, Quaternion.LookRotation(fireAngle, Vector3.up), 2f, LayerMask.GetMask("Enemy"));
-             Debug.DrawRay(backHit.point+backHit.point.normalized* XrayExtents.x, fireAngle, Color.green, 10000);
+             Debug.DrawRay(backHit.point+backHit.point.normalized* XrayExtents.x, fireAngle, Color.blue, 10000);
             StartCoroutine("EnemyReveal",RevealedEnemies);
             
             //Boxcast of x size with only enemy layer
@@ -105,7 +105,7 @@ public class EnvySin : AbsSinClass
 
         //then get next  object, 
 
-        // Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
+       //  Debug.DrawRay(backHit.point, fireAngle, Color.blue, 10000);
         if (Physics.Raycast(backHit.point, fireAngle, out nextObj, 1000) && backHit.point != obj.point)
         {
             //  Debug.Log("stinky");
@@ -115,8 +115,12 @@ public class EnvySin : AbsSinClass
                 //Instantiate ripple
 
 
-              //  Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
+                Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
                 pierceCurr += 1;
+                if (pierceCurr < 3)
+                {
+                    StartCoroutine(MakeLazerEffect(backHit.transform, nextObj, false, shotOrigin.TransformDirection(Vector3.forward), true,backHit));
+                }
                 EnvyPierce(nextObj, fireAngle, shotOrigin);
             }
         }
@@ -159,24 +163,31 @@ public class EnvySin : AbsSinClass
             yield return null;
         }
     }
-    IEnumerator MakeLazerEffect(Transform firstImpact, RaycastHit secondImpact,bool Muzzleflash,Vector3 fireAngle,bool secondHit )
+    IEnumerator MakeLazerEffect(Transform firstImpact, RaycastHit secondImpact,bool Muzzleflash,Vector3 fireAngle,bool secondHit,RaycastHit electricBoogaloo )
     {
-        print("the sussiest");
+        // print("the sussiest");
+        Vector3 funni;
         if (Muzzleflash)
         {
+            funni = firstImpact.position;
+
             //instatntiate flash
-            ParticleSystem flashinstance = Instantiate(envyFlash, firstImpact.position,  Quaternion.LookRotation(fireAngle, Vector3.up));
+            ParticleSystem flashinstance = Instantiate(envyFlash, funni,  Quaternion.LookRotation(fireAngle, Vector3.up));
 
         }
+        else
+        {
+            funni = electricBoogaloo.point;
+        }
         yield return null;
-        ParticleSystem FirstRipple = Instantiate(envyRipple, firstImpact.position, Quaternion.LookRotation(fireAngle, Vector3.up));
+        ParticleSystem FirstRipple = Instantiate(envyRipple, funni, Quaternion.LookRotation(fireAngle, Vector3.up));
         //instantiate ripple
         yield return null;
-        GameObject Beam = Instantiate(envyVFX, firstImpact.position, Quaternion.LookRotation(fireAngle, Vector3.up));
+        GameObject Beam = Instantiate(envyVFX, funni, Quaternion.LookRotation(fireAngle, Vector3.up));
         yield return null;
         LineRenderer tempLine = Beam.GetComponentInChildren<LineRenderer>();
         yield return null;
-        tempLine.SetPositions(new Vector3[] {  firstImpact.position,secondImpact.point });
+        tempLine.SetPositions(new Vector3[] {  funni,secondImpact.point });
         yield return null;
        // tempLine.enabled=true;
         yield return null;
@@ -184,14 +195,18 @@ public class EnvySin : AbsSinClass
         {
             ParticleSystem SecondRipple = Instantiate(envyRipple, secondImpact.point, Quaternion.LookRotation(fireAngle, Vector3.up));
         }
-          for (int i = 0; i < 30; i++)
+          for (int i = 0; i < 55; i++)
             {
-            tempLine.widthMultiplier = tempLine.widthMultiplier * 0.95f;
+            if (i < 20)
+            {
+                yield return null;
+            }
+            tempLine.widthMultiplier = tempLine.widthMultiplier * 0.97f;
                 yield return null;
 
             }
 
-      Destroy(Beam);
+    //  Destroy(Beam);
         
     }
 

@@ -35,16 +35,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ElectricAmount: 10
-    - _ElectricThickness: 0.5
-    - _ElectricityScale: 20
-    - _FadeAmount: 0
+    - _ElectricAmount: 2
+    - _ElectricThickness: 0.051
+    - _ElectricityScale: 7
+    - _FadeAmount: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ElectricitySpeed: {r: 0, g: 0.5, b: 0, a: 0}
-    - _Electricspeed2: {r: 0, g: -0.5, b: 0, a: 0}
+    - _Color: {r: 0.84099996, g: 1, b: 0.23137254, a: 1}
+    - _ElectricitySpeed: {r: 0, g: 1, b: 0, a: 0}
+    - _Electricspeed2: {r: 0, g: -1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8256576502050309556
 MonoBehaviour:
