@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnvySin : AbsSinClass
@@ -14,7 +15,10 @@ public class EnvySin : AbsSinClass
     [SerializeField]
     private int pierceCurr;
     public Vector3 XrayExtents;
-   
+    public GameObject envyVFX;
+    public ParticleSystem envyRipple;
+    public ParticleSystem envyFlash;
+    public GameObject Gunbarrel;
 
 
 
@@ -43,9 +47,10 @@ public class EnvySin : AbsSinClass
 
             //  RaycastHit pierceHit;
 
-            // print(hit);
+             print(hit.transform);
           
             pierceCurr += 1;
+            StartCoroutine(MakeLazerEffect(shotOrigin, hit, true, shotOrigin.TransformDirection(Vector3.forward), true));
             EnvyPierce(hit, shotOrigin.TransformDirection(Vector3.forward), shotOrigin);
 
         }
@@ -93,6 +98,9 @@ public class EnvySin : AbsSinClass
             
             //Boxcast of x size with only enemy layer
             // Ienumerate reveal duration
+
+
+            //Instantiate ripple
         }
 
         //then get next  object, 
@@ -103,6 +111,10 @@ public class EnvySin : AbsSinClass
             //  Debug.Log("stinky");
             if (nextObj.collider != null)
             {
+                //instatiate beam
+                //Instantiate ripple
+
+
               //  Debug.DrawRay(backHit.point, fireAngle, Color.green, 10000);
                 pierceCurr += 1;
                 EnvyPierce(nextObj, fireAngle, shotOrigin);
@@ -147,4 +159,34 @@ public class EnvySin : AbsSinClass
             yield return null;
         }
     }
+    IEnumerator MakeLazerEffect(Transform firstImpact, RaycastHit secondImpact,bool Muzzleflash,Vector3 fireAngle,bool secondHit )
+    {
+        print("the sussiest");
+        if (Muzzleflash)
+        {
+            //instatntiate flash
+            ParticleSystem flashinstance = Instantiate(envyFlash, firstImpact.position,  Quaternion.LookRotation(fireAngle, Vector3.up));
+
+        }
+        yield return null;
+        ParticleSystem FirstRipple = Instantiate(envyRipple, firstImpact.position, Quaternion.LookRotation(fireAngle, Vector3.up));
+        //instantiate ripple
+        yield return null;
+        GameObject Beam = Instantiate(envyVFX, firstImpact.position, Quaternion.LookRotation(fireAngle, Vector3.up));
+        yield return null;
+        LineRenderer tempLine = Beam.GetComponentInChildren<LineRenderer>();
+        yield return null;
+        tempLine.SetPositions(new Vector3[] {  firstImpact.position,secondImpact.point });
+        yield return null;
+       // tempLine.enabled=true;
+        yield return null;
+        if (secondHit)
+        {
+            ParticleSystem SecondRipple = Instantiate(envyRipple, secondImpact.point, Quaternion.LookRotation(fireAngle, Vector3.up));
+        }
+        yield return new WaitForSeconds(1);
+      //  Destroy(Beam);
+        
+    }
+
 }

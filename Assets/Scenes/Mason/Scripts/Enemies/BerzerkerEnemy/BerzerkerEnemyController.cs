@@ -8,12 +8,14 @@ public class BerzerkerEnemyController : EnemyController
     [Header("Berzerker")]
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private float explosionRange;
+    private Animator anim;
 
     #region Unity Functions
     private void Awake() {
         movement = GetComponent<EnemyMovement>();
         alert = GetComponent<EnemyAlert>();
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
         currentHealth = maxHealth;
     }
 
@@ -41,6 +43,8 @@ public class BerzerkerEnemyController : EnemyController
                 movement.MoveToAttackPosition(agent, movePos);
             }
         }
+
+        anim.SetBool("isRunning", agent.remainingDistance > 0.1f);
     }
     #endregion
 
