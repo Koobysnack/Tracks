@@ -23,7 +23,7 @@ public abstract class  AbsSinClass : MonoBehaviour
         runningCooldown = 0;
     }
 
-    public abstract void SinFire(Transform shotOrigin);
+    public abstract void SinFire(Transform shotOrigin,Transform VFXStart);
 
     protected IEnumerator StartCooldown()
     {

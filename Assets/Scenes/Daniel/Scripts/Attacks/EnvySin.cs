@@ -30,7 +30,7 @@ public class EnvySin : AbsSinClass
     }
 
 
-    public override void SinFire(Transform shotOrigin)
+    public override void SinFire(Transform shotOrigin,Transform VFXStart)
     {
         pierceCurr = 0;
         print("SHOOTING");
@@ -50,7 +50,7 @@ public class EnvySin : AbsSinClass
              print(hit.transform);
           
             pierceCurr += 1;
-            StartCoroutine(MakeLazerEffect(shotOrigin, hit, true, shotOrigin.TransformDirection(Vector3.forward), true));
+            StartCoroutine(MakeLazerEffect(VFXStart, hit, true, shotOrigin.TransformDirection(Vector3.forward), true));
             EnvyPierce(hit, shotOrigin.TransformDirection(Vector3.forward), shotOrigin);
 
         }
@@ -184,9 +184,16 @@ public class EnvySin : AbsSinClass
         {
             ParticleSystem SecondRipple = Instantiate(envyRipple, secondImpact.point, Quaternion.LookRotation(fireAngle, Vector3.up));
         }
-        yield return new WaitForSeconds(1);
-      //  Destroy(Beam);
+          for (int i = 0; i < 30; i++)
+            {
+            tempLine.widthMultiplier = tempLine.widthMultiplier * 0.95f;
+                yield return null;
+
+            }
+
+      Destroy(Beam);
         
     }
 
 }
+

@@ -10,6 +10,7 @@ public class Revolver : MonoBehaviour
     [SerializeField] PlayerController pController;
     [SerializeField] private ParticleSystem muzzleParticles;
     public int currentBullet;
+  
     public List<Bullet> cylinder = new List<Bullet>();
     HitScanRaycast hitRC;
     UIAmmoManager ammoMan;
@@ -70,7 +71,7 @@ public class Revolver : MonoBehaviour
     {
         foreach (Bullet bullet in cylinder)
         {
-            bullet.type = sinMan.GetSinObj(Sin.NORMAL);
+            bullet.type = sinMan.GetSinObj(Sin.ENVY);
         }
         if(ammoMan != null)
             ammoMan.RequestBulletUpdate();
@@ -228,7 +229,7 @@ public class Revolver : MonoBehaviour
             return;
         }
 
-        bullet.type.SinFire(transform);
+        bullet.type.SinFire(transform,muzzleParticles.transform);
         bullet.loaded = false;
         if (ammoMan != null)
         {

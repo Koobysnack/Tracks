@@ -2365,7 +2365,12 @@ MonoBehaviour:
     m_Bits: 0
   pierceMax: 0
   pierceCurr: 0
-  XrayExtents: {x: 0, y: 0, z: 0}
+  XrayExtents: {x: 7, y: 7, z: 7}
+  envyVFX: {fileID: 5051000440541180067, guid: bd08ff30a385a4e4e9ca63413b086f57, type: 3}
+  envyRipple: {fileID: 7876162312590716767, guid: f64d7c33ca93a6948b1c962ec4b166f7,
+    type: 3}
+  envyFlash: {fileID: 88649180270570734, guid: 22beb7d9d09015c48a49aed516d1f69a, type: 3}
+  Gunbarrel: {fileID: 0}
 --- !u!1 &648809984
 GameObject:
   m_ObjectHideFlags: 0

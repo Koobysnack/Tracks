@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoSin : AbsSinClass
 {
-    public override void SinFire(Transform shotOrigin)
+    public override void SinFire(Transform shotOrigin,Transform VFXStart)
     {
         return;
     }
